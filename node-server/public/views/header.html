@@ -1,0 +1,118 @@
+
+
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" ng-if="!loggedIn">
+
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" ui-sref="app">books</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li ng-if="!loggedIn"><a ng-click="openLogin()">
+                    <span class="glyphicon glyphicon-log-in"></span> Login</a>
+                    </li>
+                    <li ng-if="loggedIn">
+
+                    <a> {{email}}</a>
+                    </li>
+                    <li ng-show="loggedIn" >
+                        <a ng-click="logOut()">
+                    <span class="glyphicon glyphicon-log-in"></span> Logout</a></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <nav class="navbar navbar-inverse navbar-fixed-top" ng-if="admin&&loggedIn">
+      <div class="container-fluid">
+
+        <ul class="nav navbar-nav">
+
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Add
+            <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+            <li><a <a ng-click="openCat()">Category</a></li>
+              <li ng-class="{active: stateis('app.bookCreate')}"><a ui-sref="app.bookCreate"> Book </a></li>
+              <li><a href="#">Executive User</a></li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Delete
+            <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Books</a></li>
+              <li><a href="#">Category</a></li>
+
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Edit
+            <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Books</a></li>
+              <li><a href="#">Category</a></li>
+              <li><a href="#">User Details</a></li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Disable
+            <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Books</a></li>
+              <li><a href="#">Category</a></li>
+              <li><a href="#">User</a></li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Enable
+            <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Books</a></li>
+              <li><a href="#">Category</a></li>
+              <li><a href="#">User</a></li>
+            </ul>
+          </li>
+
+
+        </ul>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li ng-if="!loggedIn"><a ng-click="openLogin()">
+                <span class="glyphicon glyphicon-log-in"></span> Login</a>
+                </li>
+                <li ng-if="loggedIn">
+                <a> Welcome {{email}}</a>
+                </li>
+                <li ng-if="loggedIn">
+                <a ng-click="logOut()">
+                <span class="glyphicon glyphicon-log-in"></span> Logout</a>
+                </li>
+            </ul>
+        </div>
+      </div>
+    </nav>
+    <header class="jumbotron">
+
+      <!-- Main component for a primary marketing message or call to action -->
+
+      <div class="container">
+          <div class="row row-header">
+              <div class="col-xs-12 col-sm-8">
+                  <h1>BoOkS.cOm</h1>
+                  <p class = "quotes">So Many Books..So Little Time</p>
+              </div>
+              <div class="col-xs-12 col-sm-2">
+              <p style="padding:20px;"></p>
+              </div>
+              <div class="col-xs-12 col-sm-2">
+              </div>
+          </div>
+      </div>
+  </header>

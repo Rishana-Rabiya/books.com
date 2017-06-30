@@ -1,0 +1,69 @@
+<ion-modal-view>
+  <ion-header-bar>
+    <h1 class="title">Register</h1>
+    <div class="buttons">
+      <button class="button button-clear" ng-click="closeRegister()">Close</button>
+    </div>
+  </ion-header-bar>
+  <ion-content>
+    <form name= "registerForm" ng-submit="doRegister()" novalidate>
+      <div class="list" ng-if="form">
+
+        <label class="item item-input">
+          <span class="input-label">First Name</span>
+          <input type="text" ng-model="registration.firstname" name = "fname" maxlength="15" required>
+        </label>
+         <label class="item item-input">
+          <span class="input-label">Last Name</span>
+          <input type="text" ng-model="registration.lastname" name = "lname" maxlength="15">
+        </label>
+         <label class="item item-input">
+          <span class="input-label">Email</span>
+          <input type="email" ng-model="registration.email" name="email" required>
+        </label>
+        <label class="item">
+          <button class="button button-block button-positive" type="submit" ng-disabled="registerForm.$invalid">Register</button>
+        </label>
+       <span ng-show="invalid">*Not a valid email id </span>
+       <span ng-show="exist">*Email id Already exist </span>
+        <p ng-show="(registerForm.email.$invalid ||
+                        registerForm.email.$error.required) &&
+                        !registerForm.email.$pristine">* Enter a valid email address</p>
+
+      <p ng-show="registerForm.fname.$error.required && !registerForm.fname.$pristine">* First Name is required</p>
+      </div>
+    </form>
+    <div ng-show="regFlag" class = "act">
+    <label class="item item-input">
+       <span class="input-label">Activation Code:</span>
+       <input type="text" ng-model="registration.active" name="active" required>
+     </label>
+       <button class="button button-block button-positive" type="submit"  ng-click = "registerCheck()">Continue</button>
+     </label>
+
+     <span class = "actCode">*Enter the activation code send to your email id <a class = "sendAgain" ng-click="doRegister()"> Send Again </a></span>
+       <p ng-show="act.active.$error.required && !act.active.$error.$pristine">* Field cannot be left unfilled</p>
+     <span class = "wrongAct" ng-show = "wrong"> *Wrong Activation Code </span>
+   </div>
+  <form name = "confirmForm">
+   <div ng-show ="confirm&&!regSuccess">
+     <label class="item item-input">
+        <span class="input-label">Password:</span>
+        <input type="password" ng-model="registration.password" name="pwd" ng-minlength="6" ng-maxlength="15" required>
+      </label>
+      <label class="item item-input">
+         <span class="input-label">Confirm Password:</span>
+         <input type="password" ng-model="registration.confirmPassword" name="cpwd"  required>
+      </label>
+      <label class="item">
+      <button class="button button-block button-positive" type="submit" ng-disabled="confirmForm.$invalid" ng-click="passwordCheck()">Finish</button>
+      </label>
+      <span ng-show = "pass_wrong"><strong>*Password does not match,please confirm onece more</strong></span>
+       <p ng-show="confirmForm.pwd.$error.minlength">* Password must be longer than 6 characters</p>
+       <p ng-show="confirmForm.pwd.$error.maxlength">* Password must not be longer than 15 characters</p>
+   <div>
+      <span class="registerSuccess"  ng-show = "regSuccess"> Registration Successful<br>you will be notified about the approval later through the mail </span>
+  </form>
+
+  </ion-content>
+</ion-modal-view>

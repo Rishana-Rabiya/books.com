@@ -1,0 +1,31 @@
+{
+  "name": "lmsProject",
+  "version": "1.0.0",
+  "description": "Website for an online book management",
+  "main": "index.html",
+  "moduleType": [],
+  "authors": [
+    "Rishana Rabiya"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.5",
+    "font-awesome": "~4.4.0",
+    "angular": "~1.4.7",
+    "angular-route": "^1.6.4",
+    "angular-ui-router": "^1.0.4",
+    "angular-resource": "^1.6.4"
+  },
+  "resolutions": {
+    "angular": "~1.4.7",
+    "angular-route": "1.4.14"
+  }
+}

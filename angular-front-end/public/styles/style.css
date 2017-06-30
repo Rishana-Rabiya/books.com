@@ -1,0 +1,17 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+.selectpicker{
+  position :relative;
+  left:200px;
+}
+div.row-fluid{
+  position:relative;
+  left:1000px;
+  color:red;
+}
