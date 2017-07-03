@@ -29,7 +29,9 @@ db.once('open', function () {
     // we're connected!
     console.log("Connected correctly to server");
 });
-
+/*db.collection('books').drop(function () {
+    db.close();
+  });*/
 app.use(multer({dest: './uploads/'}).single('photo'));
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -58,7 +60,7 @@ app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header('Access-Control-Allow-Methods', '*');
   res.header("Access-Control-Allow-Headers", "content-type,x-access-token");
-  
+
   next();
 });
 

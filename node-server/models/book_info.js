@@ -1,20 +1,16 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-
-
-// User Schema
 var Book = mongoose.Schema({
-	ISBN: {
+	isbn : {
 		type: String,
-		required:true,
-    unique:true
+		required:true
 	},
 	Book_Name: {
 		type: String,
     required:true
 	},
-	category: {
-		type: mongoose.Schema.Types.ObjectId,
+ category: {
+	  type: String,
     required:true
 	},
   Release_year: {
@@ -33,8 +29,8 @@ var Book = mongoose.Schema({
   },
   status:{
     type:String,
-    required:true
-    //default:"available"
+    required:true,
+    default:"available"
   },
 	publisher :{
 		type:String
@@ -42,4 +38,4 @@ var Book = mongoose.Schema({
 
 });
 var Books = mongoose.model('Book', Book);
- module.exports = Books;
+module.exports = Books;

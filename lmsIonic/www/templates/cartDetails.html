@@ -1,0 +1,61 @@
+<ion-view view-title="">
+        <ion-nav-buttons side="secondary">
+       </ion-nav-buttons>
+      <ion-content>
+          <span class = "badge"> CART </span>
+          <div class="card" ng-if="showFirstBook">
+              <button ion-button color="light" style="position:relative;left:260px;" ng-click="deleteFirst()"><i class="icon ion-close"></i></button>
+              <div class="item item-body item-text-wrap">
+                    <h2 style = "color:red">{{firstBook.Book_Name}}</h2>
+
+                    <blockquote>
+                                 <p>{{firstBookAuth.Afname}}&nbsp;{{firstBookAuth.Alname}}</p>
+                                 <p>ISBN NO: {{firstBookAuth.isbn}} </p>
+                                 <footer>{{firstBook.edition}},{{firstBook.publisher}}-{{firstBook.Release_year}}</footer>
+                    </blockquote>
+              </div>
+          </div>
+          <div class="card" ng-if="showSecondBook">
+              <button ion-button color="light" style="position:relative;left:260px;" ng-click="deleteSecond()"><i class="icon ion-close"></i></button>
+              <div class="item item-body item-text-wrap">
+                    <h2 style = "color:red">{{secondBook.Book_Name}}</h2>
+                    <blockquote>
+                                 <p>{{secondBookAuth.Afname}}&nbsp;{{secondBookAuth.Alname}}</p>
+                                 <p>ISBN NO: {{secondBookAuth.isbn}} </p>
+                                 <footer>{{secondBook.edition}},{{secondBook.publisher}}-{{secondBook.Release_year}}</footer>
+                    </blockquote>
+              </div>
+          </div>
+          <div class="card" ng-if="showThirdBook">
+              <button ion-button color="light" style="position:relative;left:260px;" ng-click="deleteThird()"><i class="icon ion-close"></i></button>
+              <div class="item item-body item-text-wrap">
+                    <h2 style = "color:red">{{thirdBook.Book_Name}}</h2>
+                    <blockquote>
+                                 <p>{{thirdBookAuth.Afname}}&nbsp;{{thirdBookAuth.Alname}}</p>
+                                 <p>ISBN NO: {{thirdBookAuth.isbn}} </p>
+                                 <footer>{{thirdBook.edition}},{{thirdBook.publisher}}-{{thirdBook.Release_year}}</footer>
+                    </blockquote>
+              </div>
+          </div>
+
+          </div>
+          <label class="item-input-wrapper">
+              <i class="icon ion-ios7-search placeholder-icon"></i>
+              <input type="hidden" placeholder="Search" ng-model="searchData.search" style="width=400px;" id="searchText" hidden>
+          </label>
+          <button class="button button-clear" type="hidden" ng-click="searchMethod()" id="search">
+              <i class="icon ion-search"></i>
+          </button>
+      </ion-content>
+      <div class="tabs-striped  tabs-color-light" >
+      <div class="tabs">
+      <a class="tab-item" href="#/app/search">
+      <i class="icon ion-home"></i>
+      </a>
+      <a class="tab-item active" href="#/app/cart">
+      <i class="icon ion-star"><sup><small style="color:red;">{{getCount()}}</small></sup></i>
+      </a>
+      </div>
+      </div>
+
+    </ion-view>

@@ -2,23 +2,23 @@
 
 
 <div class="container-fluid" id="bookcreate" ng-show="loggedIn" ng-submit="bookCreate()">
-<form class="form-horizontal">
+<form class="form-horizontal" name= "bookForm" novalidate>
     <div class="form-group">
       <label class="control-label col-sm-2" for="isbn">ISBN NO:</label>
       <div class="col-sm-10">
-        <input type="text" class="form-control" placeholder="Enter ISBN NO" name="isbn" ng-model="book.isbn">
+        <input type="text" class="form-control" placeholder="Enter ISBN NO" name="isbn" ng-model="book.isbn" required>
       </div>
     </div>
     <div class="form-group">
       <label class="control-label col-sm-2" for="title">Title:</label>
       <div class="col-sm-10">
-        <input type="text" class="form-control" placeholder="Enter the book name" name="title"  ng-model="book.title">
+        <input type="text" class="form-control" placeholder="Enter the book name" name="title"  ng-model="book.title" required>
       </div>
     </div>
     <div class="form-group">
       <label class="control-label col-sm-2" for="author">Author First Name:</label>
       <div class="col-sm-10">
-        <input type="text" class="form-control" placeholder="Enter the author firstname" name="afname"  ng-model="book.afname">
+        <input type="text" class="form-control" placeholder="Enter the author firstname" name="afname"  ng-model="book.afname" required>
       </div>
     </div>
     <div class="form-group">
@@ -31,7 +31,7 @@
 
         <label class="control-label col-sm-2" for="cat">Category:</label>
         <div class="row-fluid">
-        <select data-live-search="true" class="selectpicker" data-width="1055px" ng-model="book.cat">
+        <select data-live-search="true" class="selectpicker" data-width="1055px" ng-model="book.cat" required>
           <option  ng-repeat="category in categories">{{category.CategoryName}}</option>
         </select>
       </div>
@@ -45,7 +45,13 @@
     <div class="form-group">
       <label class="control-label col-sm-2" for="stackNo">Stack No:</label>
       <div class="col-sm-10">
-        <input type="text" class="form-control" placeholder="Enter the stack no" name="stack" ng-model="book.stack">
+        <input type="text" class="form-control" placeholder="Enter the stack no" name="stack" ng-model="book.stack" required>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="publisher">Edition:</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" placeholder="Enter the publisher Name" name="ed"  ng-model="book.ed">
       </div>
     </div>
     <div class="form-group">
@@ -61,10 +67,14 @@
       </div>
     </div> -->
 
-
+    <span ng-show="bookForm.title.$error.required && !bookForm.title.$pristine&&!bookSuccess" class="help-block">Book Name Is Required</span>
+    <span ng-show="bookForm.afname.$error.required && !bookForm.afname.$pristine&&!bookSuccess" class="help-block">Author Name Is Required</span>
+    <span ng-show="bookForm.stack.$error.required && !bookForm.stack.$pristine&&!bookSuccess" class="help-block">Stack id Is Required</span>
+    <span ng-show="bookForm.cat.$error.required && !bookForm.cat.$pristine&&!bookSuccess" class="help-block">Category name Is Required</span>
+    <span ng-show="bookForm.isbn.$error.required && !bookForm.isbn.$pristine&&!bookSuccess" class="help-block">ISBN Is Required</span>
     <div class="form-group">
       <div class="col-sm-offset-2 col-sm-10">
-        <button type="submit" class="btn btn-default">Create</button>
+        <button type="submit" class="btn btn-default" ng-disabled="bookForm.$invalid">Create</button>
       </div>
     </div>
   </form>

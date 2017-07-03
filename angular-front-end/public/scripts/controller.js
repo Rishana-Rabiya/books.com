@@ -156,6 +156,7 @@ angular.module('lmsProjectApp')
   $scope.email = '';
   $scope.book = {};
   $scope.categories = {};
+  $scope.bookSuccess = false;
   $scope.$on('logout', function (event, data) {
     $scope.loggedIn= data
   });
@@ -185,11 +186,14 @@ angular.module('lmsProjectApp')
 }*/
 
 $scope.bookCreate = function(){
-  BookFactory.getUrlBook().save($scope.book,function(){
+  BookFactory.getUrlBook().save($scope.book,function(response){
     ngDialog.open({ template: '<p>Sucessfully added books</p>',plain: true});
+    $scope.book={};
+    $scope.bookSuccess=true;
 
   },
   function(response){
+      ngDialog.open({ template: '<p>Book is not added</p>',plain: true});
 
   });
 };

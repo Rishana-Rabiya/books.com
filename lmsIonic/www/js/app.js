@@ -22,8 +22,9 @@ angular.module('lmsIonicApp', ['ionic', 'lmsIonicApp.controllers','lmsIonicApp.s
   });
 })
 
-
-
+.config(function($ionicConfigProvider) {
+    $ionicConfigProvider.tabs.position('bottom');
+})
 
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
@@ -39,7 +40,8 @@ angular.module('lmsIonicApp', ['ionic', 'lmsIonicApp.controllers','lmsIonicApp.s
     url: '/search',
     views: {
       'menuContent': {
-        templateUrl: 'templates/search.html'
+        templateUrl: 'templates/search.html',
+        controller:'SearchController'
       }
     }
   })
@@ -51,11 +53,33 @@ angular.module('lmsIonicApp', ['ionic', 'lmsIonicApp.controllers','lmsIonicApp.s
       }
     }
   })
+  .state('app.bookDetails', {
+    url: '/search/:id',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/bookDetails.html',
+        controller:'BookDetailController'
+      }
+    }
+  })
+
+  .state('app.cartDetails', {
+    url: '/cart',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/cartDetails.html',
+        controller:'SearchController'
+
+      }
+    }
+  })
+
+
 
 
 
 
   ;
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/home');
+  $urlRouterProvider.otherwise('/app/search');
 });

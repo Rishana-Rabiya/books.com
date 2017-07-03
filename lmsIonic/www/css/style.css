@@ -1,5 +1,5 @@
 /* Empty. Add your own CSS if you like */
-.row {
+.log {
     background: url(../img/ic.png);
     background-repeat: no-repeat;
     background-size: small;
@@ -13,11 +13,7 @@
 
 };
 
-.badge {
-  position:relative;
-  width:400px;
-  color: #7c020e;
-}
+
 span.actCode {
     color: #7c020e;
     left: 50px;
@@ -40,4 +36,47 @@ a.sendAgain{
 }
 div.see {
   color:red;
+}
+
+.new {
+  background-color: #0c1523;
+  height:100px;
+}
+.logout{
+  background-color: #0c1523;
+  position:relative;
+  left:225px;
+  top:70px;
+  height:20px;
+  color:grey;
+
+}
+.title{
+
+  width:350px;
+  position:relative;
+  right:200px;
+  background-color: #0c1523;
+}
+.head{
+  background-color: #0c1523;
+}
+.button button-block button-positive{
+  color: #0c1523;
+}
+.cat{
+  position:relative;
+  top:100px;
+
+}
+.row{
+  position:relative;
+
+  background-color:red;
+}
+.icon{
+  font-size: 20px;
+  color: #0c1523;
+
+
 }

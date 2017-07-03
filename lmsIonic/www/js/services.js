@@ -35,7 +35,7 @@ angular.module('lmsIonicApp.services', ['ngResource'])
 
   function loadUserCredentials() {
     var credentials = $localStorage.getObject(TOKEN_KEY,'{}');
-    if (credentials.username != undefined) {
+    if (credentials.email != undefined) {
       useCredentials(credentials);
     }
   }
@@ -49,7 +49,7 @@ angular.module('lmsIonicApp.services', ['ngResource'])
     isAuthenticated = true;
     email = credentials.email;
     authToken = credentials.token;
-
+    
     // Set the token as header for your requests!
     $http.defaults.headers.common['x-access-token'] = authToken;
   }
@@ -116,4 +116,28 @@ angular.module('lmsIonicApp.services', ['ngResource'])
     return authFac;
 
 }])
-;
+
+
+.factory('CategoryFactory', ['$resource', 'baseURL', function($resource, baseURL){
+    var catFac = {};
+    catFac.getCatUrl = function(){
+        return  $resource(baseURL + "category/find");
+    }
+    return catFac;
+}])
+
+
+
+.factory('BookFactory', ['$resource', 'baseURL', function($resource, baseURL){
+    var bookFac = {};
+    bookFac.getBookUrl = function(){
+        return  $resource(baseURL + "books/");
+    }
+    bookFac.getBookSearchUrl = function(){
+        return  $resource(baseURL + "books/find/");
+    }
+    bookFac.getBookDetailUrl = function(){
+        return $resource(baseURL+"books/find/:id")
+    }
+    return bookFac;
+}]);
