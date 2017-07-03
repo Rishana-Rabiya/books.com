@@ -30,7 +30,7 @@ bookRouter.route('/')
 
 
 bookRouter.route('/find')
-.post(function(req,res,next){
+.post(verify.verifyUser,function(req,res,next){
     var result = req.body;
     console.log(result);
     operations.bookFindFilter(result,function(result){
@@ -41,7 +41,7 @@ bookRouter.route('/find')
 });
 
 bookRouter.route('/find/:id')
-.get(function(req,res,next){
+.get(verify.verifyUser,function(req,res,next){
     var id = req.params.id;
     operations.findAbook(id,function(result){
         if(result){

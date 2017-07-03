@@ -3,6 +3,7 @@
        </ion-nav-buttons>
       <ion-content>
           <span class = "badge"> CART </span>
+          <button ion-button color="light" ng-if="showFirstBook||showSecondBook||showThirdBook" style="position:relative;left:168px;color:red" ng-click="checkOut()">Check Out</button>
           <div class="card" ng-if="showFirstBook">
               <button ion-button color="light" style="position:relative;left:260px;" ng-click="deleteFirst()"><i class="icon ion-close"></i></button>
               <div class="item item-body item-text-wrap">
@@ -10,7 +11,7 @@
 
                     <blockquote>
                                  <p>{{firstBookAuth.Afname}}&nbsp;{{firstBookAuth.Alname}}</p>
-                                 <p>ISBN NO: {{firstBookAuth.isbn}} </p>
+                                 <p>ISBN NO: {{firstBook.isbn}} </p>
                                  <footer>{{firstBook.edition}},{{firstBook.publisher}}-{{firstBook.Release_year}}</footer>
                     </blockquote>
               </div>
@@ -21,7 +22,7 @@
                     <h2 style = "color:red">{{secondBook.Book_Name}}</h2>
                     <blockquote>
                                  <p>{{secondBookAuth.Afname}}&nbsp;{{secondBookAuth.Alname}}</p>
-                                 <p>ISBN NO: {{secondBookAuth.isbn}} </p>
+                                 <p>ISBN NO: {{secondBook.isbn}} </p>
                                  <footer>{{secondBook.edition}},{{secondBook.publisher}}-{{secondBook.Release_year}}</footer>
                     </blockquote>
               </div>
@@ -32,18 +33,19 @@
                     <h2 style = "color:red">{{thirdBook.Book_Name}}</h2>
                     <blockquote>
                                  <p>{{thirdBookAuth.Afname}}&nbsp;{{thirdBookAuth.Alname}}</p>
-                                 <p>ISBN NO: {{thirdBookAuth.isbn}} </p>
+                                 <p>ISBN NO: {{thirdBook.isbn}} </p>
                                  <footer>{{thirdBook.edition}},{{thirdBook.publisher}}-{{thirdBook.Release_year}}</footer>
                     </blockquote>
               </div>
           </div>
 
           </div>
+
           <label class="item-input-wrapper">
               <i class="icon ion-ios7-search placeholder-icon"></i>
               <input type="hidden" placeholder="Search" ng-model="searchData.search" style="width=400px;" id="searchText" hidden>
           </label>
-          <button class="button button-clear" type="hidden" ng-click="searchMethod()" id="search">
+          <button id="search" hidden="hidden">
               <i class="icon ion-search"></i>
           </button>
       </ion-content>

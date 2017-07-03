@@ -18,8 +18,8 @@ const flash = require('connect-flash');
 var config = require('./config');
 
 //file size limit
-app.use(bodyParser.urlencoded({limit: '50mb'}));
-app.use(bodyParser.json({limit: '50mb'}));
+//app.use(bodyParser.urlencoded({limit: '50mb'}));
+//app.use(bodyParser.json({limit: '50mb'}));
 
 //connection to mongodb
 mongoose.connect(config.mongoUrl);
@@ -68,6 +68,7 @@ app.use('/', index);
 app.use('/users', users);
 app.use('/books',bookRouter);
 app.use('/category',catRouter);
+app.use('/order',catRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

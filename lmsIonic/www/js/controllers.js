@@ -161,12 +161,17 @@ angular.module('lmsIonicApp.controllers', [])
       $scope.email = AuthFactory.getEmail();
   });
 
+
+
+
+
+
 })
 
 
 
 
-.controller('SearchController',function ($scope, $rootScope,$stateParams,$localStorage,$ionicPopup,AuthFactory,CategoryFactory,BookFactory) {
+.controller('SearchController',function ($scope, $rootScope,$stateParams,$localStorage,$ionicPopup,AuthFactory,CategoryFactory,BookFactory,OrderFactory) {
     $scope.books = [];
     $scope.auth = {};
     $scope.SearchByCategory=false;
@@ -178,6 +183,7 @@ angular.module('lmsIonicApp.controllers', [])
     $scope.notFound = false;
     $scope.count = 0;
     $scope.id ='';
+    $scope.email ='';
     var FIRST_BOOK ='firstBook';
     var FIRST_AUTHOR='firstAuthor';
     var SECOND_BOOK ='secondBook';
@@ -413,6 +419,22 @@ $scope.deleteSecond=function(){
     $localStorage.store(SHOW_THIRD_BOOK,"false");
     $scope.showThirdBook = false;
     //$rootScope.$broadcast("delete");
+}
+
+
+//Checking Out
+$scope.checkOut = function(){
+    OrderFactory.getOrderUrl().get(
+        {
+            id:$scope.email
+        },
+        function(res){
+            console.log("no issue in requesting books");
+        },
+        function(res){
+            console.log("issue");
+        }
+    );
 }
 
 

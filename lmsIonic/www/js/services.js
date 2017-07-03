@@ -49,7 +49,7 @@ angular.module('lmsIonicApp.services', ['ngResource'])
     isAuthenticated = true;
     email = credentials.email;
     authToken = credentials.token;
-    
+
     // Set the token as header for your requests!
     $http.defaults.headers.common['x-access-token'] = authToken;
   }
@@ -140,4 +140,15 @@ angular.module('lmsIonicApp.services', ['ngResource'])
         return $resource(baseURL+"books/find/:id")
     }
     return bookFac;
+}])
+
+
+.factory('OrderFactory', ['$resource', 'baseURL', function($resource, baseURL){
+    var orderFac = {};
+    orderFac.getOrderUrl = function(){
+        return  $resource(baseURL + "order/:id");
+    }
+
+    return orderFac;
 }]);
+;
