@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('lmsIonicApp.services', ['ngResource'])
-.constant("baseURL", "http://localhost:3000/")
+.constant("baseURL", "https://localhost:3443/")
 // .constant("baseURL", "https://localhost:3443/")
 
 .factory('$localStorage', ['$window', function($window) {

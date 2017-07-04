@@ -112,3 +112,20 @@ p.quotes{
   right:0;
   height:30px;
 }
+.exUser{
+    position:relative;
+    width:500px;
+    height:350px;
+    left:400px;
+    border-style: ridge;
+
+
+}
+.outline{
+    width:500px;
+    position:relative;
+    left:400px;
+    background-color:#d4d6d6;
+    height:70px;
+
+}

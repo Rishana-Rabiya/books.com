@@ -184,6 +184,8 @@ angular.module('lmsIonicApp.controllers', [])
     $scope.count = 0;
     $scope.id ='';
     $scope.email ='';
+    var i = 0;
+    $scope.book_id = [];
     var FIRST_BOOK ='firstBook';
     var FIRST_AUTHOR='firstAuthor';
     var SECOND_BOOK ='secondBook';
@@ -429,7 +431,48 @@ $scope.checkOut = function(){
             id:$scope.email
         },
         function(res){
-            console.log("no issue in requesting books");
+            var length = res.count;
+            if(length<=3){
+                if($showFirstBook){
+                    $scope.first = $localStorage.getObject(FIRST_BOOK,'{}');
+                    $scope.book_id[i]=$scope.first._id;
+                    i++;
+                }
+                if($showSecondBook){
+                    $scope.second = $localStorage.getObject(SECOND_BOOK,'{}');
+                    $scope.book_id[i]=$scope.second._id;
+                    i++;
+
+                }
+                if($showThirdBook){
+                    $scope.third = $localStorage.getObject(THIRD_BOOK,'{}');
+                    $scope.book_id[i]=$scope.third._id;
+                    i++;
+
+                }
+                $scope.book_id[i] = $scope.email;
+                OrderFactory.getOrderUrl().post($scope.book_id,function(res){
+                    $scope.deleteFirst();
+                    $scope.deleteSecond();
+                    $scope.deleteThird();
+                    console.log("succesfullly added");
+                },
+                function(res){
+                    console.log("insucessful");
+                });
+
+            }
+            else{
+                var alertPopup = $ionicPopup.alert({
+                     title: '<h4>Alert</h4>',
+                     template: '<h4>You have already reached the maximum of lending books!please go through the instructions in the web portal for more information </h4>'
+                 });
+
+                 alertPopup.then(function(res) {
+                     console.log('only three can be added');
+                 });
+
+            }
         },
         function(res){
             console.log("issue");

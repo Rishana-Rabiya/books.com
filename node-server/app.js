@@ -10,6 +10,8 @@ var LocalStrategy = require('passport-local').Strategy;
 var index = require('./routes/index');
 var users = require('./routes/users');
 var bookRouter = require('./routes/bookRouter');
+var exUserRouter = require('./routes/exUserRouter');
+var orderRouter = require('./routes/orderRouter');
 var catRouter = require('./routes/categoryRouter');
 var multer = require('multer');
 var app = express();
@@ -21,6 +23,17 @@ var config = require('./config');
 //app.use(bodyParser.urlencoded({limit: '50mb'}));
 //app.use(bodyParser.json({limit: '50mb'}));
 
+
+// Secure traffic only
+app.all('*', function(req, res, next){
+    console.log('req start: ',req.secure, req.hostname, req.url, app.get('port'));
+  if (req.secure) {
+    return next();
+  };
+
+ res.redirect('https://'+req.hostname+':'+app.get('secPort')+req.url);
+});
+
 //connection to mongodb
 mongoose.connect(config.mongoUrl);
 var db = mongoose.connection;
@@ -29,9 +42,9 @@ db.once('open', function () {
     // we're connected!
     console.log("Connected correctly to server");
 });
-/*db.collection('books').drop(function () {
+/*db.collection('orders').drop(function () {
     db.close();
-  });*/
+});*/
 app.use(multer({dest: './uploads/'}).single('photo'));
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -68,7 +81,8 @@ app.use('/', index);
 app.use('/users', users);
 app.use('/books',bookRouter);
 app.use('/category',catRouter);
-app.use('/order',catRouter);
+app.use('/order',orderRouter);
+app.use('/executive',exUserRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

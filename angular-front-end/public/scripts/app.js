@@ -40,11 +40,13 @@ angular.module('lmsProjectApp', ['ui.router','ngResource','ngDialog','ngFileUplo
                     }
                 }
             })
-            .state('app.home', {
-                url:'home',
+
+            .state('app.exCreate', {
+                url:'exCreate',
                 views: {
                     'content@': {
-                      //  templateUrl :
+                       templateUrl :'views/exCreate.html',
+                       controller  :'ExecutiveController'
 
                     }
                 }

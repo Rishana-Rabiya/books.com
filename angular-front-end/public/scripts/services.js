@@ -4,7 +4,7 @@
 
 
 angular.module('lmsProjectApp')
-.constant("baseURL","http://localhost:3000/")
+.constant("baseURL","https://localhost:3443/")
 /*.factory('loginFactory',  ['$resource', 'baseURL', function($resource,baseURL) {
  return $resource(baseURL+"users/login"); // Note the full endpoint address
 }]);
@@ -171,6 +171,16 @@ angular.module('lmsProjectApp')
     return $resource(baseURL+"books/upload")
   }
   return bookFac;
+
+}])
+
+.factory('ExecutiveFactory', ['$resource','baseURL',function($resource,baseURL){
+  var exFac={};
+
+  exFac.getExUserUrl = function(){
+    return $resource(baseURL+"executive/create")
+  }
+  return exFac;
 
 }])
 

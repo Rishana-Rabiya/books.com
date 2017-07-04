@@ -15,6 +15,9 @@ bookRouter.route('/upload')
             console.log(result);
             res.json({success:true});
         }
+        else{
+            res.json({success:false});
+        }
     });
 });
 
@@ -24,6 +27,9 @@ bookRouter.route('/')
     operations.findBook(function(result){
         if(result){
             res.json({book:result});
+        }
+        else {
+        res.json({success:false});
         }
     });
 });
@@ -37,6 +43,9 @@ bookRouter.route('/find')
         if(result){
             res.json({books:result});
         }
+        else {
+            res.json({success:false});
+        }
     });
 });
 
@@ -48,6 +57,9 @@ bookRouter.route('/find/:id')
             operations.findAuthor(result.author,function(response){
                 if(response){
                     res.json({book:result,author:response});
+                }
+                else {
+                    res.json({success:false});
                 }
             });
         }

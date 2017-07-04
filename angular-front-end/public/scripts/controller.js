@@ -65,10 +65,12 @@ angular.module('lmsProjectApp')
        else if($scope.type=="user")
        {
         $scope.user = true;
+        $scope.admin = false;
        }
        else if($scope.type=="exUser")
        {
         $scope.ex = true;
+        $scope.admin = false;
        }
      });
 
@@ -198,5 +200,39 @@ $scope.bookCreate = function(){
   });
 };
 }])
+.controller('ExecutiveController',['$scope','$rootScope','ExecutiveFactory','AuthFactory','ngDialog',function($scope,$rootScope,ExecutiveFactory,AuthFactory,ngDialog){
+$scope.exData = {};
+$scope.exist = false;
+$scope.invalid = false;
+$scope.loggedIn = false;
+//var socket = io.connect('http://localhost:3000');
+$scope.$on('logout', function (event, data) {
+  $scope.loggedIn= data
+});
+if(AuthFactory.isAuthenticated()) {
+  $scope.loggedIn = true;
+  $scope.email = AuthFactory.getEmail();
+}
 
-;
+$scope.userCreate = function(){
+
+ExecutiveFactory.getExUserUrl().save($scope.exData,function(response){
+    if(response.message=="exist"){
+        ngDialog.open({ template: '<p>Same email id exist</p>',plain: true});
+        $scope.exist = true;
+    }
+    else if(response.message=="invalid"){
+        $scope.invalid=true;
+        ngDialog.open({ template: '<p>Invalid email id</p>',plain: true});
+    }
+    else {
+        ngDialog.open({ template: '<p>Sucessfully added executive user</p>',plain: true});
+    }
+},
+function(response){
+    console.log("something went wrong");
+
+});
+}
+
+}]);
