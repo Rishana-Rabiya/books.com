@@ -1,6 +1,6 @@
 <ion-modal-view>
-  <ion-header-bar>
-    <h1 class="title">Register</h1>
+  <ion-header-bar style="background-color:#0c1523;">
+    <h1 class="title" style="color:grey;">>Register</h1>
     <div class="buttons">
       <button class="button button-clear" ng-click="closeRegister()">Close</button>
     </div>
@@ -22,7 +22,7 @@
           <input type="email" ng-model="registration.email" name="email" required>
         </label>
         <label class="item">
-          <button class="button button-block button-positive" type="submit" ng-disabled="registerForm.$invalid">Register</button>
+          <button class="button button-block button-positive" type="submit" ng-disabled="registerForm.$invalid" style="background-color:#0c1523;">Register</button>
         </label>
        <span ng-show="invalid">*Not a valid email id </span>
        <span ng-show="exist">*Email id Already exist </span>
@@ -38,7 +38,7 @@
        <span class="input-label">Activation Code:</span>
        <input type="text" ng-model="registration.active" name="active" required>
      </label>
-       <button class="button button-block button-positive" type="submit"  ng-click = "registerCheck()">Continue</button>
+       <button class="button button-block button-positive" type="submit"  ng-click = "registerCheck()" style="background-color:#0c1523;">Continue</button>
      </label>
 
      <span class = "actCode">*Enter the activation code send to your email id <a class = "sendAgain" ng-click="doRegister()"> Send Again </a></span>
@@ -56,7 +56,7 @@
          <input type="password" ng-model="registration.confirmPassword" name="cpwd"  required>
       </label>
       <label class="item">
-      <button class="button button-block button-positive" type="submit" ng-disabled="confirmForm.$invalid" ng-click="passwordCheck()">Finish</button>
+      <button class="button button-block button-positive" type="submit" ng-disabled="confirmForm.$invalid" ng-click="passwordCheck()" style="background-color:#0c1523;">Finish</button>
       </label>
       <span ng-show = "pass_wrong"><strong>*Password does not match,please confirm onece more</strong></span>
        <p ng-show="confirmForm.pwd.$error.minlength">* Password must be longer than 6 characters</p>

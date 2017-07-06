@@ -25,6 +25,7 @@ angular.module('lmsIonicApp.controllers', [])
       console.log($scope.email);
   }
 
+
   // Create the login modal that we will use later
   $ionicModal.fromTemplateUrl('templates/login.html', {
     scope: $scope
@@ -89,6 +90,7 @@ angular.module('lmsIonicApp.controllers', [])
     var regEmail = reg.email;
      AuthFactory.getRegisterUrl().get({id:regEmail},function(response){
      $scope.resCode= response.status;
+     console.log($scope.resCode);
      if($scope.resCode=="exist"){
      $scope.exist = true;
     }
@@ -132,7 +134,15 @@ angular.module('lmsIonicApp.controllers', [])
         $scope.regSuccess=true;
         var alertPopup = $ionicPopup.alert({
              title: '<h4>Registration Sucessful!</h4>',
-             template: response.message
+             template: response.message,
+             buttons: [
+                {
+                    text: 'ok',
+                    onTap: function (e) {
+                        $scope.closeRegister();
+                    }
+                }
+            ]
          });
 
          alertPopup.then(function(res) {
@@ -144,7 +154,15 @@ angular.module('lmsIonicApp.controllers', [])
     function(response){
       var alertPopup = $ionicPopup.alert({
            title: '<h4>Registration Failed!</h4>',
-           template: response.message
+           template: response.message,
+           buttons: [
+              {
+                  text: 'ok',
+                  onTap: function (e) {
+                      $scope.closeRegister();
+                  }
+              }
+          ]
        });
 
        alertPopup.then(function(res) {
@@ -168,10 +186,16 @@ angular.module('lmsIonicApp.controllers', [])
 
 })
 
+/*$localStorage.remove(FIRST_BOOK);
+$localStorage.remove(SECOND_BOOK);
+$localStorage.remove(THIRD_BOOK);
+$localStorage.remove(COUNT_KEY);
+$localStorage.store(SHOW_FIRST_BOOK,"false");
+$localStorage.store(SHOW_SECOND_BOOK,"false");
+$localStorage.store(SHOW_THIRD_BOOK,"false");*/
 
 
-
-.controller('SearchController',function ($scope, $rootScope,$stateParams,$localStorage,$ionicPopup,AuthFactory,CategoryFactory,BookFactory,OrderFactory) {
+.controller('SearchController',function ($scope, $rootScope,$stateParams,$localStorage,$ionicPopup,$window,AuthFactory,CategoryFactory,BookFactory,OrderFactory) {
     $scope.books = [];
     $scope.auth = {};
     $scope.SearchByCategory=false;
@@ -186,6 +210,9 @@ angular.module('lmsIonicApp.controllers', [])
     $scope.email ='';
     var i = 0;
     $scope.book_id = [];
+    $scope.search=true;
+    $scope.searchPage=true;
+    var socket = io.connect('http://localhost:3000');
     var FIRST_BOOK ='firstBook';
     var FIRST_AUTHOR='firstAuthor';
     var SECOND_BOOK ='secondBook';
@@ -196,11 +223,22 @@ angular.module('lmsIonicApp.controllers', [])
     var SHOW_FIRST_BOOK ='showfirst';
     var SHOW_THIRD_BOOK ='showthird';
     var SHOW_SECOND_BOOK ='showsecond';
+    $scope.change = false;
+    $scope.isbns=[];
+    $scope.show = false;
     if(AuthFactory.isAuthenticated()) {
         $scope.loggedIn = true;
         $scope.email = AuthFactory.getEmail();
       }
   $scope.getCount = function(){
+     // $localStorage.store(COUNT_KEY,0);
+     /* $localStorage.store(SHOW_FIRST_BOOK,false);
+      $localStorage.store(SHOW_SECOND_BOOK,false);
+      $localStorage.store(SHOW_THIRD_BOOK,false);
+      $localStorage.remove(FIRST_BOOK);
+      $localStorage.remove(SECOND_BOOK);
+      $localStorage.remove(THIRD_BOOK);*/
+
     $scope.firstBook=$localStorage.getObject(FIRST_BOOK,'{}');
     $scope.firstBookAuth=$localStorage.getObject(FIRST_AUTHOR,'{}');
     $scope.secondBook=$localStorage.getObject(SECOND_BOOK,'{}');
@@ -211,11 +249,6 @@ angular.module('lmsIonicApp.controllers', [])
     $scope.showFirstBook  =$localStorage.get(SHOW_FIRST_BOOK,"false");
     $scope.showSecondBook=$localStorage.get(SHOW_SECOND_BOOK,"false");
     $scope.showThirdBook =$localStorage.get(SHOW_THIRD_BOOK,"false");
-    //$localStorage.store(COUNT_KEY,0);
-    //$localStorage.store(SHOW_FIRST_BOOK,false);
-    //$localStorage.store(SHOW_SECOND_BOOK,false);
-    //$localStorage.store(SHOW_THIRD_BOOK,false);
-
 
 
     if($scope.showFirstBook=="false"){
@@ -241,6 +274,7 @@ angular.module('lmsIonicApp.controllers', [])
         $scope.showThirdBook=false;
 
     }
+
     return($localStorage.get(COUNT_KEY,0));
 
 }
@@ -249,13 +283,21 @@ angular.module('lmsIonicApp.controllers', [])
 });*/
 
 
+
+
     //getting books
+    $scope.$on("$ionicView.beforeEnter", function(event, data){
+       // handle event
+       $scope.searchPage = true;
     BookFactory.getBookUrl().get(function(response){
               $scope.books = response.book;
+              $scope.change=true;
           },
           function(response){
               console.log("insuccessful category search");
           });
+
+        });
 
         //category listing
         CategoryFactory.getCatUrl().get(function(response){
@@ -267,6 +309,7 @@ angular.module('lmsIonicApp.controllers', [])
             $rootScope.$broadcast('categoryClick',category);
         }
         $scope.$on('categoryClick',function (event, category){
+
             $scope.category = category;
             $scope.SearchByCategory = true;
         });
@@ -284,6 +327,7 @@ angular.module('lmsIonicApp.controllers', [])
                 document.getElementById("search").click();
             }
         });
+
 
 
 
@@ -308,13 +352,26 @@ angular.module('lmsIonicApp.controllers', [])
 
 //Adding product to the cart
 $scope.addCart = function (id) {
+    if($scope.firstBook.isbn==id||$scope.secondBook.isbn==id||$scope.thirdBook.isbn==id){
+        var alertPopup = $ionicPopup.alert({
+             title: '<h4>Alert</h4>',
+             template:'<h4>No two same book can be lended at the same time</h4>',
+              cssClass: 'my-custom-popup'
+         });
+
+         alertPopup.then(function(res) {
+             console.log("no duplicates");
+         });
+         return;
+
+    }
 
     console.log("insisde the cart");
     $scope.count =$localStorage.get(COUNT_KEY,0);
     if($scope.count<3){
-    $scope.count++;
+
     console.log($scope.count);
-    $localStorage.store(COUNT_KEY, $scope.count);
+
     if(!$scope.showFirstBook){
 
         BookFactory.getBookDetailUrl().get({
@@ -324,6 +381,8 @@ $scope.addCart = function (id) {
             $localStorage.storeObject(FIRST_BOOK, response.book);
             $localStorage.storeObject(FIRST_AUTHOR, response.author);
             $localStorage.store(SHOW_FIRST_BOOK,true);
+            $scope.count++;
+            $localStorage.store(COUNT_KEY, $scope.count);
             $scope.showFirstBook = true;
             console.log("Added first book to cart");
         },
@@ -341,6 +400,8 @@ $scope.addCart = function (id) {
             $localStorage.storeObject(SECOND_AUTHOR, response.author);
             $localStorage.store(SHOW_SECOND_BOOK,true);
             $scope.showSecondBook = true;
+            $scope.count++;
+            $localStorage.store(COUNT_KEY, $scope.count);
 
             console.log("Added second book to cart");
         },
@@ -358,6 +419,8 @@ $scope.addCart = function (id) {
             $localStorage.storeObject(THIRD_AUTHOR, response.author);
             $localStorage.store(SHOW_THIRD_BOOK,true);
             $scope.showThirdBook = true;
+            $scope.count++;
+            $localStorage.store(COUNT_KEY, $scope.count);
             console.log("Added third book to cart");
         },
         function(response){
@@ -388,7 +451,9 @@ else{
 
 }
 }
-
+$scope.reload=function(){
+$window.location.reload(true);
+}
 
 
 $scope.deleteFirst=function(){
@@ -400,6 +465,7 @@ $scope.deleteFirst=function(){
     $localStorage.remove(FIRST_AUTHOR);
     $localStorage.store(SHOW_FIRST_BOOK,"false");
     $scope.showFirstBook = false;
+    //$rootScope.$broadcast("delete");
     //$rootScope.$broadcast("delete");
 }
 $scope.deleteSecond=function(){
@@ -432,34 +498,59 @@ $scope.checkOut = function(){
         },
         function(res){
             var length = res.count;
-            if(length<=3){
-                if($showFirstBook){
+
+            if(length<3){
+                if($scope.showFirstBook){
                     $scope.first = $localStorage.getObject(FIRST_BOOK,'{}');
-                    $scope.book_id[i]=$scope.first._id;
+                    $scope.book_id[i]=$scope.first.isbn;
                     i++;
                 }
-                if($showSecondBook){
+                if($scope.showSecondBook){
                     $scope.second = $localStorage.getObject(SECOND_BOOK,'{}');
-                    $scope.book_id[i]=$scope.second._id;
+                    $scope.book_id[i]=$scope.second.isbn;
                     i++;
 
                 }
-                if($showThirdBook){
+                if($scope.showThirdBook){
                     $scope.third = $localStorage.getObject(THIRD_BOOK,'{}');
-                    $scope.book_id[i]=$scope.third._id;
+                    $scope.book_id[i]=$scope.third.isbn;
                     i++;
 
                 }
                 $scope.book_id[i] = $scope.email;
-                OrderFactory.getOrderUrl().post($scope.book_id,function(res){
+                socket.emit('order',$scope.book_id);
+                socket.on('response',function(data){
+                    console.log(data);
+                    if($scope.showFirstBook)
                     $scope.deleteFirst();
+                    if($scope.showSecondBook)
                     $scope.deleteSecond();
+                    if($scope.showThirdBook)
                     $scope.deleteThird();
-                    console.log("succesfullly added");
-                },
-                function(res){
-                    console.log("insucessful");
+                    if(data.status=="ALL_SET"){
+                        var alertPopup = $ionicPopup.alert({
+                             title: '<h4>Congrats</h4>',
+                             template: '<h4>Request has been made successfully</h4>'
+                         });
+
+                         alertPopup.then(function(res) {
+                             console.log('success');
+                         });
+                    }
+                    else{
+                        $scope.$apply(function(){
+                            $scope.isbns = data.array;
+                            $scope.show = true;
+                            $scope.closeShow = function(){
+                                $scope.show = false;
+                            }
+                        });
+                        console.log($scope.isbns);
+
+
+                    }
                 });
+
 
             }
             else{

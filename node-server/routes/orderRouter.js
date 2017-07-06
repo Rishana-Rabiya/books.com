@@ -5,8 +5,8 @@ var operations = require('../controller/orderController');
 var verify = require('../routes/verify');
 
 
-orderRouter.route('/:id')
-.get(verify.verifyUser,function(req,res,next){
+orderRouter.route('/check/:id')
+.get(function(req,res,next){
     var email = req.params.id;
     console.log(email);
     operations.checkExistingOrder(email,function(result){
@@ -19,6 +19,11 @@ orderRouter.route('/:id')
         }
     });
 });
+
+
+
+
+
 orderRouter.route('/')
 .post(verify.verifyUser,function(res,req,next){
     var ary = req.body;
@@ -30,6 +35,17 @@ orderRouter.route('/')
             res.json({success:false});
         }
 
+    });
+});
+orderRouter.route('/')
+.get(verify.verifyUser,function(req,res,next){
+    operations.findOrders(function(result){
+        if(result){
+            res.json({order:result});
+        }
+        else {
+        res.json({success:false});
+        }
     });
 });
 

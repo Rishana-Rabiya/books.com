@@ -8,15 +8,15 @@ var Track_order = mongoose.Schema({
 	order_id: {
 		type: String,
 		required:true,
-    unique:true
+    	
 	},
 status: {
 		type: String,
-    required:true
+    	required:true
 	},
 	date: {
-		type: String
-    required:true
+		type: Date
+    	default:Date.now
 	}
 });
 

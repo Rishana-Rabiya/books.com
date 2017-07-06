@@ -52,5 +52,16 @@ angular.module('lmsProjectApp', ['ui.router','ngResource','ngDialog','ngFileUplo
                 }
             })
 
+            .state('app.liveOrder', {
+                url:'liveOrder',
+                views: {
+                    'content@': {
+                       templateUrl :'views/live_order.html',
+                       controller  :'ExecutiveController'
+
+                    }
+                }
+            })
+
             $urlRouterProvider.otherwise('/');
           });

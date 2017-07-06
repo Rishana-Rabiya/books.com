@@ -1,13 +1,13 @@
-<ion-view view-title="">
-        <ion-nav-buttons side="secondary">
-       </ion-nav-buttons>
+<ion-view view-title="Cart">
+
       <ion-content>
-          <span class = "badge"> CART </span>
-          <button ion-button color="light" ng-if="showFirstBook||showSecondBook||showThirdBook" style="position:relative;left:168px;color:red" ng-click="checkOut()">Check Out</button>
+
+          <button class="button" ng-if="showFirstBook||showSecondBook||showThirdBook"  ng-click="checkOut()" style="position:relative;
+          background-color: #6bdb85;left:200px;"> <b>Check Out</b></button>
           <div class="card" ng-if="showFirstBook">
-              <button ion-button color="light" style="position:relative;left:260px;" ng-click="deleteFirst()"><i class="icon ion-close"></i></button>
+              <button button-clear style="position:relative;left:260px;" ng-click="deleteFirst()"><small><i class="icon ion-close"></i></small></button>
               <div class="item item-body item-text-wrap">
-                    <h2 style = "color:red">{{firstBook.Book_Name}}</h2>
+                    <h2 style = "color:#a30935;word-wrap:break-word;"><b>{{firstBook.Book_Name}}</b></h2>
 
                     <blockquote>
                                  <p>{{firstBookAuth.Afname}}&nbsp;{{firstBookAuth.Alname}}</p>
@@ -19,7 +19,7 @@
           <div class="card" ng-if="showSecondBook">
               <button ion-button color="light" style="position:relative;left:260px;" ng-click="deleteSecond()"><i class="icon ion-close"></i></button>
               <div class="item item-body item-text-wrap">
-                    <h2 style = "color:red">{{secondBook.Book_Name}}</h2>
+                    <h2 style = "color:#a30935;word-wrap:break-word;"><b>{{secondBook.Book_Name}}</b></h2>
                     <blockquote>
                                  <p>{{secondBookAuth.Afname}}&nbsp;{{secondBookAuth.Alname}}</p>
                                  <p>ISBN NO: {{secondBook.isbn}} </p>
@@ -30,7 +30,7 @@
           <div class="card" ng-if="showThirdBook">
               <button ion-button color="light" style="position:relative;left:260px;" ng-click="deleteThird()"><i class="icon ion-close"></i></button>
               <div class="item item-body item-text-wrap">
-                    <h2 style = "color:red">{{thirdBook.Book_Name}}</h2>
+                    <h2 style = "color:#a30935;word-wrap:break-word;"><b>{{thirdBook.Book_Name}}</b></h2>
                     <blockquote>
                                  <p>{{thirdBookAuth.Afname}}&nbsp;{{thirdBookAuth.Alname}}</p>
                                  <p>ISBN NO: {{thirdBook.isbn}} </p>
@@ -42,20 +42,35 @@
           </div>
 
           <label class="item-input-wrapper">
-              <i class="icon ion-ios7-search placeholder-icon"></i>
+              <i class="icon ion-ios7-search placeholder-icon" hidden="hidden"></i>
               <input type="hidden" placeholder="Search" ng-model="searchData.search" style="width=400px;" id="searchText" hidden>
           </label>
           <button id="search" hidden="hidden">
               <i class="icon ion-search"></i>
           </button>
+          <div class="card" ng-if="show">
+              <h3 style = "color:#0f284f;">The books with isbn no:
+             <ul>
+                 <li ng-repeat="isbn in isbns"> {{isbn}}</li>
+             </ul>
+             are not available! it has been bagged by someone else !</h3>
+              <button button-assertive ng-click="closeShow()">Ok</button>
+          </div>
+
+          <div ng-if="!showFirstBook&&!showSecondBook&&!showThirdBook&&!show" >
+             <h1 style = "position:relative;left:100px;color:#a30935;top:20px"> <b> OoPS! </b></h1>
+                <div >
+                  <img class="full-image" ng-src="img/empty.png" alt="CART EMPTY">
+                </div>
+          </div>
       </ion-content>
-      <div class="tabs-striped  tabs-color-light" >
+      <div class="tabs-striped tabs-color-danger" >
       <div class="tabs">
       <a class="tab-item" href="#/app/search">
       <i class="icon ion-home"></i>
       </a>
       <a class="tab-item active" href="#/app/cart">
-      <i class="icon ion-star"><sup><small style="color:red;">{{getCount()}}</small></sup></i>
+      <i class="icon ion-android-cart"><sup><small style="color:red;">{{getCount()}}</small></sup></i>
       </a>
       </div>
       </div>

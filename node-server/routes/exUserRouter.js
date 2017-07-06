@@ -6,7 +6,7 @@ var operations = require('../controller/exUserController');
 var verify = require('../routes/verify');
 
 
-exUserRouter.route('/create')
+/*exUserRouter.route('/create')
 .post(verify.verifyUser,function (req, res, next) {
   operations.createUser(req.body,function(result){
     if(result=="exist"){
@@ -20,6 +20,6 @@ exUserRouter.route('/create')
         res.json({message:"success"});
     }
   });
-});
+});*/
 
 module.exports = exUserRouter;

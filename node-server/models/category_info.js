@@ -2,8 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 
-
-// User Schema
+// Cathegory Schema
 var category = mongoose.Schema({
 	CategoryName :{
 		type:String,

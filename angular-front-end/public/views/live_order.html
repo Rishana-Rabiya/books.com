@@ -1,0 +1,38 @@
+<table ng-show="loggedIn&&success||liveSuccess&&exUser">
+    <tr>
+    <td>ORDER_ID</td>
+    <td>BOOK_ID</td>
+    <td>EMAIL</td>
+    <td>STATUS</td>
+    <td>Action</td>
+</tr>
+  <tr ng-repeat="order in orders">
+    <td>{{ order._id }}</td>
+    <td>{{ order.book_id}}</td>
+    <td>{{order.email}}</td>
+    <td>{{order.status}}</td>
+    <td><select data-width="300px" ng-model="order.status" ng-click="updateStatus(order.status,order._id,order.book_id,order.email)" required>
+            <option>Requested</option>
+            <option>Returned</option>
+            <option>Accepted</option>
+            <option>Approved</option>
+            <option>Rejected</option>
+        </select>
+    </td>
+  </tr>
+  <tr ng-repeat="live in liveData">
+    <td>{{ live._id }}</td>
+    <td>{{ live.book_id}}</td>
+    <td>{{live.email}}</td>
+    <td>{{live.status}}</td>
+    <td>
+        <select data-width="300px" ng-model="live.status" ng-click="updateStatus(live.status,live._id,live.book_id,live.email)" required>
+            <option>Requested</option>
+            <option>Returned</option>
+            <option>Accepted</option>
+            <option>Approved</option>
+            <option>Rejected</option>
+        </select>
+    </td>
+  </tr>
+</table>

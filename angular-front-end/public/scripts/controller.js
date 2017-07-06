@@ -7,6 +7,7 @@ angular.module('lmsProjectApp')
     $scope.user=false;
     $scope.ex = false;
     $scope.name='';
+    $scope.message={};
     if(AuthFactory.isAuthenticated()) {
 
       $scope.loggedIn = true;
@@ -159,6 +160,8 @@ angular.module('lmsProjectApp')
   $scope.book = {};
   $scope.categories = {};
   $scope.bookSuccess = false;
+  $scope.liveSuccess=false;
+  $scope.success = false;
   $scope.$on('logout', function (event, data) {
     $scope.loggedIn= data
   });
@@ -200,19 +203,37 @@ $scope.bookCreate = function(){
   });
 };
 }])
-.controller('ExecutiveController',['$scope','$rootScope','ExecutiveFactory','AuthFactory','ngDialog',function($scope,$rootScope,ExecutiveFactory,AuthFactory,ngDialog){
+.controller('ExecutiveController',['$scope','$rootScope','ExecutiveFactory','AuthFactory','OrderFactory','ngDialog',function($scope,$rootScope,ExecutiveFactory,AuthFactory,OrderFactory,ngDialog){
 $scope.exData = {};
 $scope.exist = false;
 $scope.invalid = false;
 $scope.loggedIn = false;
-//var socket = io.connect('http://localhost:3000');
+$scope.liveData = [];
+$scope.orders =[];
+$scope.order_id = '';
+$scope.dat = {};
+
+
+var socket = io.connect('http://localhost:3000');
 $scope.$on('logout', function (event, data) {
-  $scope.loggedIn= data
+ $scope.loggedIn= data
 });
 if(AuthFactory.isAuthenticated()) {
   $scope.loggedIn = true;
   $scope.email = AuthFactory.getEmail();
 }
+
+OrderFactory.getOrderUrl().get(function(response){
+    $scope.success = true;
+    $scope.orders = response.order;
+    console.log($scope.orders);
+},
+function(response){
+    console.log("no orders");
+
+});
+
+
 
 $scope.userCreate = function(){
 
@@ -233,6 +254,33 @@ function(response){
     console.log("something went wrong");
 
 });
+}
+
+
+socket.on('order', function(data){
+    $scope.$apply(function () {
+            $scope.liveData = data;
+            $scope.liveSuccess = true;
+
+        });
+        console.log($scope.liveData);
+});
+
+
+
+var order = {};
+
+
+//update the status
+$scope.updateStatus=function(status,order_id,book_id,email){
+    order = {
+        status:status,
+        books_id:book_id,
+        order_id:order_id,
+        email:email
+    }
+    console.log(order);
+    socket.emit('status',order);
 }
 
 }]);

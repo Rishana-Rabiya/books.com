@@ -60,6 +60,7 @@ angular.module('lmsIonicApp.services', ['ngResource'])
     isAuthenticated = false;
     $http.defaults.headers.common['x-access-token'] = authToken;
     $localStorage.remove(TOKEN_KEY);
+
   }
 
     authFac.login = function(loginData) {
@@ -146,7 +147,7 @@ angular.module('lmsIonicApp.services', ['ngResource'])
 .factory('OrderFactory', ['$resource', 'baseURL', function($resource, baseURL){
     var orderFac = {};
     orderFac.getOrderUrl = function(){
-        return  $resource(baseURL + "order/:id");
+        return  $resource(baseURL + "order/check/:id");
     }
 
     return orderFac;

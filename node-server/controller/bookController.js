@@ -225,3 +225,30 @@ exports.findAuthor=function(data,callback){
     callback(res);
   });
 }
+
+exports.bookAbook=function(id,callback){
+    Book.findByIdAndUpdate(id, {
+            $set: {
+                status: 'not available'
+            }
+        })
+        .exec(function (err, book) {
+            if (err) throw err;
+            console.log('Updated Book!');
+            console.log(book);
+            callback(book);
+        });
+}
+exports.makeAvailable=function(id,callback){
+    Book.findByIdAndUpdate(id, {
+            $set: {
+                status:'available'
+            }
+        })
+        .exec(function (err, book) {
+            if (err) throw err;
+            console.log('Updated Book!');
+            console.log(book);
+            callback(book);
+        });
+}

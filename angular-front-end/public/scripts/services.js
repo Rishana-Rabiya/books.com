@@ -183,6 +183,16 @@ angular.module('lmsProjectApp')
   return exFac;
 
 }])
+.factory('OrderFactory', ['$resource','baseURL',function($resource,baseURL){
+  var orFac={};
+
+  orFac.getOrderUrl = function(){
+    return $resource(baseURL+"order/")
+  }
+  return orFac;
+
+}])
+
 
 
 

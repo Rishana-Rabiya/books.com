@@ -1,15 +1,18 @@
-<ion-view view-title= "">
-    <ion-nav-buttons side="secondary">
+<ion-view view-title= "Book Details">
+    <ion-nav-buttons side="secondary" >
+
    </ion-nav-buttons>
   <ion-content>
       <div class="card">
           <div class="item item-body item-text-wrap">
-                <h2>{{book.Book_Name}}
+                <h2 style = "color:#a30935"><b>{{book.Book_Name}}</b>
                 <blockquote>
                              <p>{{auth.Afname}}&nbsp;{{auth.Alname}}</p>
                              <p>ISBN NO: {{book.isbn}} </p>
                              <footer>{{book.edition}},{{book.publisher}}-{{book.Release_year}}</footer>
+
                 </blockquote>
+
           </div>
       </div>
 
