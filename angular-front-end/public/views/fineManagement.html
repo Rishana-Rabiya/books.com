@@ -1,10 +1,12 @@
+
 <table ng-show="loggedIn">
     <tr>
-    <td>ORDER_ID</td>
-    <td>Acceptance Date</td>
-    <td>Tententive Return Date </td>
-    <td>Actual Return Date</td>
-    <td>Fine</td>
+    <td><b>Order_Id</b></td>
+    <td><b>Acceptance Date</b></td>
+    <td><b>Tententive Return Date</b> </td>
+    <td><b>Actual Return Date</b></td>
+    <td><b>Fine</b></td>
+    <td><b>Remove</b></td>
 </tr>
   <tr ng-repeat="fine in fines">
     <td>{{fine.order_id }}</td>
@@ -12,5 +14,7 @@
     <td>{{getFine(fine.DoR)}}</td>
     <td>{{getFine(fine.DoIR)}}</td>
     <td>{{fine.fine}}</td>
+    <td><b>Remove</b></td>
+
   </tr>
 </table>

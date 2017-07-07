@@ -15,7 +15,7 @@
 }
 .jumbotron {
  height: 200px;
-  background-image: url(../images/jump.jpg);
+  background-image: url(../images/imp.png);
   color: floralwhite;
 }
 .carousel {
@@ -102,7 +102,10 @@ body {
   left:12px
 }
 p.quotes{
-  color:grey;
+  color:#0c1523;
+  position :relative;
+  left:100px;
+
 }
 .ngdialog-header,
 .ngdialog-footer{

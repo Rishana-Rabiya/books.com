@@ -358,7 +358,13 @@ $scope.addCart = function (id) {
         var alertPopup = $ionicPopup.alert({
              title: '<h4>Alert</h4>',
              template:'<h4>No two same book can be lended at the same time</h4>',
-              cssClass: 'my-custom-popup'
+             buttons: [
+                {
+                    text: 'ok',
+                    type:'popClose'
+                }
+            ]
+
          });
 
          alertPopup.then(function(res) {
@@ -433,7 +439,13 @@ $scope.addCart = function (id) {
     else{
         var alertPopup = $ionicPopup.alert({
              title: '<h4>Alert</h4>',
-             template:'<h4>Only three books can be added to the cart at a time</h4>'
+             template:'<h4>Only three books can be added to the cart at a time</h4>',
+             buttons: [
+                {
+                    text: 'ok',
+                    type:'popClose'
+                }
+            ]
          });
 
          alertPopup.then(function(res) {
@@ -444,7 +456,13 @@ $scope.addCart = function (id) {
 else{
     var alertPopup = $ionicPopup.alert({
          title: '<h4>Alert</h4>',
-         template: '<h4>Only three books can be added to the cart at a time</h4>'
+         template: '<h4>Only three books can be added to the cart at a time</h4>',
+         buttons: [
+            {
+                text: 'ok',
+                type:'popClose'
+            }
+        ]
      });
 
      alertPopup.then(function(res) {
@@ -532,7 +550,13 @@ $scope.checkOut = function(){
                     if(data.status=="ALL_SET"){
                         var alertPopup = $ionicPopup.alert({
                              title: '<h4>Congrats</h4>',
-                             template: '<h4>Request has been made successfully</h4>'
+                             template: '<h4>Request has been made successfully</h4>',
+                             buttons: [
+                                {
+                                    text: 'ok',
+                                    type:'popClose'
+                                }
+                            ]
                          });
 
                          alertPopup.then(function(res) {
@@ -558,7 +582,13 @@ $scope.checkOut = function(){
             else{
                 var alertPopup = $ionicPopup.alert({
                      title: '<h4>Alert</h4>',
-                     template: '<h4>You have already reached the maximum of lending books!please go through the instructions in the web portal for more information </h4>'
+                     template: '<h4>You have already reached the maximum of lending books!please go through the instructions in the web portal for more information </h4>',
+                     buttons: [
+                        {
+                            text: 'ok',
+                            type:'popClose'
+                        }
+                    ]
                  });
 
                  alertPopup.then(function(res) {

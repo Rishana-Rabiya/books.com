@@ -7,8 +7,8 @@ var Track = require('../models/track_order');
 
 
 exports.checkExistingOrder=function(email,callback){
-/*Order.remove({},function(err){if(err)throw err;});
-    Order.find({},function(err,res){
+Order.remove({},function(err){if(err)throw err;});
+    /*Order.find({},function(err,res){
         console.log(res);
     });*/
 /*Fine.remove({},function(err){if(err)throw err;});*/
