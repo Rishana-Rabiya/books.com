@@ -180,6 +180,9 @@ angular.module('lmsProjectApp')
   exFac.getExUserUrl = function(){
     return $resource(baseURL+"executive/create")
   }
+  exFac.getChangeUrl = function(){
+    return $resource(baseURL+"executive/")
+  }
   return exFac;
 
 }])
@@ -190,6 +193,18 @@ angular.module('lmsProjectApp')
     return $resource(baseURL+"order/")
   }
   return orFac;
+
+}])
+
+
+.factory('FineFactory', ['$resource','baseURL',function($resource,baseURL){
+  var fineFac={};
+
+  fineFac.getFineUrl = function(){
+    return $resource(baseURL+"fine/");
+  }
+
+  return fineFac;
 
 }])
 

@@ -151,5 +151,22 @@ angular.module('lmsIonicApp.services', ['ngResource'])
     }
 
     return orderFac;
-}]);
+}])
+
+
+
+
+.factory('SocketFactory',['$rootScope',function($rootScope){
+    var socket = io.connect('http://localhost:3000');
+    var socketFac ={};
+    socketFac.emitSocket=function(book_id)
+    {
+        socket.emit('order',book_id);
+    }
+    socket.on('response',function(data){
+        $rootScope.$broadcast('socketEmit',data);
+    });
+    return socketFac;
+
+}])
 ;

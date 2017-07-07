@@ -62,6 +62,16 @@ angular.module('lmsProjectApp', ['ui.router','ngResource','ngDialog','ngFileUplo
                     }
                 }
             })
+            .state('app.fineManage', {
+                url:'fineManage',
+                views: {
+                    'content@': {
+                       templateUrl :'views/fineManagement.html',
+                       controller  :'ExecutiveController'
+
+                    }
+                }
+            })
 
             $urlRouterProvider.otherwise('/');
           });

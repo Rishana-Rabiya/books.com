@@ -3,6 +3,7 @@ var Order = require('../models/order_info');
 var operations = require('../controller/bookController');
 var orderOperations = require('../controller/orderController');
 var fineOperations = require('../controller/fineController');
+var trackOperations = require('../controller/trackOrderController');
 
 
 
@@ -30,53 +31,7 @@ module.exports = function (io) {
 
         });
     });
-    socket.on('status',function(data){
-               console.log("inside the order updation");
-               console.log(data.status);
 
-                if(data.status=="Accepted"){
-                    console.log("order accept started");
-                    fineOperations.Accept(data,function(result){
-                        orderOperations.changeStatusOrder(data,function(order){
-                            if(order){
-                                io.sockets.emit('new',data.status);
-                            }
-
-                        });
-
-                    });
-                }
-                else if(data.status=="Rejected")
-                {
-                    operations.makeAvailable(data.books_id,function(res){
-                        if(res){
-                            orderOperations.changeStatusOrder(data,function(order){
-                                if(order){
-                                    io.sockets.emit('new',data.status);
-                                }
-
-                            });
-
-                        }
-                    });
-                }
-                else if(data.status=="Returned"){
-
-                }
-                else if(data.status=="Approved"){
-                    console.log("inside approve");
-                    orderOperations.changeStatusOrder(data,function(order){
-                        if(order){
-                            io.sockets.emit('new',data.status);
-                        }
-                    });
-
-                }
-
-
-
-
-    });
 });
 var temp = function(data,callback){
     var len = data.length;

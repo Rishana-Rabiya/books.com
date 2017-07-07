@@ -138,6 +138,7 @@ angular.module('lmsIonicApp.controllers', [])
              buttons: [
                 {
                     text: 'ok',
+                    type:'popClose',
                     onTap: function (e) {
                         $scope.closeRegister();
                     }
@@ -158,6 +159,7 @@ angular.module('lmsIonicApp.controllers', [])
            buttons: [
               {
                   text: 'ok',
+                  type:'popClose',
                   onTap: function (e) {
                       $scope.closeRegister();
                   }
@@ -195,7 +197,7 @@ $localStorage.store(SHOW_SECOND_BOOK,"false");
 $localStorage.store(SHOW_THIRD_BOOK,"false");*/
 
 
-.controller('SearchController',function ($scope, $rootScope,$stateParams,$localStorage,$ionicPopup,$window,AuthFactory,CategoryFactory,BookFactory,OrderFactory) {
+.controller('SearchController',function ($scope, $rootScope,$stateParams,$localStorage,$ionicPopup,$window,AuthFactory,CategoryFactory,BookFactory,OrderFactory,SocketFactory) {
     $scope.books = [];
     $scope.auth = {};
     $scope.SearchByCategory=false;
@@ -518,8 +520,8 @@ $scope.checkOut = function(){
 
                 }
                 $scope.book_id[i] = $scope.email;
-                socket.emit('order',$scope.book_id);
-                socket.on('response',function(data){
+                SocketFactory.emitSocket($scope.book_id);
+                $scope.$on('socketEmit',function(event,data){
                     console.log(data);
                     if($scope.showFirstBook)
                     $scope.deleteFirst();

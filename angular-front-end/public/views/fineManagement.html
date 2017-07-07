@@ -1,0 +1,16 @@
+<table ng-show="loggedIn">
+    <tr>
+    <td>ORDER_ID</td>
+    <td>Acceptance Date</td>
+    <td>Tententive Return Date </td>
+    <td>Actual Return Date</td>
+    <td>Fine</td>
+</tr>
+  <tr ng-repeat="fine in fines">
+    <td>{{fine.order_id }}</td>
+    <td>{{getFine(fine.Dof)}}</td>
+    <td>{{getFine(fine.DoR)}}</td>
+    <td>{{getFine(fine.DoIR)}}</td>
+    <td>{{fine.fine}}</td>
+  </tr>
+</table>

@@ -3,6 +3,7 @@ var Order = require('../models/order_info');
 var Book = require('../models/book_info');
 var mail = require('../routes/mail');
 var Fine = require('../models/fineManagement');
+var Track = require('../models/track_order');
 
 
 exports.checkExistingOrder=function(email,callback){
@@ -10,12 +11,19 @@ exports.checkExistingOrder=function(email,callback){
     Order.find({},function(err,res){
         console.log(res);
     });*/
-
+/*Fine.remove({},function(err){if(err)throw err;});*/
     Fine.find({},function(err,res){
         if(err)
         throw err;
+
         console.log(res);
+
     });
+    /*Track.find({},function(err,res){
+        if(err)
+        throw err;
+        console.log(res);
+    });*/
    /*Book.findByIdAndUpdate("595d16e615a6e81392ff802e", {
             $set: {
                 status: 'not available'
@@ -27,7 +35,13 @@ exports.checkExistingOrder=function(email,callback){
             console.log(book);
             callback(book);
         });
-*/
+        /*Track
+        */
+
+
+
+
+
 
 
 
@@ -65,4 +79,11 @@ exports.changeStatusOrder=function(data,callback){
             callback(order);
         });
 
+}
+exports.findOrderWithStatus=function(order_id,status,callback){
+    Order.findOne({_id:order_id,status:status},function(err,response){
+        if(err)
+        throw err;
+        callback(response);
+    });
 }

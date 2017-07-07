@@ -29,6 +29,7 @@ angular.module('lmsProjectApp')
       {
         $scope.ex = true;
       }
+      //$rootScope.$broadcast('type',$scope.type);
         });
 
 
@@ -203,7 +204,7 @@ $scope.bookCreate = function(){
   });
 };
 }])
-.controller('ExecutiveController',['$scope','$rootScope','ExecutiveFactory','AuthFactory','OrderFactory','ngDialog',function($scope,$rootScope,ExecutiveFactory,AuthFactory,OrderFactory,ngDialog){
+.controller('ExecutiveController',['$scope','$state','$rootScope','ExecutiveFactory','AuthFactory','OrderFactory','FineFactory','ngDialog',function($scope,$state,$rootScope,ExecutiveFactory,AuthFactory,OrderFactory,FineFactory,ngDialog){
 $scope.exData = {};
 $scope.exist = false;
 $scope.invalid = false;
@@ -212,7 +213,8 @@ $scope.liveData = [];
 $scope.orders =[];
 $scope.order_id = '';
 $scope.dat = {};
-
+$scope.fines = [];
+$scope.success = false;
 
 var socket = io.connect('http://localhost:3000');
 $scope.$on('logout', function (event, data) {
@@ -222,7 +224,7 @@ if(AuthFactory.isAuthenticated()) {
   $scope.loggedIn = true;
   $scope.email = AuthFactory.getEmail();
 }
-
+$scope.$on("change",function(){
 OrderFactory.getOrderUrl().get(function(response){
     $scope.success = true;
     $scope.orders = response.order;
@@ -232,6 +234,21 @@ function(response){
     console.log("no orders");
 
 });
+});
+OrderFactory.getOrderUrl().get(function(response){
+    $scope.success = true;
+    $scope.orders = response.order;
+    console.log($scope.orders);
+},
+function(response){
+    console.log("no orders");
+
+});
+FineFactory.getFineUrl().get(function(response){
+    $scope.fines = response.fine;
+    console.log($scope.fines);
+})
+
 
 
 
@@ -259,20 +276,29 @@ function(response){
 
 socket.on('order', function(data){
     $scope.$apply(function () {
-            $scope.liveData = data;
-            $scope.liveSuccess = true;
-
+        console.log("inside");
+            $scope.sucess=true;
+            len = data.length;
+            for(i=0;i<len;i++){
+                $scope.orders.push(data[i]);
+            }
         });
-        console.log($scope.liveData);
+
 });
+//fine date
 
-
+$scope.getFine=function(dat){
+    var m = new Date(dat);
+    return (m.toDateString());
+}
 
 var order = {};
-
+$scope.status = '';
+$scope.res = {};
 
 //update the status
 $scope.updateStatus=function(status,order_id,book_id,email){
+    $scope.status = status;
     order = {
         status:status,
         books_id:book_id,
@@ -280,7 +306,31 @@ $scope.updateStatus=function(status,order_id,book_id,email){
         email:email
     }
     console.log(order);
-    socket.emit('status',order);
+    //socket.emit('status',order);
+   ExecutiveFactory.getChangeUrl().save(order,function(response){
+
+       console.log(response);
+        if($scope.status!=response.status){
+            ngDialog.open({ template: '<p>Invalid action</p>',plain: true});
+        }
+        else {
+
+                ngDialog.open({ template: '<p>The status has been changed</p>',plain: true});
+        }
+        $rootScope.$broadcast("change");
+
+
+    },
+    function(response){
+        ngDialog.open({ template: '<p>The Action could not be performed</p>',plain: true});
+
+    });
+
+/*socket.on('new',function(data){
+if($scope.status!=data.status){
+ngDialog.open({ template: '<p>The Action could not be performed</p>',plain: true});
+}
+});*/
 }
 
 }]);

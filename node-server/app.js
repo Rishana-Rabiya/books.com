@@ -13,6 +13,7 @@ var bookRouter = require('./routes/bookRouter');
 var exUserRouter = require('./routes/exUserRouter');
 var orderRouter = require('./routes/orderRouter');
 var catRouter = require('./routes/categoryRouter');
+var fineRouter = require('./routes/fineRouter');
 var multer = require('multer');
 var app = express();
 var mongoose = require('mongoose');
@@ -83,6 +84,7 @@ app.use('/books',bookRouter);
 app.use('/category',catRouter);
 app.use('/order',orderRouter);
 app.use('/executive',exUserRouter);
+app.use('/fine',fineRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
