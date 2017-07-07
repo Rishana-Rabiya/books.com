@@ -54,15 +54,12 @@ bookRouter.route('/find/:id')
     var id = req.params.id;
     operations.findAbook(id,function(result){
         if(result){
-            operations.findAuthor(result.author,function(response){
-                if(response){
-                    res.json({book:result,author:response});
-                }
-                else {
-                    res.json({success:false});
-                }
-            });
+            res.json({book:result});
         }
+        else {
+            res.json({success:false});
+        }
+
     });
 });
 

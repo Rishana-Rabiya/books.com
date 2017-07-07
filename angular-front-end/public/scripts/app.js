@@ -15,6 +15,8 @@ angular.module('lmsProjectApp', ['ui.router','ngResource','ngDialog','ngFileUplo
 
                     },
                     'footer': {
+                        templateUrl : 'views/footer.html'
+
 
                     }
                 }

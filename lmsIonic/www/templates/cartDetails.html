@@ -7,10 +7,10 @@
           <div class="card" ng-if="showFirstBook">
               <button button-clear style="position:relative;left:260px;" ng-click="deleteFirst()"><small><i class="icon ion-close"></i></small></button>
               <div class="item item-body item-text-wrap">
-                    <h2 style = "color:#a30935;word-wrap:break-word;"><b>{{firstBook.Book_Name}}</b></h2>
+                    <h2 style = "color:#212b56;word-wrap:break-word;"><b>{{firstBook.Book_Name}}</b></h2>
 
                     <blockquote>
-                                 <p>{{firstBookAuth.Afname}}&nbsp;{{firstBookAuth.Alname}}</p>
+                                 <p>{{firstBook.author}}</p>
                                  <p>ISBN NO: {{firstBook.isbn}} </p>
                                  <footer>{{firstBook.edition}},{{firstBook.publisher}}-{{firstBook.Release_year}}</footer>
                     </blockquote>
@@ -19,9 +19,9 @@
           <div class="card" ng-if="showSecondBook">
               <button ion-button color="light" style="position:relative;left:260px;" ng-click="deleteSecond()"><i class="icon ion-close"></i></button>
               <div class="item item-body item-text-wrap">
-                    <h2 style = "color:#a30935;word-wrap:break-word;"><b>{{secondBook.Book_Name}}</b></h2>
+                    <h2 style = "color:#212b56;word-wrap:break-word;"><b>{{secondBook.Book_Name}}</b></h2>
                     <blockquote>
-                                 <p>{{secondBookAuth.Afname}}&nbsp;{{secondBookAuth.Alname}}</p>
+                                 <p>{{secondBook.author}}</p>
                                  <p>ISBN NO: {{secondBook.isbn}} </p>
                                  <footer>{{secondBook.edition}},{{secondBook.publisher}}-{{secondBook.Release_year}}</footer>
                     </blockquote>
@@ -30,9 +30,9 @@
           <div class="card" ng-if="showThirdBook">
               <button ion-button color="light" style="position:relative;left:260px;" ng-click="deleteThird()"><i class="icon ion-close"></i></button>
               <div class="item item-body item-text-wrap">
-                    <h2 style = "color:#a30935;word-wrap:break-word;"><b>{{thirdBook.Book_Name}}</b></h2>
+                    <h2 style = "color:#212b56;word-wrap:break-word;"><b>{{thirdBook.Book_Name}}</b></h2>
                     <blockquote>
-                                 <p>{{thirdBookAuth.Afname}}&nbsp;{{thirdBookAuth.Alname}}</p>
+                                 <p>{{thirdBook.author}}</p>
                                  <p>ISBN NO: {{thirdBook.isbn}} </p>
                                  <footer>{{thirdBook.edition}},{{thirdBook.publisher}}-{{thirdBook.Release_year}}</footer>
                     </blockquote>

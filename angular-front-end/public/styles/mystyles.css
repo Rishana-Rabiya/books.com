@@ -9,9 +9,10 @@
   min-height: 400px;
 }
 .row-footer {
-  margin: 0px auto;
+  top :200px;
+  position :relative;
   padding: 20px 0px;
-  background-color: #AfAfAf;
+  background-color: #e8e5e5;
 }
 .jumbotron {
  height: 200px;

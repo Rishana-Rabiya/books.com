@@ -4,14 +4,9 @@
 
       <form>
         <div class="bar bar-header item-input-inset">
-            <select class="button icon ion-navicon" style="background-color:white;" ng-model="searchData.filter">
-                <option>Title</option>
-                <option>Author</option>
-                <option>Category</option>
-            </select>
             <label class="item-input-wrapper">
 
-                <input type="search" placeholder="Search" ng-model="searchData.search" style="width=400px;" id="searchText">
+                <input type="search" placeholder="Search By Title/Author/Category" ng-model="searchData.search" style="width=400px;" id="searchText">
             </label>
             <button class="button button-clear" ng-click="searchMethod()" id="search">
                 <i class="icon ion-search"></i>
@@ -24,37 +19,48 @@
 
      </div>
      <ion-list ng-if="loggedIn&&searchFilter&&!SearchByCategory" >
-         <ion-item collection-repeat="book in bookss" href="#/app/search/{{book._id}}">
-             <h2 style="word-wrap:break-word;">{{book.Book_Name}}
-                 <span class="badge badge-assertive">{{book.count}}</span>
-
-             </h2>
+         <ion-item collection-repeat="book in bookss" href="#/app/search/{{book._id}}" class="item-thumbnail-left" >
+             <img ng-src="{{}}">
+             <h2 style="color:#1e365e;"><b>{{book.Book_Name}}</b></h2>
+             <span style="font-size:85%">{{book.author}}</span>
+             <p>ISBN NO: {{book.isbn}} </p>
+             <footer>{{book.edition}},{{book.publisher}}-{{book.Release_year}}</footer>
+             <span class="badge badge-assertive">{{book.count}}</span>
+             <span class="badge badge-assertive">{{book.count}}</span>
              <ion-option-button class="button-assertive icon ion-plus-circled" ng-click="addCart(book._id)">
              </ion-option-button>
          </ion-item>
      </ion-list>
         <ion-list ng-if="SearchByCategory&&loggedIn">
-            <ion-item>
-                <h1 style="display:inline;background-color:#d5efdf;font-style:italic;">{{category}}
-                </h1>
+            <ion-item class="item-text-wrap">
+                <h2 style="display:inline;background-color:#d5efdf;font-style:italic;">{{category}}
+                </h2>
                 <button class="button button-clear" style="display:inline;" ng-click="close()">
                     <i class="icon ion-close" ></i>
                 </button>
             </ion-item>
-            <ion-item collection-repeat="book in books | filter:{category:category}" href="#/app/search/{{book._id}}">
-                <h2 style="word-wrap:break-word;">{{book.Book_Name}}
-                    <span class="badge badge-assertive">{{book.count}}</span></h2>
+            <ion-item collection-repeat="book in books | filter:{category:category}" href="#/app/search/{{book._id}}" class="item-thumbnail-left">
+                <img ng-src="{{}}">
+                <h2 style="color:#1e365e;"><b>{{book.Book_Name}}</b></h2>
+                <span style="font-size:85%">{{book.author}}</span>
+                <p>ISBN NO: {{book.isbn}} </p>
+                <footer>{{book.edition}},{{book.publisher}}-{{book.Release_year}}</footer>
+                <span class="badge badge-assertive">{{book.count}}</span>
+
                     <ion-option-button class="button-assertive icon ion-plus-circled" ng-click="addCart(book._id)">
                     </ion-option-button>
                 </ion-item>
             </ion-list>
 
             <ion-list ng-if="loggedIn&&!SearchByCategory&&!searchFilter">
-                <ion-item collection-repeat="book in books" href="#/app/search/{{book._id}}">
-                    <h2 style="word-wrap:break-word;">{{book.Book_Name}}
-                        <span class="badge badge-assertive">{{book.count}}</span>
-                    </h2>
-                    <ion-option-button class="button-assertive icon ion-plus-circled" ng-click="addCart(book._id)">
+                <ion-item collection-repeat="book in books" href="#/app/search/{{book._id}}" class="item-thumbnail-left">
+                    <img ng-src="{{}}">
+                    <h2 style="color:#1e365e"><b>{{book.Book_Name}}</b></h2>
+                    <span style="font-size:85%">{{book.author}}</span>
+                    <p>ISBN NO: {{book.isbn}} </p>
+                    <footer>{{book.edition}},{{book.publisher}}-{{book.Release_year}}</footer>
+                    <span class="badge badge-assertive">{{book.count}}</span>
+                    <ion-option-button class="button-primary icon ion-plus-circled" ng-click="addCart(book._id)">
                     </ion-option-button>
                 </ion-item>
             </ion-list>

@@ -61,6 +61,19 @@ exports.findAll = function(callback){
 }
 
 
+exports.DeleteFine = function(id,callback){
+    Fine.findByIdAndRemove(id,function(err,fine){
+        if(err) throw err
+        if(fine){
+            callback(fine);
+        }
+
+    });
+}
+
+
+
+
 
 
 

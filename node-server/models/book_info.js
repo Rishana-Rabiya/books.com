@@ -17,8 +17,8 @@ var Book = mongoose.Schema({
     type:String
   },
   author:{
-    type:mongoose.Schema.Types.ObjectId,
-		required:true
+    type:String,
+	required:true
   },
   edition:{
     type:String
@@ -34,6 +34,10 @@ var Book = mongoose.Schema({
   },
 	publisher :{
 		type:String
+	},
+	image :{
+		type:String
+
 	}
 
 });

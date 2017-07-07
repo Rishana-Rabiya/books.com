@@ -325,12 +325,9 @@ $scope.updateStatus=function(status,order_id,book_id,email){
         ngDialog.open({ template: '<p>The Action could not be performed</p>',plain: true});
 
     });
-
-/*socket.on('new',function(data){
-if($scope.status!=data.status){
-ngDialog.open({ template: '<p>The Action could not be performed</p>',plain: true});
 }
-});*/
-}
+/*$scope.closeFine = function(id){
+    FineFactory.getFineUrl.delete({id:id});
+}*/
 
 }]);

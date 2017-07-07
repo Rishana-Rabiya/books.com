@@ -17,6 +17,17 @@ fineRouter.route('/')
     }
   });
 });
+fineRouter.route('/:id')
+.delete(function (req, res, next) {
+  operations.DeleteFine(req.params.id,function(result){
+    if(result){
+      res.send({fine:result});
+    }
+    else{
+        res.send({fine:"failure"});
+    }
+  });
+});
 
 
 

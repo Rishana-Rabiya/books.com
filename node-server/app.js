@@ -43,7 +43,7 @@ db.once('open', function () {
     // we're connected!
     console.log("Connected correctly to server");
 });
-/*db.collection('orders').drop(function () {
+/*db.collection('authors').drop(function () {
     db.close();
 });*/
 app.use(multer({dest: './uploads/'}).single('photo'));

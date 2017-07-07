@@ -1,6 +1,6 @@
 angular.module('lmsIonicApp.controllers', [])
 
-.controller('AppCtrl',function ($scope, $rootScope, $ionicModal, $localStorage,$ionicPopup,AuthFactory,CategoryFactory) {
+.controller('AppCtrl',function ($scope, $rootScope, $ionicModal, $localStorage,$ionicPopup,$state,AuthFactory,CategoryFactory) {
 
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
@@ -45,7 +45,10 @@ angular.module('lmsIonicApp.controllers', [])
 
     AuthFactory.login($scope.loginData);
 
+
     $scope.closeLogin();
+
+
 
   };
 
@@ -197,7 +200,7 @@ $localStorage.store(SHOW_SECOND_BOOK,"false");
 $localStorage.store(SHOW_THIRD_BOOK,"false");*/
 
 
-.controller('SearchController',function ($scope, $rootScope,$stateParams,$localStorage,$ionicPopup,$window,AuthFactory,CategoryFactory,BookFactory,OrderFactory,SocketFactory) {
+.controller('SearchController',function ($scope, $rootScope,$stateParams,$localStorage,$ionicPopup,$window,$state,AuthFactory,CategoryFactory,BookFactory,OrderFactory,SocketFactory) {
     $scope.books = [];
     $scope.auth = {};
     $scope.SearchByCategory=false;
@@ -242,11 +245,8 @@ $localStorage.store(SHOW_THIRD_BOOK,"false");*/
       $localStorage.remove(THIRD_BOOK);*/
 
     $scope.firstBook=$localStorage.getObject(FIRST_BOOK,'{}');
-    $scope.firstBookAuth=$localStorage.getObject(FIRST_AUTHOR,'{}');
     $scope.secondBook=$localStorage.getObject(SECOND_BOOK,'{}');
-    $scope.secondBookAuth=$localStorage.getObject(SECOND_AUTHOR,'{}');
     $scope.thirdBook=$localStorage.getObject(THIRD_BOOK,'{}');
-    $scope.thirdBookAuth=$localStorage.getObject(THIRD_AUTHOR,'{}');
     $scope.count=$localStorage.get(COUNT_KEY,0);
     $scope.showFirstBook  =$localStorage.get(SHOW_FIRST_BOOK,"false");
     $scope.showSecondBook=$localStorage.get(SHOW_SECOND_BOOK,"false");
@@ -291,20 +291,27 @@ $localStorage.store(SHOW_THIRD_BOOK,"false");*/
     $scope.$on("$ionicView.beforeEnter", function(event, data){
        // handle event
        $scope.searchPage = true;
-    BookFactory.getBookUrl().get(function(response){
+
+       if($scope.loggedIn){
+       BookFactory.getBookUrl().get(function(response){
               $scope.books = response.book;
               $scope.change=true;
           },
           function(response){
               console.log("insuccessful category search");
           });
+          }
 
         });
 
+
+
         //category listing
+        if($scope.loggedIn){
         CategoryFactory.getCatUrl().get(function(response){
             $scope.categories = response.message;
         });
+    }
 
         //category wise search
         $scope.categoryClick = function(category){
@@ -387,7 +394,6 @@ $scope.addCart = function (id) {
         },
         function(response){
             $localStorage.storeObject(FIRST_BOOK, response.book);
-            $localStorage.storeObject(FIRST_AUTHOR, response.author);
             $localStorage.store(SHOW_FIRST_BOOK,true);
             $scope.count++;
             $localStorage.store(COUNT_KEY, $scope.count);
@@ -405,7 +411,6 @@ $scope.addCart = function (id) {
         },
         function(response){
             $localStorage.storeObject(SECOND_BOOK, response.book);
-            $localStorage.storeObject(SECOND_AUTHOR, response.author);
             $localStorage.store(SHOW_SECOND_BOOK,true);
             $scope.showSecondBook = true;
             $scope.count++;
@@ -424,7 +429,6 @@ $scope.addCart = function (id) {
         },
         function(response){
             $localStorage.storeObject(THIRD_BOOK, response.book);
-            $localStorage.storeObject(THIRD_AUTHOR, response.author);
             $localStorage.store(SHOW_THIRD_BOOK,true);
             $scope.showThirdBook = true;
             $scope.count++;
@@ -482,7 +486,6 @@ $scope.deleteFirst=function(){
     console.log($scope.count);
     $localStorage.store(COUNT_KEY, $scope.count);
     $localStorage.remove(FIRST_BOOK);
-    $localStorage.remove(FIRST_AUTHOR);
     $localStorage.store(SHOW_FIRST_BOOK,"false");
     $scope.showFirstBook = false;
     //$rootScope.$broadcast("delete");
@@ -493,7 +496,6 @@ $scope.deleteSecond=function(){
     $scope.count--;
     $localStorage.store(COUNT_KEY, $scope.count);
     $localStorage.remove(SECOND_BOOK);
-    $localStorage.remove(SECOND_AUTHOR);
     $localStorage.store(SHOW_SECOND_BOOK,"false");
     $scope.showSecondBook = false;
     //$rootScope.$broadcast("delete");
@@ -503,7 +505,6 @@ $scope.deleteSecond=function(){
     $scope.count--;
     $localStorage.store(COUNT_KEY, $scope.count);
     $localStorage.remove(THIRD_BOOK);
-    $localStorage.remove(THIRD_AUTHOR);
     $localStorage.store(SHOW_THIRD_BOOK,"false");
     $scope.showThirdBook = false;
     //$rootScope.$broadcast("delete");

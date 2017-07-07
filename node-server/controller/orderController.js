@@ -7,18 +7,28 @@ var Track = require('../models/track_order');
 
 
 exports.checkExistingOrder=function(email,callback){
-Order.remove({},function(err){if(err)throw err;});
+/*Order.remove({},function(err){if(err)throw err;});
     /*Order.find({},function(err,res){
         console.log(res);
     });*/
+    /*Book.find({},function(err,res){
+        console.log(res);
+    });*/
+
+
+
+    /*Book.remove({},function(err){if(err)throw err;});*/
+        /*Order.find({},function(err,res){
+            console.log(res);
+        });*/
 /*Fine.remove({},function(err){if(err)throw err;});*/
-    Fine.find({},function(err,res){
+/*    Fine.find({},function(err,res){
         if(err)
         throw err;
 
         console.log(res);
 
-    });
+    });*/
     /*Track.find({},function(err,res){
         if(err)
         throw err;

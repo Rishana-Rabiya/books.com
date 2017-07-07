@@ -95,3 +95,7 @@ div.see {
 background-color:#6bdb85;
 color:black;
 }
+.wrapping-list .item-content, .wrapping-list .item {
+    overflow: initial;
+    white-space: initial;
+}

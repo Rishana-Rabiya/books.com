@@ -201,7 +201,7 @@ angular.module('lmsProjectApp')
   var fineFac={};
 
   fineFac.getFineUrl = function(){
-    return $resource(baseURL+"fine/");
+    return $resource(baseURL+"fine/:id");
   }
 
   return fineFac;
