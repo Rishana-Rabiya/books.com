@@ -12,15 +12,15 @@
                 </button>
                 <a class="navbar-brand" ui-sref="app">books</a>
                 <ul class="nav navbar-nav" ng-if="ex&&loggedIn">
-                    <li class="active"><a href="#">Home</a></li>
-                    <li><a href="#">Dashboard</a></li>
-                    <li><a ui-sref="app.liveOrder">Order</a></li>
-                    <li><a ui-sref="app.fineManage">Fine</a></li>
+                    <li><a href="#"><b>Home</b></a></li>
+                    <li><a ui-sref="app.statistics"><b>Dashboard</b></a></li>
+                    <li><a ui-sref="app.liveOrder"><b>Orders</b></a></li>
+                    <li><a ui-sref="app.fineManage"><b>Fine</b></a></li>
                 </ul>
                 <ul class="nav navbar-nav" ng-if="user&&loggedIn">
                     <li class="active"><a href="#">Home</a></li>
-                    <li><a href="#">Status</a></li>
-                    <li><a href="#">History</a></li>
+                    <li><a ui-sref="app.bookStatus">Status</a></li>
+                    <li><a ui-sref="app.bookHistory">History</a></li>
                 </ul>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
@@ -30,7 +30,7 @@
                     </li>
                     <li ng-if="loggedIn">
 
-                    <a> {{email}}</a>
+                    <a>Welcome {{name}}</a>
                     </li>
                     <li ng-show="loggedIn" >
                         <a ng-click="logOut()">
@@ -76,18 +76,18 @@
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">Disable
             <span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li><a href="#">Books</a></li>
+              <li><a ui-sref="app.bookDisable">Books</a></li>
               <li><a href="#">Category</a></li>
-              <li><a href="#">User</a></li>
+             <li><a ui-sref="app.disableUser">User</a></li>
             </ul>
           </li>
           <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">Enable
             <span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li><a href="#">Books</a></li>
+              <li><a ui-sref="app.bookEnable">Books</a></li>
               <li><a href="#">Category</a></li>
-              <li><a href="#">User</a></li>
+              <li><a ui-sref="app.enableUser">User</a></li>
             </ul>
           </li>
 
@@ -99,7 +99,7 @@
                 <span class="glyphicon glyphicon-log-in"></span> Login</a>
                 </li>
                 <li ng-if="loggedIn">
-                <a> Welcome {{email}}</a>
+                <a> Welcome Admin</a>
                 </li>
                 <li ng-if="loggedIn">
                 <a ng-click="logOut()">
@@ -109,7 +109,7 @@
         </div>
       </div>
     </nav>
-    <header class="jumbotron">
+    <header class="jumbotron" ng-show="!admin">
 
       <!-- Main component for a primary marketing message or call to action -->
 
@@ -117,7 +117,7 @@
           <div class="row row-header">
               <div class="col-xs-12 col-sm-8" >
 
-                <p style="background-color:#f7f7f7;position:relative;top:100px;width:600px;left:200px;color:#0c1523">So Many Books..So Little Time</p>
+                <p style="background-color:#f7f7f7;position:relative;top:100px;width:600px;left:200px;color:#2a9188">So Many Books..So Little Time</p>
               </div>
               <div class="col-xs-12 col-sm-2">
               <p style="padding:20px;"></p>

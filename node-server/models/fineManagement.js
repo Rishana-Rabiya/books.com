@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var Fine = mongoose.Schema({
     order_id :{
-        type:mongoose.Schema.Types.ObjectId,
+        type:String,
         required:true
     },
     Dof :{
@@ -12,8 +12,7 @@ var Fine = mongoose.Schema({
     },
     DoIR :{
         type:Date,
-        default:Date.now,
-        default: +new Date() + 15*24*60*60*1000
+        default: +new Date() + 7*24*60*60*1000
     },
     DoR :{
         type:Date

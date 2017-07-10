@@ -1,0 +1,33 @@
+<div class = "container" style="margin:0 auto;border:1px solid" ng-show="loggedIn">
+    <div class = "row">
+        <div class="col col-sm-6" style="position:relative;left:250px">
+            <h3 style="color:#19335e"> Today's Statistics
+                <blockquote> {{date}}</blockquote>
+            </h3>
+            <div class = "div1" display:inline-block>
+            </div>
+            <span display:inline-block> Pending Request </span>
+            <div> &nbsp;</div>
+            <div class = "div2">
+            </div>
+            <span display:inline> Approved Request </span>
+            <div> &nbsp;</div>
+            <div class = "div3" display:inline>
+            </div>
+            <span  display:inline> Accepted Book</span>
+            <div> &nbsp;</div>
+            <div class = "div4" display:inline>
+            </div>
+            <span  display:inline> Returned Book</span>
+            <div> &nbsp;</div>
+            <div class = "div5" display:inline>
+            </div>
+            <span  display:inline> Rejected Requests</span>
+        </div>
+        <div class = "col col-sm-4" style="position:relative;width:350px;height:400px;top:100px">
+            <canvas id="pie" class="chart chart-pie"
+            chart-data="data" chart-labels="labels" chart-options="options">
+            </canvas>
+        </div>
+    </div>
+</div>

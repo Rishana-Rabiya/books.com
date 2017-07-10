@@ -10,7 +10,7 @@ var emailExistence = require('email-existence');
 
 router.get('/login/:id', function (req, res, next) {
   console.log("inside the get");
-    User.findOne({email:req.params.id},{type:1,_id: 0} ,function (err, type) {
+    User.findOne({email:req.params.id},{type:1,firstName:1,_id: 0} ,function (err, type) {
         if (err) throw err;
         console.log(type);
         res.json(type);
@@ -52,8 +52,8 @@ router.post('/register', function (req, res, next) {
    var temp = req.body;
    newUser.email = temp.email;
    newUser.password = newUser.encryptPassword(temp.password);
-   newUser.firstName =temp.fname;
-   newUser.lastName=temp.lname;
+   newUser.firstName =temp.firstname;
+   newUser.lastName=temp.lastname;
    newUser.type = "pending_user";
    newUser.save(function(err, result) {
      if (err) {

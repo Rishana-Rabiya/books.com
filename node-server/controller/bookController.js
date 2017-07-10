@@ -2,10 +2,13 @@
 //var Author = require('../models/author_info');
 var mongoose = require('mongoose');
 var Book = require('../models/book_info');
+var unique = require('../routes/unique.js');
 
 
 exports.createBook = function(data,callback){
+        unique.idGenerator(function(id){
             Book.create({
+                book_id:id,
                 isbn : data.isbn,
                 Book_Name: data.title,
                 category: data.cat,
@@ -20,6 +23,7 @@ exports.createBook = function(data,callback){
                 throw err;
                 callback(result);
             });
+        });
         }
 
 
@@ -36,6 +40,7 @@ exports.findBook = function(callback){
         {
             $group : {
                 _id : "$isbn",
+                isbn:  {$first:'$isbn'},
                 Book_Name : {$first:'$Book_Name'},
                 Release_year : { $first: '$Release_year' },
                 edition : {$first:'$edition'},
@@ -103,6 +108,7 @@ exports.findAuthor=function(data,callback){
 }
 
 exports.bookAbook=function(id,callback){
+    console.log("inside the bookAbook");
     Book.findByIdAndUpdate(id, {
             $set: {
                 status: 'not available'
@@ -127,4 +133,18 @@ exports.makeAvailable=function(id,callback){
             console.log(book);
             callback(book);
         });
+}
+exports.listsAvailable = function(callback){
+    Book.find({status:"available"},function(err,res){
+        if(err)
+        throw err;
+        callback(res);
+    })
+}
+exports.listsNotAvailable = function(callback){
+    Book.find({status:"not available"},function(err,res){
+        if(err)
+        throw err;
+        callback(res);
+    })
 }

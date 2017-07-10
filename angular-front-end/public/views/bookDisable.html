@@ -1,0 +1,29 @@
+<div class = "container" style="position: relative;bottom:200px" ng-show="loggedIn">
+    <div class="tableB">
+    </div>
+    <span style="position :relative;top:250px;height:50px;background-color:#69abb2;left:410px"><h2> DISABLE A BOOK </h2></span>
+    <div>
+        <table ng-show="loggedIn" style="position:relative;top:250px">
+            <thead>
+                <tr>
+                    <td><b>BOOK_ID</b></td>
+                    <td><b>BOOK NAME</b></td>
+                    <td><b>ISBN</b></td>
+                    <td><b>ACTION</b></td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="book in books | startFrom:(currentPage-1)*pageSize | limitTo:pageSize">
+                    <td>{{book.book_id}}</td>
+                    <td>{{book.Book_Name}}</td>
+                    <td>{{book.isbn}}</td>
+                    <td>
+                        <button class='btn' style="background-color:#4367a5;color:white" ng-click="ActionBook(book._id,disable)"> Disable </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div  style = "position:relative;left:90px;top:300px">
+            <ul uib-pagination total-items="books.length" ng-model="currentPage" items-per-page="pageSize"></ul>﻿
+        </div>
+</div>

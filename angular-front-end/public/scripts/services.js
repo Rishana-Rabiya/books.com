@@ -30,7 +30,7 @@ angular.module('lmsProjectApp')
     }
 }])
 
-.factory('AuthFactory', ['$resource', '$http','$localStorage', '$rootScope', '$window', 'baseURL', 'ngDialog', function($resource, $http, $localStorage, $rootScope, $window, baseURL, ngDialog){
+.factory('AuthFactory', ['$resource', '$http','$localStorage', '$rootScope', '$window','$state','baseURL', 'ngDialog', function($resource, $http, $localStorage, $rootScope, $window,$state, baseURL, ngDialog){
 
     var authFac = {};
     var TOKEN_KEY = 'Token';
@@ -102,6 +102,7 @@ angular.module('lmsProjectApp')
       console.log("log");
       $resource(baseURL+"users/logout").get(function(response){
       destroyUserCredentials();
+      $state.go('app',{},{reload:true});
 
       },function(response){})
 
@@ -170,6 +171,20 @@ angular.module('lmsProjectApp')
   bookFac.getUrlBook = function(){
     return $resource(baseURL+"books/upload")
   }
+  bookFac.getName = function(){
+      return $resource(baseURL+"books/find/:id")
+  }
+  bookFac.getBooks = function(){
+      return $resource(baseURL+"books/list/:id")
+  }
+  bookFac.bookActionUrl=function(){
+      return $resource(baseURL + "books/action/:id", null, {
+           'update': {
+               method: 'PUT'
+           }
+       });
+  }
+
   return bookFac;
 
 }])
@@ -204,9 +219,40 @@ angular.module('lmsProjectApp')
     return $resource(baseURL+"fine/:id");
   }
 
+
+
   return fineFac;
 
 }])
+
+
+
+.factory('UserFactory', ['$resource','baseURL',function($resource,baseURL){
+  var userFac={};
+  userFac.getUserUrl = function(){
+      return $resource(baseURL+"norm/:id");
+  }
+ userFac.userActionUrl=function(){
+     return $resource(baseURL + "norm/action/:id", null, {
+          'update': {
+              method: 'PUT'
+          }
+      });
+ }
+ userFac.getOrderStatusUrl= function(){
+    return $resource(baseURL+"norm/order/:id");
+ }
+ userFac.getBookStatusUrl=function(){
+      return $resource(baseURL+"norm/book/:id");
+
+ }
+  return userFac;
+
+}])
+
+
+
+
 
 
 

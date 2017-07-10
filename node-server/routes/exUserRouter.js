@@ -78,24 +78,29 @@ exUserRouter.route('/')
               if(resp){
                   fineOperations.Return(data,function(result){
                       if(result){
-                          orderOperations.changeStatusOrder(data,function(order){
-                              if(order){
-                                  trackOperations.trackOrder(data,function(result){
-                                      if(result)
-                                      res.json({status:result.status});
+                          operations.makeAvailable(data.books_id,function(resp){
+                              if(resp){
+                                  orderOperations.changeStatusOrder(data,function(order){
+                                      if(order){
+
+                                          trackOperations.trackOrder(data,function(result){
+                                              if(result)
+                                              res.json({status:result.status});
+                                          });
+
+                                      }
+
                                   });
+                                }
+                            });
+                        }
+                    });
+                }
 
-                              }
-
-                             });
-                         }
-
-                     });
-                 }
-                 else {
+                else {
                     res.json({status:"failure"});
                  }
-             });
+            });
 
         }
      else if(data.status=="Approved"){
@@ -120,6 +125,18 @@ exUserRouter.route('/')
      else {
         res.json({status:"failure"});
      }
+});
+
+
+
+exUserRouter.route('/')
+.get(function (req, res, next) {
+
+    trackOperations.getCount(function(ary,reqCount){
+            if(ary||reqCount){
+            res.json({count:reqCount,ary:ary});
+            }
+    });
 });
 
 

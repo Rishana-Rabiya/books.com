@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('lmsProjectApp', ['ui.router','ngResource','ngDialog','ngFileUpload'])
+angular.module('lmsProjectApp', ['ui.router','ngResource','ngDialog','ngFileUpload','ui.bootstrap','chart.js'])
 .config(function($stateProvider, $urlRouterProvider) {
         $stateProvider
             // route for the home page
@@ -12,6 +12,7 @@ angular.module('lmsProjectApp', ['ui.router','ngResource','ngDialog','ngFileUplo
                         controller  : 'HeaderController'
                     },
                     'content': {
+                        templateUrl : 'views/home.html'
 
                     },
                     'footer': {
@@ -42,6 +43,15 @@ angular.module('lmsProjectApp', ['ui.router','ngResource','ngDialog','ngFileUplo
                     }
                 }
             })
+            .state('app.bookStatus', {
+                url:'bookStatus',
+                views: {
+                    'content@': {
+                        templateUrl : 'views/userBookStatus.html',
+                        controller  : 'UserController'
+                    }
+                }
+            })
 
             .state('app.exCreate', {
                 url:'exCreate',
@@ -53,6 +63,69 @@ angular.module('lmsProjectApp', ['ui.router','ngResource','ngDialog','ngFileUplo
                     }
                 }
             })
+            .state('app.bookDisable', {
+                url:'bookDisable',
+                views: {
+                    'content@': {
+                       templateUrl :'views/bookDisable.html',
+                       controller  :'BookController'
+
+                    }
+                }
+            })
+            .state('app.bookEnable', {
+                url:'bookEnable',
+                views: {
+                    'content@': {
+                       templateUrl :'views/bookEnable.html',
+                       controller  :'BookController'
+
+                    }
+                }
+            })
+
+            .state('app.bookHistory', {
+                url:'bookHistory',
+                    views: {
+                        'content@': {
+                             templateUrl :'views/UserHistory.html',
+                             controller  :'UserController'
+
+                            }
+                    }
+            })
+            .state('app.statistics', {
+                url:'statistics',
+                views: {
+                    'content@': {
+                       templateUrl :'views/statistics.html',
+                       controller  :'StatisticsController'
+
+                    }
+                }
+            })
+            .state('app.enableUser', {
+                url:'enableUser',
+                views: {
+                    'content@': {
+                       templateUrl :'views/normalUser.html',
+                       controller  :'UserController'
+
+                    }
+                }
+            })
+            .state('app.disableUser', {
+                url:'disableUser',
+                views: {
+                    'content@': {
+                       templateUrl :'views/userDisable.html',
+                       controller  :'UserController'
+
+                    }
+                }
+            })
+
+
 
             .state('app.liveOrder', {
                 url:'liveOrder',
@@ -76,4 +149,9 @@ angular.module('lmsProjectApp', ['ui.router','ngResource','ngDialog','ngFileUplo
             })
 
             $urlRouterProvider.otherwise('/');
+          })
+          .filter('startFrom',function(){
+              return function(data,start){
+                  return data.slice(start);
+              }
           });

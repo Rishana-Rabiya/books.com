@@ -1,3 +1,9 @@
+<div class = "row" ng-show="loggedIn">
+<div class = "col col-sm-4">
+
+
+<span class ="badge" style="position:relative;left:30px;background-color:#69abb2;top:40px;"><h1> Add a Executive User</h1> </span>
+<div class ="container" style="position:relative;top:100px;">
 <div class="outline" ng-show="loggedIn">
 </div>
 <div class="exUser" ng-show="loggedIn">
@@ -28,6 +34,11 @@
     <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pwd" ng-model= "exData.password" required>
     <span ng-show="userForm.pwd.$error.required && !userForm.pwd.$pristine" class="help-block">Password is required.</span>
   </div>
-  <button class="btn btn-default" ng-disabled="userForm.$invalid">Add User</button>
+  <button class="btn btn-default" ng-disabled="userForm.$invalid" style="background-color:#69abb2;position:relative;left:340px;">Add User</button>
 </form>
+</div>
+</div>
+</div>
+<div class = "col col-sm-5" style="border:1px solid; position:relative;left:450px;height:673px">
+</div>
 </div>

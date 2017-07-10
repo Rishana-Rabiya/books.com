@@ -42,12 +42,14 @@ angular.module('lmsIonicApp', ['ionic', 'lmsIonicApp.controllers','lmsIonicApp.s
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
 
-    .state('app', {
+
+  .state('app', {
     url: '/app',
     abstract: true,
     templateUrl: 'templates/home.html',
     controller: 'AppCtrl'
   })
+
 
   .state('app.search', {
     url: '/search',

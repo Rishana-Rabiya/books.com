@@ -4,37 +4,43 @@ var Book = require('../models/book_info');
 var mail = require('../routes/mail');
 var Fine = require('../models/fineManagement');
 var Track = require('../models/track_order');
-
+var User = require('../models/users.js');
 
 exports.checkExistingOrder=function(email,callback){
-/*Order.remove({},function(err){if(err)throw err;});
-    /*Order.find({},function(err,res){
+
+
+
+/*Order.remove({},function(err){if(err)throw err;});*/
+    Order.find({},function(err,res){
         console.log(res);
-    });*/
+    });
     /*Book.find({},function(err,res){
         console.log(res);
     });*/
 
-
+    /*User.find({},function(err,res){
+        console.log(res);
+    });*/
 
     /*Book.remove({},function(err){if(err)throw err;});*/
         /*Order.find({},function(err,res){
             console.log(res);
         });*/
-/*Fine.remove({},function(err){if(err)throw err;});*/
-/*    Fine.find({},function(err,res){
+/*Fine.remove({},function(err){if(err)throw err;});
+   Fine.find({},function(err,res){
         if(err)
         throw err;
 
         console.log(res);
 
     });*/
-    /*Track.find({},function(err,res){
+    /*Track.remove({},function(err){if(err)throw err;});*/
+   /*Track.find({},function(err,res){
         if(err)
         throw err;
         console.log(res);
     });*/
-   /*Book.findByIdAndUpdate("595d16e615a6e81392ff802e", {
+   /*Book.findByIdAndUpdate("595fbd8134ab597f8179df20", {
             $set: {
                 status: 'not available'
             }
@@ -45,8 +51,7 @@ exports.checkExistingOrder=function(email,callback){
             console.log(book);
             callback(book);
         });
-        /*Track
-        */
+*/
 
 
 
@@ -57,8 +62,7 @@ exports.checkExistingOrder=function(email,callback){
 
 
 
-
-    Order.find({$or:[{status:"Accepted"},{status:"Approved"},{status:"Requested"}]},{email:email},function(err,res){
+    Order.find({email:email},{$or:[{status:"Accepted"},{status:"Approved"},{status:"Requested"}]},function(err,res){
         if(err)
         throw err;
         console.log(res.length);
@@ -84,8 +88,8 @@ exports.changeStatusOrder=function(data,callback){
         })
         .exec(function (err, order) {
             if (err) throw err;
-            mail.mailSend(data.email,"The status of the order with reference to order id "+data.order_id+
-            "has been changed to "+data.status,"New status of the order");
+            mail.mailSend(data.email,"The status of the lending book-"+order.book_name+" ,with reference to order id   "+order.order_id+
+            " has been changed to "+data.status,"New status of the order");
             callback(order);
         });
 
@@ -95,5 +99,81 @@ exports.findOrderWithStatus=function(order_id,status,callback){
         if(err)
         throw err;
         callback(response);
+    });
+}
+
+
+exports.findRequest=function(callback){
+Order.find({status:"Requested"},function(err,res){
+    if(err)
+    throw err;
+    console.log(res);
+    callback(res);
+});
+}
+
+
+exports.findStatusUser = function(email,callback){
+    console.log(email);
+
+    var date2 = +new Date() - 7*24*60*60*1000;
+    var array = [];
+    Track.find({status:"Requested",date:{$gte:date2}},function(err,res){
+        if(err)
+        throw err;
+        console.log("here",res);
+        if(res)
+        {
+            res.forEach(function(element,index){
+                var id = element.order_id;
+                console.log(email);
+                Order.findOne({_id:id,email:email},function(err,result){
+                    console.log(result);
+                    if(result){
+                        array.push(result);
+                        console.log(array);
+                        if(index==res.length-1){
+                            callback(array);
+                        }
+                    }
+                })
+
+            });
+        }
+
+    });
+}
+
+exports.findOrderWithEmail=function(email,callback){
+    var array =[];
+    Order.find({email:email},function(err,response){
+        if(err)
+        throw err;
+
+        if(response){
+            response.forEach(function(element,index){
+                Track.findOne({order_id:element._id,status:element.status},function(err,res){
+                    console.log(res);
+                    if(err)
+                    throw err;
+                    if(res){
+                    var new1 ={
+                        order_id:res.order_id,
+                        status:res.status,
+                        book_name:element.book_name,
+                        date:res.date
+                    }
+                    console.log("index",index);
+                    array.push(new1);
+                    if(array.length==response.length){
+                        callback(array);
+                    }
+                }
+
+
+                });
+
+            });
+        }
     });
 }

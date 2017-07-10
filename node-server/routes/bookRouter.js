@@ -62,6 +62,59 @@ bookRouter.route('/find/:id')
 
     });
 });
+bookRouter.route('/list/:id')
+.get(verify.verifyUser,function(req,res,next){
+    var id = req.params.id;
+    if(id=="available"){
+        operations.listsAvailable(function(result){
+            if(result){
+                res.json({books:result});
+            }
+        });
+
+    }
+    else if(id=="not available"){
+        operations.listsNotAvailable(function(result){
+            if(result){
+                res.json({books:result});
+            }
+        });
+
+    }
+
+});
+
+
+bookRouter.route('/action')
+.put(verify.verifyUser,function(req,res,next){
+    var id = req.body.id;
+    var flag = req.body.flag;
+    console.log(id,flag);
+    if(flag=="enable"){
+        operations.makeAvailable(id,function(result){
+            if(result){
+                res.json({books:result});
+            }
+        });
+
+    }
+    else if(flag=="disable"){
+        console.log("inside the disable function");
+        operations.bookAbook(id,function(result){
+            if(result){
+                res.json({books:result});
+            }
+        });
+
+    }
+
+});
+
+
+
+
+
+
 
 
 

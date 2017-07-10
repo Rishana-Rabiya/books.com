@@ -1,17 +1,21 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var Book = mongoose.Schema({
+	book_id: {
+		type:String,
+		required:true
+	},
 	isbn : {
 		type: String,
 		required:true
 	},
 	Book_Name: {
 		type: String,
-    required:true
+    	required:true
 	},
  category: {
 	  type: String,
-    required:true
+    	required:true
 	},
   Release_year: {
     type:String
@@ -37,7 +41,6 @@ var Book = mongoose.Schema({
 	},
 	image :{
 		type:String
-
 	}
 
 });

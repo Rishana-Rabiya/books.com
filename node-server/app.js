@@ -14,11 +14,14 @@ var exUserRouter = require('./routes/exUserRouter');
 var orderRouter = require('./routes/orderRouter');
 var catRouter = require('./routes/categoryRouter');
 var fineRouter = require('./routes/fineRouter');
+var normRouter = require('./routes/normUserRouter');
 var multer = require('multer');
 var app = express();
 var mongoose = require('mongoose');
 const flash = require('connect-flash');
 var config = require('./config');
+//var siofu = require("socketio-file-upload");
+//app.use(siofu.router);
 
 //file size limit
 //app.use(bodyParser.urlencoded({limit: '50mb'}));
@@ -43,9 +46,9 @@ db.once('open', function () {
     // we're connected!
     console.log("Connected correctly to server");
 });
-/*db.collection('authors').drop(function () {
+/*db.collection('books').drop(function () {
     db.close();
-});*/
+})*/
 app.use(multer({dest: './uploads/'}).single('photo'));
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -72,7 +75,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // a middleware with no mount path; gets executed for every request to the app
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
-  res.header('Access-Control-Allow-Methods', '*');
+  res.header('Access-Control-Allow-Methods', "GET, POST, OPTIONS, PUT, DELETE");
   res.header("Access-Control-Allow-Headers", "content-type,x-access-token");
 
   next();
@@ -85,6 +88,7 @@ app.use('/category',catRouter);
 app.use('/order',orderRouter);
 app.use('/executive',exUserRouter);
 app.use('/fine',fineRouter);
+app.use('/norm',normRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

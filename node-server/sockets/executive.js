@@ -4,6 +4,8 @@ var operations = require('../controller/bookController');
 var orderOperations = require('../controller/orderController');
 var fineOperations = require('../controller/fineController');
 var trackOperations = require('../controller/trackOrderController');
+//var siofu = require("socketio-file-upload");
+var unique = require('../routes/unique');
 
 
 
@@ -12,6 +14,9 @@ module.exports = function (io) {
     io.on('connection', (socket) => {
 
     console.log('made socket connection', socket.id);
+//    var uploader = new siofu();
+//    uploader.dir = "../uploads";
+    //uploader.listen(socket);
     socket.on('order', function(data){
 
         temp(data,function(total,is){
@@ -40,38 +45,53 @@ var temp = function(data,callback){
     var is = [];
     var ary =[]
     var i =0;
+
     data.forEach(function(element,index){
         console.log("index",index);
         if(index==(data.length-1)){
             console.log("last");
         }
         else {
-            console.log("operatiodnfsd");
+
             console.log(element);
             operations.findAbook(element,function(result){
             if(result){
                 console.log(result);
                 console.log("available",result);
-                Order.create({
-                    email:email,
-                    book_id:result._id,
-                    status:"Requested",
-                },
-                function(err,response){
-                    console.log("new order",response);
-                    if(err)
-                    throw err;
-                    operations.bookAbook(result._id,function(res){
-                        if(res){
-                            total.push(response);
-                            console.log(total);
-                            if((is.length)+(total.length)==data.length-1){
-                                return callback(total,is);
-                        }
-                        }
+                unique.idGenerator(function(id){
+                    if(id){
+                        Order.create({
+                            order_id:id,
+                            email:email,
+                            book_id:result._id,
+                            status:"Requested",
+                            book_name:result.Book_Name
+                        },
+                        function(err,response){
+                            console.log("new order",response);
+                            if(err)
+                            throw err;
+                            operations.bookAbook(result._id,function(res){
+                                if(res){
+                                    var temp = {order_id:response._id,
+                                    status:response.status};
+                                    trackOperations.trackOrder(temp,function(track){
+                                        if(track){
+                                            total.push(response);
+                                            console.log(total);
+                                            if((is.length)+(total.length)==data.length-1){
+                                                return callback(total,is);
+                                            }
+
+                                        }
+                                    });
+                                }
+                            });
+                        });
+
+                    }
                 });
-            });
-        }
+            }
             else {
                 is.push(element);
                 if((is.length)+(total.length)==data.length-1)

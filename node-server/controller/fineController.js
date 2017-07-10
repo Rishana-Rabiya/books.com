@@ -4,7 +4,7 @@ var mongoose = require('mongoose');
 exports.Accept = function(data,callback){
   console.log(data);
   Fine.create({
-    order_id: data.order_id
+    order_id: data.id
   },
   function(err,fine){
     if(err) throw err
@@ -15,7 +15,7 @@ exports.Accept = function(data,callback){
 
 exports.Return = function(data,callback){
   console.log(data);
-  Fine.findOne({order_id:data.order_id},function(err,res){
+  Fine.findOne({order_id:data.id},function(err,res){
      if(err)
      throw err;
      console.log(res);
@@ -29,10 +29,12 @@ exports.Return = function(data,callback){
                 if (err) throw err;
                 console.log(fine);
                 if(fine){
+                    console.log("here");
                     var DoR = fine.DoR;
                     var DoIR = fine.DoIR;
-                    var timeDiff = Math.abs(DoR.getTime() - DoIR.getTime());
+                    var timeDiff =  (DoR.getTime() - DoIR.getTime());
                     var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+
                     Fine.findByIdAndUpdate(res._id,{
                         $set: {
                             fine: diffDays
@@ -43,6 +45,7 @@ exports.Return = function(data,callback){
                         callback(result);
                     });
                 }
+
             });
         }
 

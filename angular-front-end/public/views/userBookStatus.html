@@ -1,0 +1,27 @@
+<div class = row>
+<div class = "hed">
+</div>
+<div style= "background-color:#d9dbdd;width:445px;position:relative;left:685px;height:40px">
+<h2 style="color:#497caf;font-family:'chewy';">   Recently Placed Orders</h2>
+</div>
+</div>
+
+<table ng-show="loggedIn" style:"position:relative;bottom:30px;">
+    <thead>
+        <tr style='background-color:white;color:black'>
+            <td><b>ORDER_ID</b></td>
+            <td><b>BOOK NAME</b></td>
+            <td><b> CURRENT STATUS</b></td>
+        </tr>
+    </thead>
+    <tbody id="myTable">
+        <tr ng-repeat="booking in bookings | startFrom:(currentPage-1)*pageSize | limitTo:pageSize">
+            <td>{{ booking.order_id }}</td>
+            <td>{{booking.book_name}}</td>
+            <td>{{booking.status}}</td>
+        </tr>
+    </tbody>
+</table>
+<div style="position:relative;left:170px;top:200px">
+<ul  uib-pagination total-items="bookings.length" ng-model="currentPage" items-per-page="pageSize"></ul>﻿
+</div>

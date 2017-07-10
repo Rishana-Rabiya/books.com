@@ -10,6 +10,10 @@ var Schema = mongoose.Schema;
 
 
 var Order = mongoose.Schema({
+	order_id:{
+		type:String,
+		required :true
+	},
 	status: {
 		type: String,
         required:true
@@ -21,7 +25,11 @@ var Order = mongoose.Schema({
     email: {
     	type:String,
     	required:true
-  	}
+  	},
+	book_name:{
+		type:String,
+		required:true
+	}
 });
 
 

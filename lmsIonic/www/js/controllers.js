@@ -9,6 +9,8 @@ angular.module('lmsIonicApp.controllers', [])
   //$scope.$on('$ionicView.enter', function(e) {
   //});
 
+
+
   // Form data for the login modal
   $scope.loginData = $localStorage.getObject('userinfo','{}');
   $scope.loggedIn = false;
@@ -19,6 +21,9 @@ angular.module('lmsIonicApp.controllers', [])
   $scope.wrong=false;
   var reg = $scope.registration;
   $scope.form =true;
+
+
+
   if(AuthFactory.isAuthenticated()) {
       $scope.loggedIn = true;
       $scope.email = AuthFactory.getEmail();
@@ -42,14 +47,8 @@ angular.module('lmsIonicApp.controllers', [])
   // Perform the login action when the user submits the login form
   $scope.doLogin = function() {
     $localStorage.storeObject('userinfo',$scope.loginData);
-
     AuthFactory.login($scope.loginData);
-
-
     $scope.closeLogin();
-
-
-
   };
 
 
@@ -180,8 +179,11 @@ angular.module('lmsIonicApp.controllers', [])
   }
 }
   $rootScope.$on('login:Successful', function () {
+
       $scope.loggedIn = AuthFactory.isAuthenticated();
       $scope.email = AuthFactory.getEmail();
+
+
   });
 
 
@@ -231,6 +233,8 @@ $localStorage.store(SHOW_THIRD_BOOK,"false");*/
     $scope.change = false;
     $scope.isbns=[];
     $scope.show = false;
+
+
     if(AuthFactory.isAuthenticated()) {
         $scope.loggedIn = true;
         $scope.email = AuthFactory.getEmail();
@@ -313,7 +317,9 @@ $localStorage.store(SHOW_THIRD_BOOK,"false");*/
         });
     }
 
-        //category wise search
+
+
+      //category wise search
         $scope.categoryClick = function(category){
             $rootScope.$broadcast('categoryClick',category);
         }

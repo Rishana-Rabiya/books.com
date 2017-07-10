@@ -1,7 +1,8 @@
+<div class ="foot">
+</div>
 <div> &nbsp</div>
-
-
-<div class="container-fluid" id="bookcreate" ng-show="loggedIn" ng-submit="bookCreate()">
+<span class ="badge" style="position:relative;left:80px;background-color:#69abb2;"><h1> Add a New Book</h1> </span>
+<div class="container-fluid" id="bookcreate" ng-show="loggedIn" ng-submit="bookCreate()" style="position:relative;right:50px;">
 <form class="form-horizontal" name= "bookForm" novalidate>
     <div class="form-group">
       <label class="control-label col-sm-2" for="isbn">ISBN NO:</label>
@@ -24,8 +25,8 @@
     <div class="form-group">
 
         <label class="control-label col-sm-2" for="cat">Category:</label>
-        <div class="row-fluid">
-        <select data-live-search="true" class="selectpicker" data-width="1055px" ng-model="book.cat" required>
+        <div class="row-fluid" style="position:relative;left:224px;width:700px;bottom:20px">
+        <select data-live-search="true" class="selectpicker" data-width="1025px" ng-model="book.cat"  required>
           <option  ng-repeat="category in categories">{{category.CategoryName}}</option>
         </select>
       </div>
@@ -45,7 +46,7 @@
     <div class="form-group">
       <label class="control-label col-sm-2" for="publisher">Edition:</label>
       <div class="col-sm-10">
-        <input type="text" class="form-control" placeholder="Enter the publisher Name" name="ed"  ng-model="book.ed">
+        <input type="text" class="form-control" placeholder="Enter the Edition" name="ed"  ng-model="book.ed">
       </div>
     </div>
     <div class="form-group">
@@ -68,7 +69,7 @@
     <span ng-show="bookForm.isbn.$error.required && !bookForm.isbn.$pristine&&!bookSuccess" class="help-block">ISBN Is Required</span>
     <div class="form-group">
       <div class="col-sm-offset-2 col-sm-10">
-        <button type="submit" class="btn btn-default" ng-disabled="bookForm.$invalid">Create</button>
+        <button type="submit" class="btn btn-default" ng-disabled="bookForm.$invalid" style="background-color:#69abb2">Create</button>
       </div>
     </div>
   </form>

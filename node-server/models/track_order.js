@@ -6,7 +6,7 @@ var Schema = mongoose.Schema;
 
 var Track_order = mongoose.Schema({
 	order_id: {
-		type: String,
+		type:mongoose.Schema.Types.ObjectId,
 		required:true,
 
 	},
