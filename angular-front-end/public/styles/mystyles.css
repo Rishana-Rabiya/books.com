@@ -119,7 +119,7 @@ p.quotes{
 .exUser{
     position:relative;
     width:800px;
-    height:430px;
+    height:500px;
     left:15px;
     border-style: ridge;
     border-collapse:collapse;
@@ -189,7 +189,7 @@ table tr:nth-child(even) {
 }
 .selectpicker{
   position :relative;
-  left:800px;
+
 }
 .tableB
 {

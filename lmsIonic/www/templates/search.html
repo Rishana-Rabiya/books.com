@@ -18,17 +18,20 @@
 
      </div>
      <ion-list ng-if="loggedIn&&searchFilter&&!SearchByCategory" >
-         <ion-item collection-repeat="book in bookss" href="#/app/search/{{book._id}}" class="item-thumbnail-left" >
-             <img ng-src="{{}}">
+         <ion-item collection-repeat="book in bookss | limitTo:numberOfItemsToDisplay2" href="#/app/search/{{book._id}}" class="item-thumbnail-left item-text-wrap item-text-wrap" >
+             <img ng-src={{baseURL+book.image}}>
              <h2 style="color:#1e365e;"><b>{{book.Book_Name}}</b></h2>
              <span style="font-size:85%">{{book.author}}</span>
              <p>ISBN NO: {{book.isbn}} </p>
              <footer>{{book.edition}},{{book.publisher}}-{{book.Release_year}}</footer>
              <span class="badge badge-assertive">{{book.count}}</span>
              <span class="badge badge-assertive">{{book.count}}</span>
-             <ion-option-button class="button-assertive icon ion-plus-circled" ng-click="addCart(book._id)">
+             <ion-option-button class="button-default icon ion-plus-circled" ng-click="addCart(book._id)">
              </ion-option-button>
+             <ion-infinite-scroll distance="5%" on-infinite="loadMoreData2()">
+             </ion-infinite-scroll>
          </ion-item>
+
      </ion-list>
         <ion-list ng-if="SearchByCategory&&loggedIn">
             <ion-item class="item-text-wrap">
@@ -37,23 +40,26 @@
                 <button class="button button-clear" style="display:inline;" ng-click="close()">
                     <i class="icon ion-close" ></i>
                 </button>
+
             </ion-item>
-            <ion-item collection-repeat="book in books | filter:{category:category}" href="#/app/search/{{book._id}}" class="item-thumbnail-left">
-                <img ng-src="{{}}">
+            <ion-item collection-repeat="book in books | filter:{category:category}|limitTo:numberOfItemsToDisplay3" href="#/app/search/{{book._id}}" class="item-thumbnail-left item-text-wrap">
+                <img ng-src={{baseURL+book.image}}>
                 <h2 style="color:#1e365e;"><b>{{book.Book_Name}}</b></h2>
                 <span style="font-size:85%">{{book.author}}</span>
                 <p>ISBN NO: {{book.isbn}} </p>
                 <footer>{{book.edition}},{{book.publisher}}-{{book.Release_year}}</footer>
                 <span class="badge badge-assertive">{{book.count}}</span>
+               <ion-option-button class="button-primary icon ion-plus-circled" ng-click="addCart(book._id)">
+                </ion-option-button>
+            </ion-item>
+            <ion-infinite-scroll distance="5%" on-infinite="loadMoreData1()">
+            </ion-infinite-scroll>
 
-                    <ion-option-button class="button-assertive icon ion-plus-circled" ng-click="addCart(book._id)">
-                    </ion-option-button>
-                </ion-item>
             </ion-list>
 
             <ion-list ng-if="loggedIn&&!SearchByCategory&&!searchFilter">
-                <ion-item collection-repeat="book in books" href="#/app/search/{{book._id}}" class="item-thumbnail-left">
-                    <img ng-src="{{}}">
+                <ion-item collection-repeat="book in books |limitTo:numberOfItemsToDisplay1" href="#/app/search/{{book._id}}" class="item-thumbnail-left item-text-wrap">
+                    <img ng-src={{baseURL+book.image}}>
                     <h2 style="color:#1e365e"><b>{{book.Book_Name}}</b></h2>
                     <span style="font-size:85%">{{book.author}}</span>
                     <p>ISBN NO: {{book.isbn}} </p>
@@ -61,8 +67,13 @@
                     <span class="badge badge-assertive">{{book.count}}</span>
                     <ion-option-button class="button-primary icon ion-plus-circled" ng-click="addCart(book._id)">
                     </ion-option-button>
+
                 </ion-item>
+                <ion-infinite-scroll distance="5%" on-infinite="loadMoreData1()">
+                </ion-infinite-scroll>
             </ion-list>
+
+
 
         </ion-content>
 

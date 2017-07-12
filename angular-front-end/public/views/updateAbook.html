@@ -1,0 +1,67 @@
+<div class="container-fluid" id="bookcreate" ng-show="loggedIn" ng-submit="bookUpdate()" style="position:relative;right:50px;">
+<form class="form-horizontal" name= "bookForm" novalidate>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="isbn">ISBN NO:</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control"  name="isbn" ng-model="books.isbn" disabled>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="title">Title:</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" placeholder="Enter the book name" name="title"  ng-model="books.Book_Name" required>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="aname">Authors</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" placeholder="Enter the author name" name="aname"  ng-model="books.author" required>
+      </div>
+    </div>
+    <div class="form-group">
+
+        <label class="control-label col-sm-2" for="cat">Category:</label>
+        <div class="row-fluid" style="position:relative;left:224px;width:700px;bottom:20px">
+        <select data-live-search="true" class="selectpicker" data-width="1025px" ng-model="books.category"  required>
+          <option  ng-repeat="category in categories">{{category.CategoryName}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="Release year">Release Year:</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" placeholder="Enter the Release Year" name="ryear"  ng-model="books.Release_year">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="stackNo">Stack No:</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" placeholder="Enter the stack no" name="stack" ng-model="books.stack_no" required>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="publisher">Edition:</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" placeholder="Enter the Edition" name="ed"  ng-model="books.edition">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="publisher">Publisher Name:</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" placeholder="Enter the publisher Name" name="pub"  ng-model="books.publisher">
+      </div>
+    </div>
+
+
+    <span ng-show="bookForm.title.$error.required && !bookForm.title.$pristine" class="help-block">Book Name Is Required</span>
+    <span ng-show="bookForm.aname.$error.required && !bookForm.aname.$pristine" class="help-block">Author Name Is Required</span>
+    <span ng-show="bookForm.stack.$error.required && !bookForm.stack.$pristine" class="help-block">Stack id Is Required</span>
+    <span ng-show="bookForm.cat.$error.required && !bookForm.cat.$pristine" class="help-block">Category name Is Required</span>
+
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <button type="submit" class="btn btn-default" ng-disabled="bookForm.$invalid" style="background-color:#69abb2">Update</button>
+      </div>
+    </div>
+  </form>
+</div>

@@ -29,6 +29,10 @@ var Order = mongoose.Schema({
 	book_name:{
 		type:String,
 		required:true
+	},
+	isbn :{
+		type:String
+
 	}
 });
 

@@ -1,0 +1,129 @@
+
+
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" ng-if="!loggedIn||ex||user">
+
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" ui-sref="app"><img src="images/log2.png" style="position:relative;bottom:18px;right:60px;width:50%;"></a>
+                <ul class="nav navbar-nav" ng-if="ex&&loggedIn" style="position:relative;right:160px;">
+                    <li><a href="#"><b>Home</b></a></li>
+                    <li><a ui-sref="app.statistics"><b>Dashboard</b></a></li>
+                    <li><a ui-sref="app.liveOrder"><b>Orders</b></a></li>
+                    <li><a ui-sref="app.fineManage"><b>Fine</b></a></li>
+                </ul>
+                <ul class="nav navbar-nav" ng-if="user&&loggedIn">
+                    <li class="active"><a href="#">Home</a></li>
+                    <li><a ui-sref="app.bookStatus">Status</a></li>
+                    <li><a ui-sref="app.bookHistory">History</a></li>
+                </ul>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li ng-if="!loggedIn"><a ng-click="openLogin()">
+                    <span class="glyphicon glyphicon-log-in"></span> Login</a>
+                    </li>
+                    <li ng-if="loggedIn">
+
+                    <a>Welcome {{name}}</a>
+                    </li>
+                    <li ng-show="loggedIn" >
+                        <a ng-click="logOut()">
+                    <span class="glyphicon glyphicon-log-in"></span> Logout</a></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <nav class="navbar navbar-inverse navbar-fixed-top" ng-if="admin&&loggedIn">
+      <div class="container-fluid">
+          <a class="navbar-brand" ui-sref="app"><img src="images/log2.png" style="position:relative;bottom:18px;right:18px;width:50%;"></a>
+
+        <ul class="nav navbar-nav" style="position:relative;right:105px;">
+
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Add
+            <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+            <li><a <a ng-click="openCat()">Category</a></li>
+              <li ng-class="{active: stateis('app.bookCreate')}"><a ui-sref="app.bookCreate"> Book </a></li>
+              <li><a ui-sref="app.exCreate">Executive User</a></li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Delete
+            <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a ui-sref="app.deleteBook">Books</a></li>
+              <li><a ng-click="delCat()">Category</a></li>
+
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Edit
+            <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a ui-sref="app.updateBook">Books</a></li>
+              <li><a ng-click ="updateCat()">Category</a></li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Disable
+            <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a ui-sref="app.bookDisable">Books</a></li>
+              <li><a ng-click="openDisCat()">Category</a></li>
+             <li><a ui-sref="app.disableUser">User</a></li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Enable
+            <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a ui-sref="app.bookEnable">Books</a></li>
+              <li><a ng-click="openEnCat()">Category</a></li>
+              <li><a ui-sref="app.enableUser">User</a></li>
+            </ul>
+          </li>
+
+
+        </ul>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li ng-if="!loggedIn"><a ng-click="openLogin()">
+                <span class="glyphicon glyphicon-log-in"></span> Login</a>
+                </li>
+                <li ng-if="loggedIn">
+                <a> Welcome Admin</a>
+                </li>
+                <li ng-if="loggedIn">
+                <a ng-click="logOut()">
+                <span class="glyphicon glyphicon-log-in"></span> Logout</a>
+                </li>
+            </ul>
+        </div>
+      </div>
+    </nav>
+    <header class="jumbotron" ng-show="!admin">
+
+      <!-- Main component for a primary marketing message or call to action -->
+
+      <div class="container">
+          <div class="row row-header">
+              <div class="col-xs-12 col-sm-8" >
+
+                <p style="background-color:#f7f7f7;position:relative;top:100px;width:600px;left:200px;color:#2a9188">So Many Books..So Little Time</p>
+              </div>
+              <div class="col-xs-12 col-sm-2">
+              <p style="padding:20px;"></p>
+              </div>
+              <div class="col-xs-12 col-sm-2">
+              </div>
+          </div>
+      </div>
+  </header>

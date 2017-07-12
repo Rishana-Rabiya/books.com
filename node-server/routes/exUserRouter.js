@@ -41,8 +41,12 @@ exUserRouter.route('/')
                      orderOperations.changeStatusOrder(data,function(order){
                          if(order){
                              trackOperations.trackOrder(data,function(result){
-                                 if(result)
+                                 if(result){
                                  res.json({status:result.status});
+                             }
+                             else {
+                                 res.json({status:"failure"});
+                             }
                              });
 
                          }
@@ -71,6 +75,9 @@ exUserRouter.route('/')
                  });
 
              }
+             else{
+                res.json({status:"failure"});
+             }
          });
      }
      else if(data.status=="Returned"){
@@ -91,6 +98,9 @@ exUserRouter.route('/')
                                       }
 
                                   });
+                                }
+                                else {
+                                     res.json({status:"failure"});
                                 }
                             });
                         }

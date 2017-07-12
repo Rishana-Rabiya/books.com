@@ -1,8 +1,8 @@
 <ion-modal-view>
-  <ion-header-bar style="background-color:#0c1523;">
+  <ion-header-bar style="background-color:#0c2933">
     <h1 class="title" style="color:grey;"> Register</h1>
     <div class="buttons">
-      <button class="button button-clear" ng-click="closeRegister()">Close</button>
+      <button class="button button-clear" ng-click="closeRegister()"  style="color:grey">Close</button>
     </div>
   </ion-header-bar>
   <ion-content>
@@ -11,7 +11,7 @@
 
         <label class="item item-input">
           <span class="input-label">First Name</span>
-          <input type="text" ng-model="registration.firstname" name = "fname" maxlength="15" required>
+          <input type="text" ng-model="registration.firstname" name = "fname" maxlength="15" ng-pattern="/^[a-zA-Z]+$/" required>
         </label>
          <label class="item item-input">
           <span class="input-label">Last Name</span>
@@ -31,6 +31,7 @@
                         !registerForm.email.$pristine">* Enter a valid email address</p>
 
       <p ng-show="registerForm.fname.$error.required && !registerForm.fname.$pristine">* First Name is required</p>
+      <p ng-show="registerForm.fname.$error.pattern && !registerForm.fname.$pristine">* First Name cannot contain any special characters or digit</p>
       </div>
     </form>
     <div ng-show="regFlag" class = "act">

@@ -1,17 +1,17 @@
-    <div class="ngdialog-message" ng-show="loggedIn">
-        <div class="">
-            <h3>Create Category</h3>
-        </div>
-        <div class="">&nbsp;</div>
-        <div class="">
+<div class="ngdialog-message" ng-show="loggedIn">
+    <div class="">
+        <h3 style="color:#497caf;font-family:'chewy';">Create Category</h3>
+    </div>
+    <div class="">&nbsp;</div>
+    <div class="">
         <form name="catForm" ng-submit="catCreate()" novalidate>
-          <div class="form-group" ng-class="{'has-error has-feedback' : loginForm.email.$invalid && !loginForm.email.$pristine }">
-            <label for="cat">Category Name</label>
-            <input type="text" class="form-control" id="cat" placeholder="Enter the category name" name="cat" ng-model="cat.name" required>
-            <span ng-show="catForm.cat.$error.required && !catForm.cat.$pristine&&!catSuccess" class="help-block">Category Name Is Required</span>
-            <button class="btn btn-default" ng-disabled="catForm.$invalid">Create</button>
-            <span ng-show="catSuccess" class="help-block">Successfully created a new category</span>
+            <div class="form-group" ng-class="{'has-error has-feedback' : loginForm.email.$invalid && !loginForm.email.$pristine }">
+                <label for="cat">Category Name</label>
+                <input type="text" class="form-control" id="cat" placeholder="Enter the category name" name="cat" ng-model="cat.name" required>
+                <span ng-show="catForm.cat.$error.required && !catForm.cat.$pristine&&!catSuccess" class="help-block">Category Name Is Required</span>
+                <button class='btn' style="background-color:#4367a5;color:white;position:relative;left:340px;top:10px;" ng-disabled="catForm.$invalid">Create</button>
+                <span ng-show="catSuccess" class="help-block">Successfully created a new category</span>
           </div>
-    </form>
-    </div>
-    </div>
+      </form>
+  </div>
+</div>

@@ -1,0 +1,35 @@
+<div class = "container" style="position: relative;bottom:200px" ng-show="loggedIn">
+    <div class="tableB">
+    </div>
+    <span style="position :relative;top:270px;height:50px;left:420px"><h2 style="display:inline"> ENABLE A BOOK </h2>
+        <select data-live-search="true" class="selectpicker" data-width="370px" ng-model="cat_name" title="Choose A Category">
+                <option  ng-repeat="category in categories">{{category.CategoryName}}</option>
+        </select>
+    </span>
+
+        <table ng-show="loggedIn" style="position:relative;top:280px">
+            <thead>
+                <tr>
+                    <td><b>BOOK_ID</b></td>
+                    <td><b>BOOK NAME</b></td>
+                    <td><b>ISBN</b></td>
+                    <td><b>ACTION</b></td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="book in nbooks | filter:cat_name | startFrom:(currentPage-1)*pageSize | limitTo:pageSize">
+                    <td>{{book.book_id}}</td>
+                    <td>{{book.Book_Name}}</td>
+                    <td>{{book.isbn}}</td>
+
+                    <td>
+                        <button class='btn' style="background-color:#4367a5;color:white" ng-click="ActionBook(book._id,enable)"> Enable </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div style = "position:relative;top:400px;left:100px">
+            <ul uib-pagination total-items="nbooks.length" ng-model="currentPage" items-per-page="pageSize"></ul>﻿
+        </div>
+</div>

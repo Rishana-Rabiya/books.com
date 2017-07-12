@@ -1,0 +1,221 @@
+.row-header {
+  margin: 0px auto;
+  padding: 0px 0px;
+}
+.row-content {
+  margin: 0px auto;
+  padding: 50px 0px;
+  border-bottom: 1px ridge;
+  min-height: 400px;
+}
+.row-footer {
+  top :250px;
+  position :relative;
+  padding: 20px 0px;
+  background-color: #e8e5e5;
+}
+.jumbotron {
+ height: 200px;
+  background-image: url(../images/imp.png);
+  color: floralwhite;
+}
+.carousel {
+  background: #1a237e;
+}
+.carousel .item {
+  height: 300px;
+}
+.carousel .item img {
+  left: 0;
+  min-height: 300px;
+  position: absolute;
+  top: 0;
+}
+.navbar-inverse {
+  background: #0c1523;
+  color: #ffffff;
+}
+.navbar-inverse .navbar-nav > .active > a {
+  background: #263a5b;
+  color: #ffffff;
+}
+.navbar-inverse .navbar-nav > .active > a:hover {
+  background:#263a5b;
+  color: #ffffff;
+}
+.navbar-inverse .navbar-nav > .active > a:focus {
+  background: #263a5b;
+  color: #ffffff;
+}
+.navbar-inverse .navbar-nav > .open > a {
+  background: #263a5b;
+  color: #ffffff;
+}
+.navbar-inverse .navbar-nav > .open > a:hover {
+  background: #263a5b;
+  color: #ffffff;
+}
+.navbar-inverse .navbar-nav > .open > a:focus {
+  background: #263a5b;
+  color: #ffffff;
+}
+.navbar-inverse .navbar-nav .open .dropdown-menu > li > a {
+  background-color: #263a5b;
+  color: #eeeeee;
+}
+.navbar-inverse .navbar-nav .open .dropdown-menu > li > a:hover {
+  color: #000000;
+}
+.navbar-inverse .navbar-nav .open .dropdown-menu {
+  background-color: #263a5b;
+  color: #eeeeee;
+}
+address {
+  color: #0f0f0f;
+  font-size: 80%;
+  margin: 0px;
+}
+body {
+  align: center;
+  padding: 50px 0px 0px 0px;
+  z-index: 0;
+}
+.tab-content {
+  border-bottom: 1px solid #dddddd;
+  border-left: 1px solid #dddddd;
+  border-right: 1px solid #dddddd;
+  padding: 10px;
+}
+.affix {
+  top: 100px;
+}
+#carouselButtons {
+  bottom: 0px;
+  position: absolute;
+  right: 0px;
+}
+#bookcreate {
+  position:relative;
+  top :50px;
+}
+.row-fluid {
+  position: relative;
+  left:12px
+}
+p.quotes{
+  color:#0c1523;
+  position :relative;
+  left:100px;
+
+}
+.ngdialog-header,
+.ngdialog-footer{
+  background: #0c1523;
+  position:absolute;
+  left:0;
+  right:0;
+  height:30px;
+}
+.exUser{
+    position:relative;
+    width:800px;
+    height:500px;
+    left:15px;
+    border-style: ridge;
+    border-collapse:collapse;
+    padding:20px;
+
+
+}
+.outline{
+    width:800px;
+    position:relative;
+    left:15px;
+    background-image: url(../images/foots.jpg);
+    height:70px;
+
+
+}
+table {
+      margin:0 auto;
+      width:945px;
+}
+table, th,td  {
+  border: 1px solid grey;
+  border-collapse: collapse;
+  padding: 5px;
+
+}
+
+table tr:nth-child(odd) {
+  background-color: #f1f1f1;
+}
+table tr:nth-child(even) {
+  background-color: #ffffff;
+}
+.div4 {
+    width: 30px;
+    height: 30px;
+    border: 1px;
+    background-color:#2db2b5;
+}
+.div1 {
+    width: 30px;
+    height: 30px;
+    border: 1px;
+    background-color:#71a4bc;
+}
+.div3 {
+    width: 30px;
+    height: 30px;
+    border: 1px;
+    background-color:#cc1439;
+}
+.div2 {
+    width: 30px;
+    height: 30px;
+    border: 1px;
+    background-color:#c0d0d1;
+}
+.div5 {
+    width: 30px;
+    height: 30px;
+    border: 1px;
+    background-color:#e59b2b;
+}
+.foot {
+    height :100px;
+    background-image: url(../images/foots.jpg);
+}
+.selectpicker{
+  position :relative;
+
+}
+.tableB
+{
+width:945px;
+margin:0 auto;
+position:relative;
+top:250px;
+background-image: url(../images/foots.jpg);
+height:70px;
+}
+.qu {
+
+    font-size: 40px;
+    color:#237a7a;
+    margin :0 auto;
+}
+.hed {
+
+    background-image: url(../images/head.jpg);
+    height:40px;
+    position:relative;
+    left:185px;
+    width:945px;
+    top:60px;
+
+
+
+
+}

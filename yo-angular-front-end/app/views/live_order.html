@@ -1,0 +1,32 @@
+
+        <table ng-show="loggedIn&&success">
+            <thead>
+                <tr style='background-color:#0c1523;color:grey'>
+                    <td><b>ORDER_ID</b></td>
+                    <td><b>BOOK NAME</b></td>
+                    <td><b>EMAIL</b></td>
+                    <td><b>STATUS</b></td>
+                    <td><b>ACTION</b></td>
+                </tr>
+            </thead>
+            <tbody id="myTable">
+                <tr ng-repeat="order in orders | startFrom:(currentPage-1)*pageSize | limitTo:pageSize">
+                    <td>{{ order.order_id }}</td>
+                    <td>{{order.book_name}}</td>
+                    <td>{{order.email}}</td>
+                    <td>{{order.status}}</td>
+                    <td><select data-width="300px" ng-model="order.status" required>
+                        <option>Requested</option>
+                        <option>Returned</option>
+                        <option>Accepted</option>
+                        <option>Approved</option>
+                        <option>Rejected</option>
+                    </select>
+                    <button class='btn' style="left:15px;position:relative;background-color:#4367a5;color:white" ng-click="updateStatus(order.status,order._id,order.order_id,order.book_id,order.email)" > Apply </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div style="position:relative;left:155px;">
+        <ul  uib-pagination total-items="orders.length" ng-model="currentPage" items-per-page="pageSize"></ul>﻿
+    </div>

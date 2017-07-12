@@ -12,7 +12,7 @@ var Fine = mongoose.Schema({
     },
     DoIR :{
         type:Date,
-        default: +new Date() + 7*24*60*60*1000
+        default: +new Date() + 15*24*60*60*1000
     },
     DoR :{
         type:Date

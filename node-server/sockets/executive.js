@@ -65,7 +65,8 @@ var temp = function(data,callback){
                             email:email,
                             book_id:result._id,
                             status:"Requested",
-                            book_name:result.Book_Name
+                            book_name:result.Book_Name,
+                            isbn : result.isbn
                         },
                         function(err,response){
                             console.log("new order",response);

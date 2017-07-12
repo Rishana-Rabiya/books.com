@@ -12,6 +12,9 @@ normRouter.route('/:id')
           if(result){
             res.json({user:result});
           }
+          else {
+              res.json({success:false})
+          }
         });
 
     }
@@ -19,6 +22,9 @@ normRouter.route('/:id')
         operations.findUsers(function(result){
           if(result){
             res.json({user:result});
+          }
+          else {
+              res.json({success:false})
           }
         });
     }
@@ -35,6 +41,9 @@ normRouter.route('/action')
           if(result){
             res.json({success:true});
           }
+          else {
+              res.json({success:false})
+          }
         });
 
     }
@@ -42,6 +51,9 @@ normRouter.route('/action')
         operations.disableUser(req.body.id,function(result){
           if(result){
             res.json({success:false});
+          }
+          else {
+              res.json({success:false})
           }
         });
     }
@@ -54,6 +66,9 @@ normRouter.route('/order/:id')
         if(result){
             res.json({order:result});
         }
+        else {
+            res.json({success:false})
+        }
 
     });
 });
@@ -63,6 +78,9 @@ normRouter.route('/book/:id')
     orderOperations.findOrderWithEmail(req.params.id,function(result){
         if(result){
             res.json({order:result});
+        }
+        else {
+            res.json({success:false})
         }
 
     });

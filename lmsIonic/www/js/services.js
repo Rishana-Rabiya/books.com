@@ -113,6 +113,9 @@ angular.module('lmsIonicApp.services', ['ngResource'])
 
 
     loadUserCredentials();
+    authFac.getName = function(){
+        return $resource(baseURL+"users/login/:id");
+    };
 
     return authFac;
 
@@ -148,6 +151,9 @@ angular.module('lmsIonicApp.services', ['ngResource'])
     var orderFac = {};
     orderFac.getOrderUrl = function(){
         return  $resource(baseURL + "order/check/:id");
+    }
+    orderFac.sameOrderUrl = function(){
+        return $resource(baseURL + "books/same/:id");
     }
 
     return orderFac;

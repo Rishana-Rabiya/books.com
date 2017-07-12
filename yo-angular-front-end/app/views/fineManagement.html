@@ -1,0 +1,23 @@
+
+<table ng-show="loggedIn">
+    <tr style='background-color:#0c1523;color:grey'>
+    <td><b>Order_Id</b></td>
+    <td><b>Acceptance Date</b></td>
+    <td><b>Tententive Return Date</b> </td>
+    <td><b>Actual Return Date</b></td>
+    <td><b>Fine</b></td>
+    <td><b>Remove</b></td>
+</tr>
+  <tr ng-repeat="fine in fines | startFrom:(currentPage-1)*pageSize | limitTo:pageSize">
+    <td>{{fine.order_id }}</td>
+    <td>{{getFine(fine.Dof)}}</td>
+    <td>{{getFine(fine.DoIR)}}</td>
+    <td>{{getFine(fine.DoR)}}</td>
+    <td>{{getFineValue(fine.fine)}}</td>
+    <td><button class="btn btn-default" ng-click="closeFine(fine._id)"><i class="fa fa-trash-o" aria-hidden="true" style="color:red"></i></button></td>
+
+  </tr>
+</table>
+<div >
+<ul style="position:relative;left:155px;" uib-pagination total-items="fines.length" ng-model="currentPage" items-per-page="pageSize"></ul>﻿
+</div>

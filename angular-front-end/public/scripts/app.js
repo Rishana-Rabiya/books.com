@@ -34,6 +34,17 @@ angular.module('lmsProjectApp', ['ui.router','ngResource','ngDialog','ngFileUplo
                     }
                 }
             })
+
+
+            .state('app.updateAbook', {
+                 url:'updateBook/:id',
+                 views: {
+                     'content@': {
+                         templateUrl : 'views/updateAbook.html',
+                         controller  : 'UpdateController'
+                     }
+                 }
+             })
             .state('app.catCreate', {
                 url:'catcreate',
                 views: {
@@ -43,12 +54,31 @@ angular.module('lmsProjectApp', ['ui.router','ngResource','ngDialog','ngFileUplo
                     }
                 }
             })
+
             .state('app.bookStatus', {
                 url:'bookStatus',
                 views: {
                     'content@': {
                         templateUrl : 'views/userBookStatus.html',
                         controller  : 'UserController'
+                    }
+                }
+            })
+            .state('app.deleteBook', {
+                url:'deleteBook',
+                views: {
+                    'content@': {
+                        templateUrl : 'views/deleteBook.html',
+                        controller  : 'BookController'
+                    }
+                }
+            })
+            .state('app.updateBook', {
+                url:'updateBook',
+                views: {
+                    'content@': {
+                        templateUrl : 'views/updateBook.html',
+                        controller  : 'BookController'
                     }
                 }
             })

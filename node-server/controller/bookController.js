@@ -15,7 +15,7 @@ exports.createBook = function(data,callback){
                 Release_year: data.ryear,
                 author:data.aname,
                 edition:data.ed,
-                stack_no:data.cat,
+                stack_no:data.stack,
                 status:"available",
                 publisher :data.pub
             },function(err,result){
@@ -48,6 +48,7 @@ exports.findBook = function(callback){
                 category : {$first:'$category'},
                 stack_no : { $first: '$stack_no' },
                 author : {$first:'$author'},
+                image: {$first:'$image'},
                 count: { $sum: 1 }
             }
         }
@@ -78,6 +79,7 @@ exports.bookFindFilter=function(data,callback){
                     category : {$first:'$category'},
                     stack_no : { $first: '$stack_no' },
                     author : {$first:'$author'},
+                    image :{$first:'$image'},
                     count: { $sum: 1 }
                 }
             }
@@ -99,13 +101,16 @@ exports.findAbook=function(id,callback){
     });
 
 }
-exports.findAuthor=function(data,callback){
-  Author.findOne({_id:data},function(err,res){
-    if(err)
-    throw err;
-    callback(res);
-  });
+exports.findBookInfo=function(id,callback){
+    Book.findOne({isbn:id},function(err,result){
+        if(err)
+        throw err;
+        callback(result);
+    });
+
 }
+
+
 
 exports.bookAbook=function(id,callback){
     console.log("inside the bookAbook");
@@ -143,6 +148,71 @@ exports.listsAvailable = function(callback){
 }
 exports.listsNotAvailable = function(callback){
     Book.find({status:"not available"},function(err,res){
+        if(err)
+        throw err;
+        callback(res);
+    })
+}
+exports.DeleteBook = function(id,callback){
+    Book.findByIdAndRemove(id,function(err,book){
+        if(err) throw err
+        if(book){
+            callback(book);
+        }
+
+    });
+}
+exports.findAllBook = function(callback){
+    Book.aggregate(
+        [
+        {
+            $group : {
+                _id : "$isbn",
+                isbn:  {$first:'$isbn'},
+                Book_Name : {$first:'$Book_Name'},
+                Release_year : { $first: '$Release_year' },
+                edition : {$first:'$edition'},
+                publisher : { $first: '$publisher' },
+                category : {$first:'$category'},
+                stack_no : { $first: '$stack_no' },
+                author : {$first:'$author'},
+                image : {$first:'$image'},
+                count: { $sum: 1 }
+            }
+        }
+    ],function(err,res){
+        if(err)
+        throw err;
+        callback(res);
+    });
+
+}
+
+
+exports.updateBook=function(data,callback){
+
+    Book.update({isbn:data.isbn},{
+            $set: {
+                Book_Name: data.Book_Name,
+                category: data.category,
+                Release_year: data.Release_year,
+                author:data.author,
+                edition:data.edition,
+                stack_no:data.stack_no,
+                publisher :data.publisher,
+                image:"images/ENC.jpg"
+            }
+
+        },{"multi": true})
+        .exec(function (err, num) {
+            if (err) throw err;
+
+            console.log(num);
+            callback(num);
+        });
+}
+exports.findEveryBook = function(callback){
+    Book.find({},function(err,res){
         if(err)
         throw err;
         callback(res);

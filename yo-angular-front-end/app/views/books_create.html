@@ -1,0 +1,76 @@
+<div class ="foot">
+</div>
+<div> &nbsp;</div>
+<span class ="badge" style="position:relative;left:80px;background-color:#69abb2;"><h1> Add a New Book</h1> </span>
+<div class="container-fluid" id="bookcreate" ng-show="loggedIn" ng-submit="bookCreate()" style="position:relative;right:50px;">
+<form class="form-horizontal" name= "bookForm" novalidate>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="isbn">ISBN NO:</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" placeholder="Enter ISBN NO" name="isbn" ng-model="book.isbn" required>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="title">Title:</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" placeholder="Enter the book name" name="title"  ng-model="book.title" required>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="author">Authors</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" placeholder="Enter the author firstname" name="aname"  ng-model="book.aname" required>
+      </div>
+    </div>
+    <div class="form-group">
+
+        <label class="control-label col-sm-2" for="cat">Category:</label>
+        <div class="row-fluid" style="position:relative;left:224px;width:700px;bottom:20px">
+        <select data-live-search="true" class="selectpicker" data-width="1025px" ng-model="book.cat" title="Choose A category"  required>
+          <option  ng-repeat="category in categories">{{category.CategoryName}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="Release year">Release Year:</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" placeholder="Enter the Release Year" name="ryear"  ng-model="book.ryear">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="stackNo">Stack No:</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" placeholder="Enter the stack no" name="stack" ng-model="book.stack" required>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="publisher">Edition:</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" placeholder="Enter the Edition" name="ed"  ng-model="book.ed">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="publisher">Publisher Name:</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" placeholder="Enter the publisher Name" name="pub"  ng-model="book.pub">
+      </div>
+    </div>
+  <!--  <div class="form-group">
+    <label class="control-label col-sm-2" for="publisher">Upload Image:</label>
+      <div class="col-sm-10">
+        <input type="file" class="form-control" name:"img" file-model="book.img">
+      </div>
+    </div> -->
+
+    <span ng-show="bookForm.title.$error.required && !bookForm.title.$pristine&&!bookSuccess" class="help-block">Book Name Is Required</span>
+    <span ng-show="bookForm.afname.$error.required && !bookForm.afname.$pristine&&!bookSuccess" class="help-block">Author Name Is Required</span>
+    <span ng-show="bookForm.stack.$error.required && !bookForm.stack.$pristine&&!bookSuccess" class="help-block">Stack id Is Required</span>
+    <span ng-show="bookForm.cat.$error.required && !bookForm.cat.$pristine&&!bookSuccess" class="help-block">Category name Is Required</span>
+    <span ng-show="bookForm.isbn.$error.required && !bookForm.isbn.$pristine&&!bookSuccess" class="help-block">ISBN Is Required</span>
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <button type="submit" class="btn btn-default" ng-disabled="bookForm.$invalid" style="background-color:#69abb2">Create</button>
+      </div>
+    </div>
+  </form>
+</div>

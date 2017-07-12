@@ -58,8 +58,8 @@
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">Delete
             <span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li><a href="#">Books</a></li>
-              <li><a href="#">Category</a></li>
+              <li><a ui-sref="app.deleteBook">Books</a></li>
+              <li><a ng-click="delCat()">Category</a></li>
 
             </ul>
           </li>
@@ -67,9 +67,8 @@
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">Edit
             <span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li><a href="#">Books</a></li>
-              <li><a href="#">Category</a></li>
-              <li><a href="#">User Details</a></li>
+              <li><a ui-sref="app.updateBook">Books</a></li>
+              <li><a ng-click ="updateCat()">Category</a></li>
             </ul>
           </li>
           <li class="dropdown">
@@ -77,7 +76,7 @@
             <span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li><a ui-sref="app.bookDisable">Books</a></li>
-              <li><a href="#">Category</a></li>
+              <li><a ng-click="openDisCat()">Category</a></li>
              <li><a ui-sref="app.disableUser">User</a></li>
             </ul>
           </li>
@@ -86,7 +85,7 @@
             <span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li><a ui-sref="app.bookEnable">Books</a></li>
-              <li><a href="#">Category</a></li>
+              <li><a ng-click="openEnCat()">Category</a></li>
               <li><a ui-sref="app.enableUser">User</a></li>
             </ul>
           </li>

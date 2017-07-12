@@ -6,6 +6,7 @@ var bookRouter = express.Router();
 //var upload = multer({ dest: 'uploads/' })
 var operations = require('../controller/bookController');
 var verify = require('../routes/verify');
+var orderOperations = require('../controller/orderController');
 
 
 bookRouter.route('/upload')
@@ -19,7 +20,21 @@ bookRouter.route('/upload')
             res.json({success:false});
         }
     });
+})
+
+.put(verify.verifyUser,function (req, res, next) {
+    operations.updateBook(req.body,function(result){
+        if(result){
+            console.log(result);
+            res.json({success:true});
+        }
+        else{
+            res.json({success:false});
+        }
+    });
 });
+
+
 
 
 bookRouter.route('/')
@@ -61,7 +76,21 @@ bookRouter.route('/find/:id')
         }
 
     });
+})
+
+.delete(verify.verifyUser,function (req, res, next) {
+  operations.DeleteBook(req.params.id,function(result){
+    if(result){
+      res.send({book:result});
+    }
+    else{
+        res.send({book:"failure"});
+    }
+
+  });
 });
+
+
 bookRouter.route('/list/:id')
 .get(verify.verifyUser,function(req,res,next){
     var id = req.params.id;
@@ -70,6 +99,9 @@ bookRouter.route('/list/:id')
             if(result){
                 res.json({books:result});
             }
+            else {
+                res.json({success:false})
+            }
         });
 
     }
@@ -77,6 +109,9 @@ bookRouter.route('/list/:id')
         operations.listsNotAvailable(function(result){
             if(result){
                 res.json({books:result});
+            }
+            else {
+                res.json({success:false})
             }
         });
 
@@ -95,6 +130,9 @@ bookRouter.route('/action')
             if(result){
                 res.json({books:result});
             }
+            else {
+                res.json({success:false})
+            }
         });
 
     }
@@ -104,11 +142,71 @@ bookRouter.route('/action')
             if(result){
                 res.json({books:result});
             }
+            else {
+                res.json({success:false})
+            }
         });
 
     }
 
 });
+
+
+bookRouter.route('/all')
+.get(verify.verifyUser,function(req,res,next){
+    operations.findAllBook(function(result){
+        if(result){
+            res.json({books:result});
+        }
+        else {
+            res.json({success:false});
+        }
+
+    });
+});
+bookRouter.route('/every')
+.get(verify.verifyUser,function(req,res,next){
+    operations.findEveryBook(function(result){
+        if(result){
+            res.json({books:result});
+        }
+        else {
+            res.json({success:false});
+        }
+
+    });
+});
+bookRouter.route('/info/:id')
+.get(verify.verifyUser,function(req,res,next){
+    operations.findBookInfo(req.params.id,function(result){
+        if(result){
+            res.json({books:result});
+        }
+        else {
+            res.json({success:false});
+        }
+
+    });
+});
+
+
+
+bookRouter.route('/same')
+.post(function(req,res,next){
+    console.log("inside the post function");
+    orderOperations.orderSame(req.body,function(result){
+        if(result.length!=0){
+            console.log("result",result);
+            res.json({flag:"exist"});
+        }
+        else {
+            res.json({flag:"not exist"});
+        }
+    });
+});
+
+
+
 
 
 

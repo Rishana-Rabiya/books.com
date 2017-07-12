@@ -1,0 +1,28 @@
+<div class = "container" style="position: relative;bottom:200px" ng-show="loggedIn">
+    <div class="tableB">
+    </div>
+    <span style="position :relative;top:250px;height:50px;background-color:#69abb2;left:410px"><h2> ENABLE A USER </h2></span>
+    <div>
+        <table  style="position:relative;top:250px">
+            <thead>
+                <tr>
+                    <td><b>NAME</b></td>
+                    <td><b>EMAIL ID</b></td>
+                    <td><b>ACTION</b></td>
+                </tr>
+            </thead>
+            <tbody id="myTable">
+                <tr ng-repeat="user in eusers | startFrom:(currentPage-1)*pageSize | limitTo:pageSize">
+                    <td>{{ user.firstName}}<span>&nbsp;</span>{{ user.lastName}}</td>
+                    <td>{{user.email}}</td>
+                    <td>
+                        <button class='btn' style="left:30px;position:relative;background-color:#4367a5;color:white" ng-click="ActionUser(user._id,enable)" > Enable </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div style="position:relative;left:90px;top:300px">
+        <ul uib-pagination total-items="eusers.length" ng-model="currentPage" items-per-page="pageSize"></ul>﻿
+    </div>
+</div>

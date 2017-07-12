@@ -1,0 +1,49 @@
+<div class = "row" ng-show="loggedIn">
+<div class = "col col-sm-4">
+
+
+<span class ="badge" style="position:relative;left:30px;background-color:#69abb2;top:40px;"><h1> Add a Executive User</h1> </span>
+<div class ="container" style="position:relative;top:100px;">
+<div class="outline" ng-show="loggedIn">
+</div>
+<div class="exUser" ng-show="loggedIn">
+
+<form name="userForm" ng-submit="userCreate()" novalidate>
+  <div class="form-group" ng-class="{'has-error has-feedback' : userForm.email.$invalid && !userForm.email.$pristine }">
+    <label for="email">Email:</label>
+    <input type="email" class="form-control" id="email" placeholder="Enter email" name="email" ng-model="exData.email" required>
+    <span ng-show="userForm.email.$invalid && !userForm.email.$pristine" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+                        <span ng-show="(userForm.email.$invalid ||
+                                        userForm.email.$error.required) &&
+                                        !userForm.email.$pristine"
+                             class="help-block"> Enter a valid email address </span>
+                             <span ng-show="userForm.email.$valid" class = "glyphicon glyphicon-ok">
+  </div>
+  <div class="form-group" ng-class="{ 'has-error' : userForm.fname.$error.required && !userForm.fname.$pristine }">
+    <label for="fname">First Name:</label>
+    <input type="text" class="form-control" placeholder="Enter name" name="fname" ng-model= "exData.fname" required>
+    <span ng-show="userForm.fname.$error.required && !userForm.fname.$pristine" class="help-block">Name is required.</span>
+  </div>
+  <div class="form-group" >
+    <label for="lname">Last Name:</label>
+    <input type="text" class="form-control" placeholder="Enter Last name" name="fname" ng-model= "exData.lname" required>
+
+  </div>
+  <div class="form-group" ng-class="{ 'has-error' : userForm.pwd.$error.required && !userForm.pwd.$pristine }">
+    <label for="pwd">Password:</label>
+    <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pwd" ng-model= "exData.password" required>
+    <span ng-show="userForm.pwd.$error.required && !userForm.pwd.$pristine" class="help-block">Password is required.</span>
+  </div>
+  <div class="form-group" ng-class="{ 'has-error' : userForm.cpwd.$error.required && !userForm.cpwd.$pristine }">
+    <label for="cpwd">Confirm Password:</label>
+    <input type="password" class="form-control" id="cpwd" placeholder="Confirm password" name="cpwd" ng-model= "exData.cpassword" required>
+    <span ng-show="userForm.cpwd.$error.required && !userForm.cpwd.$pristine" class="help-block">Please confirm password.</span>
+  </div>
+  <button class="btn btn-default" ng-disabled="userForm.$invalid" style="background-color:#69abb2;position:relative;left:340px;">Add User</button>
+</form>
+</div>
+</div>
+</div>
+<div class = "col col-sm-5" style="border:1px solid; position:relative;left:450px;height:673px">
+</div>
+</div>

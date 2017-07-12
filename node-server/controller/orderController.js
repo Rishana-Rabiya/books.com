@@ -10,35 +10,35 @@ exports.checkExistingOrder=function(email,callback){
 
 
 
-/*Order.remove({},function(err){if(err)throw err;});*/
+/*Order.remove({},function(err){if(err)throw err;});
     Order.find({},function(err,res){
-        console.log(res);
-    });
+        console.log("order",res);
+    });*/
     /*Book.find({},function(err,res){
-        console.log(res);
+        console.log("book",res);
     });*/
 
     /*User.find({},function(err,res){
         console.log(res);
     });*/
 
-    /*Book.remove({},function(err){if(err)throw err;});*/
+    /*Book.remove({},function(err){if(err)throw err;});
         /*Order.find({},function(err,res){
             console.log(res);
         });*/
-/*Fine.remove({},function(err){if(err)throw err;});
-   Fine.find({},function(err,res){
+/*Fine.remove({},function(err){if(err)throw err;});*/
+  /* Fine.find({},function(err,res){
         if(err)
         throw err;
 
-        console.log(res);
+        console.log("fine",res);
 
     });*/
-    /*Track.remove({},function(err){if(err)throw err;});*/
-   /*Track.find({},function(err,res){
+    /*Track.remove({},function(err){if(err)throw err;});
+   Track.find({},function(err,res){
         if(err)
         throw err;
-        console.log(res);
+        console.log("track",res);
     });*/
    /*Book.findByIdAndUpdate("595fbd8134ab597f8179df20", {
             $set: {
@@ -52,6 +52,18 @@ exports.checkExistingOrder=function(email,callback){
             callback(book);
         });
 */
+/*User.findByIdAndRemove(id,function(err,book){
+    if(err) throw err
+    if(book){
+        callback(book);
+    }
+
+});*/
+User.find({},function(err,user){
+    if(err)
+    throw err;
+    console.log(user);
+})
 
 
 
@@ -62,7 +74,7 @@ exports.checkExistingOrder=function(email,callback){
 
 
 
-    Order.find({email:email},{$or:[{status:"Accepted"},{status:"Approved"},{status:"Requested"}]},function(err,res){
+    Order.find({$or:[{status:"Accepted"},{status:"Approved"},{status:"Requested"}]},{email:email},function(err,res){
         if(err)
         throw err;
         console.log(res.length);
@@ -177,3 +189,24 @@ exports.findOrderWithEmail=function(email,callback){
         }
     });
 }
+
+exports.orderSame=function(data,callback){
+    console.log("inside the fuction",data);
+
+        Order.aggregate(
+            [{
+                $match : {
+                    isbn:data.isbn,
+                    email:data.email,
+                    $or:[{status:"Requested"},{ status:"Approved" },{ status:"Accepted"}]
+                }
+            }
+        ]
+        ,
+        function(err,res){
+            if(err)
+            throw err;
+            console.log("response",res);
+            callback(res);
+        });
+    }

@@ -10,7 +10,7 @@ var emailExistence = require('email-existence');
 
 router.get('/login/:id', function (req, res, next) {
   console.log("inside the get");
-    User.findOne({email:req.params.id},{type:1,firstName:1,_id: 0} ,function (err, type) {
+    User.findOne({email:req.params.id},{type:1,firstName:1,lastName:1,_id: 0} ,function (err, type) {
         if (err) throw err;
         console.log(type);
         res.json(type);

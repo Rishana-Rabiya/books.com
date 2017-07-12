@@ -125,51 +125,43 @@ angular.module('lmsProjectApp')
     return authFac;
 
 }])
-/*
-.factory('multipartForm', ['$resource','baseURL',function($resource,baseURL){
-  var fileFac = {};
-    fileFac.Post = function(){
-
-
-      return  $resource(baseURL + "books/upload",{
-        save:
-        {
-         method :'POST',
-			   transformRequest: angular.identity,
-			  headers: { 'Content-Type': 'undefined' }
-       }
-   });
-  }
-    return fileFac;
-
-}])*/
 
 .factory('CategoryFactory', ['$resource','baseURL',function($resource,baseURL){
   var catFac = {};
     catFac.getCreateUrl = function(){
-      return  $resource(baseURL + "category/create");
+      return  $resource(baseURL + "category/create", null, {
+           'update': {
+               method: 'PUT'
+           }
+       });
     }
     catFac.getCategoryUrl = function(){
-      return  $resource(baseURL + "category/find");
+      return  $resource(baseURL + "category/find/:id");
     }
+    catFac.getCategoryAction=function(){
+        return $resource(baseURL + "category/action/:id", null, {
+             'update': {
+                 method: 'PUT'
+             }
+         });
+     }
+     catFac.getAllUrl = function(){
+          return  $resource(baseURL + "category/all");
+
+     }
+
   return catFac;
 
 }])
-.factory('BookFactory', ['$resource','baseURL',function($resource,baseURL){
+.factory('BookFactory', ['$resource','$rootScope','baseURL',function($resource,$rootScope,baseURL){
   var bookFac={};
-  //tried uploading images
- 	/*bookFac.post = function(uploadUrl, data){
- 		var fd = new FormData();
- 		for(var key in data)
- 			fd.append(key, data[key]);
- 		 $http.post(uploadUrl, fd, {
- 			transformRequest: angular.identity,
- 			headers: { 'Content-Type': undefined }
- 		});
- 	}*/
 
   bookFac.getUrlBook = function(){
-    return $resource(baseURL+"books/upload")
+      return $resource(baseURL+"books/upload/:id", null, {
+           'update': {
+               method: 'PUT'
+           }
+       });
   }
   bookFac.getName = function(){
       return $resource(baseURL+"books/find/:id")
@@ -183,6 +175,16 @@ angular.module('lmsProjectApp')
                method: 'PUT'
            }
        });
+   }
+  bookFac.getAllBooks = function(){
+        return $resource(baseURL+"books/all");
+  }
+  bookFac.getEveryBooks = function(){
+        return $resource(baseURL+"books/every");
+  }
+
+  bookFac.getInfo = function(){
+        return $resource(baseURL+"books/info/:id");
   }
 
   return bookFac;
