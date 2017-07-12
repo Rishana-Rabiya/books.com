@@ -200,7 +200,7 @@ exports.updateBook=function(data,callback){
                 edition:data.edition,
                 stack_no:data.stack_no,
                 publisher :data.publisher,
-                image:"images/ENC.jpg"
+                
             }
 
         },{"multi": true})

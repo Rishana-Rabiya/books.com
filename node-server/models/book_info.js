@@ -41,7 +41,7 @@ var Book = mongoose.Schema({
 	},
 	image :{
 		type:String,
-		default:"images/electro.jpg"
+		default:"images/hi2.jpg"
 	}
 
 });

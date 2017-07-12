@@ -199,6 +199,8 @@ angular.module('lmsIonicApp.controllers', [])
       $scope.email = AuthFactory.getEmail();
 
 
+
+
   });
 
 
@@ -432,6 +434,7 @@ $scope.loadMoreData3 = function() {
 
 
 
+
 //Adding product to the cart
 $scope.addCart = function (id) {
     if($scope.firstBook.isbn==id||$scope.secondBook.isbn==id||$scope.thirdBook.isbn==id){
@@ -589,9 +592,9 @@ $scope.addCart = function (id) {
 
 }
 
-$scope.reload=function(){
+/*$scope.reload=function(){
 $window.location.reload(true);
-}
+}*/
 
 
 $scope.deleteFirst=function(){
@@ -723,16 +726,17 @@ $scope.checkOut = function(){
 })
 
 
-.controller('BookDetailController',function ($scope, $rootScope,$stateParams,AuthFactory,BookFactory) {
+.controller('BookDetailController',function ($scope, $rootScope,$stateParams,baseURL,AuthFactory,BookFactory) {
     $scope.loggedIn = false;
     $scope.book = {};
     $scope.auth = {};
+    $scope.baseURL = baseURL;
     $scope.book = BookFactory.getBookDetailUrl().get({
             id: $stateParams.id
         },
             function (response) {
                 $scope.book = response.book;
-                $scope.auth = response.author;
+
             },
             function (response) {
             }

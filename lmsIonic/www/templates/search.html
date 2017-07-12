@@ -18,7 +18,7 @@
 
      </div>
      <ion-list ng-if="loggedIn&&searchFilter&&!SearchByCategory" >
-         <ion-item collection-repeat="book in bookss | limitTo:numberOfItemsToDisplay2" href="#/app/search/{{book._id}}" class="item-thumbnail-left item-text-wrap item-text-wrap" >
+         <ion-item ng-repeat="book in bookss | limitTo:numberOfItemsToDisplay2" href="#/app/search/{{book._id}}" class="item-thumbnail-left item-text-wrap item-text-wrap" >
              <img ng-src={{baseURL+book.image}}>
              <h2 style="color:#1e365e;"><b>{{book.Book_Name}}</b></h2>
              <span style="font-size:85%">{{book.author}}</span>
@@ -42,7 +42,7 @@
                 </button>
 
             </ion-item>
-            <ion-item collection-repeat="book in books | filter:{category:category}|limitTo:numberOfItemsToDisplay3" href="#/app/search/{{book._id}}" class="item-thumbnail-left item-text-wrap">
+            <ion-item ng-repeat="book in books | filter:{category:category}|limitTo:numberOfItemsToDisplay3" href="#/app/search/{{book._id}}" class="item-thumbnail-left item-text-wrap">
                 <img ng-src={{baseURL+book.image}}>
                 <h2 style="color:#1e365e;"><b>{{book.Book_Name}}</b></h2>
                 <span style="font-size:85%">{{book.author}}</span>
@@ -52,13 +52,13 @@
                <ion-option-button class="button-primary icon ion-plus-circled" ng-click="addCart(book._id)">
                 </ion-option-button>
             </ion-item>
-            <ion-infinite-scroll distance="5%" on-infinite="loadMoreData1()">
+            <ion-infinite-scroll distance="5%" on-infinite="loadMoreData3()">
             </ion-infinite-scroll>
 
             </ion-list>
 
             <ion-list ng-if="loggedIn&&!SearchByCategory&&!searchFilter">
-                <ion-item collection-repeat="book in books |limitTo:numberOfItemsToDisplay1" href="#/app/search/{{book._id}}" class="item-thumbnail-left item-text-wrap">
+                <ion-item ng-repeat="book in books |limitTo:numberOfItemsToDisplay1" href="#/app/search/{{book._id}}" class="item-thumbnail-left item-text-wrap" >
                     <img ng-src={{baseURL+book.image}}>
                     <h2 style="color:#1e365e"><b>{{book.Book_Name}}</b></h2>
                     <span style="font-size:85%">{{book.author}}</span>

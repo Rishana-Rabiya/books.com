@@ -19,8 +19,8 @@ router.get('/login/:id', function (req, res, next) {
 
 
 router.get('/register/:id', function (req, res, next) {
-  emailExistence.check(req.params.id, function(err,response){
-   if(response){
+ // emailExistence.check(req.params.id, function(err,response){
+  // if(response){
       User.findOne({email:req.params.id},function(err,user){
         if (err) throw err;
         if(!user){
@@ -38,13 +38,13 @@ router.get('/register/:id', function (req, res, next) {
          });
        }
      });
- }
- else {
+ //}
+ /*else {
     res.status(200).json({
       status:"invalid"
     });
-  }
-});
+}
+});*/
 });
 
 router.post('/register', function (req, res, next) {

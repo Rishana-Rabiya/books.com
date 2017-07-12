@@ -5,12 +5,13 @@
   <ion-content>
       <div class="card">
           <div class="item item-body item-text-wrap">
-                <img class="full-image" ng-src="{{}}">
+                <img class="full-image" ng-src={{baseURL+book.image}}>
                 <h2 style = "color:#1e365e"><b>{{book.Book_Name}}</b></h2>
-                <blockquote>
-                             <p><b>{{book.author}}</b></p>
+
+                <blockquote style="color:#39527c">
+                             <p><b>Author :{{book.author}}</b></p>
                              <p>ISBN NO: {{book.isbn}} </p>
-                             <footer>{{book.edition}},{{book.publisher}}-{{book.Release_year}}</footer>
+                             Edition:{{book.edition}}<br>Publisher:{{book.publisher}}<br>Release Year:{{book.Release_year}}</p>
 
                 </blockquote>
 

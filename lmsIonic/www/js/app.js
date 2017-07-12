@@ -64,7 +64,10 @@ angular.module('lmsIonicApp', ['ionic', 'lmsIonicApp.controllers','lmsIonicApp.s
     url: '/home',
     views: {
       'menuContent': {
-        templateUrl: 'templates/home.html'
+        templateUrl: 'templates/home.html',
+        controller: 'AppCtrl'
+
+
       }
     }
   })
