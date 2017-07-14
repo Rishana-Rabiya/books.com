@@ -12,7 +12,8 @@ angular.module('lmsProjectApp', ['ui.router','ngResource','ngDialog','ngFileUplo
                         controller  : 'HeaderController'
                     },
                     'content': {
-                        templateUrl : 'views/home.html'
+                        templateUrl : 'views/home.html',
+                        controller  : 'HomeController'
 
                     },
                     'footer': {
@@ -177,6 +178,7 @@ angular.module('lmsProjectApp', ['ui.router','ngResource','ngDialog','ngFileUplo
                     }
                 }
             })
+
 
             $urlRouterProvider.otherwise('/');
           })

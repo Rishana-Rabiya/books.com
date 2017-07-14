@@ -45,7 +45,7 @@ angular.module('lmsIonicApp', ['ionic', 'lmsIonicApp.controllers','lmsIonicApp.s
 
   .state('app', {
     url: '/app',
-    abstract: true,
+
     templateUrl: 'templates/home.html',
     controller: 'AppCtrl'
   })

@@ -17,8 +17,8 @@
                     <li><a ui-sref="app.liveOrder"><b>Orders</b></a></li>
                     <li><a ui-sref="app.fineManage"><b>Fine</b></a></li>
                 </ul>
-                <ul class="nav navbar-nav" ng-if="user&&loggedIn">
-                    <li class="active"><a href="#">Home</a></li>
+                <ul class="nav navbar-nav" ng-if="user&&loggedIn" style="position:relative;right:160px;">
+                    <li><a href="#">Home</a></li>
                     <li><a ui-sref="app.bookStatus">Status</a></li>
                     <li><a ui-sref="app.bookHistory">History</a></li>
                 </ul>
@@ -40,7 +40,7 @@
             </div>
         </div>
     </nav>
-    <nav class="navbar navbar-inverse navbar-fixed-top" ng-if="admin&&loggedIn">
+    <nav class="navbar navbar-inverse navbar-fixed-top" ng-if="admin&&loggedIn" ng-cloak>
       <div class="container-fluid">
           <a class="navbar-brand" ui-sref="app"><img src="images/log2.png" style="position:relative;bottom:18px;right:18px;width:50%;"></a>
 

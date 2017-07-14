@@ -13,7 +13,7 @@
             </thead>
             <tbody>
                 <tr ng-repeat="user in users | startFrom:(currentPage-1)*pageSize | limitTo:pageSize">
-                    <td>{{ user.firstName}}<span>&nbsp;</span>{{ user.firstName}}</td>
+                    <td>{{ user.firstName}}<span>&nbsp;</span>{{ user.lastName}}</td>
                     <td>{{user.email}}</td>
                     <td>
                         <button class='btn' style="background-color:#4367a5;color:white" ng-click="ActionUser(user._id,disable)"> Disable </button>

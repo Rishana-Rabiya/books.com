@@ -34,12 +34,12 @@ exports.checkExistingOrder=function(email,callback){
         console.log("fine",res);
 
     });*/
-    /*Track.remove({},function(err){if(err)throw err;});
+    /*Track.remove({},function(err){if(err)throw err;});*/
    Track.find({},function(err,res){
         if(err)
         throw err;
         console.log("track",res);
-    });*/
+    });
    /*Book.findByIdAndUpdate("595fbd8134ab597f8179df20", {
             $set: {
                 status: 'not available'
@@ -52,18 +52,19 @@ exports.checkExistingOrder=function(email,callback){
             callback(book);
         });
 */
-/*User.findByIdAndRemove(id,function(err,book){
+/*User.findByIdAndRemove("595e074365044c3e0196f406",function(err,book){
     if(err) throw err
     if(book){
         callback(book);
     }
 
-});*/
+});
 User.find({},function(err,user){
     if(err)
     throw err;
     console.log(user);
 })
+*/
 
 
 
@@ -73,8 +74,7 @@ User.find({},function(err,user){
 
 
 
-
-    Order.find({$or:[{status:"Accepted"},{status:"Approved"},{status:"Requested"}]},{email:email},function(err,res){
+    Order.find({$and : [{email:email},{$or:[{status:"Accepted"},{status:"Approved"},{status:"Requested"}]}]},function(err,res){
         if(err)
         throw err;
         console.log(res.length);
@@ -128,9 +128,11 @@ Order.find({status:"Requested"},function(err,res){
 exports.findStatusUser = function(email,callback){
     console.log(email);
 
-    var date2 = +new Date() - 7*24*60*60*1000;
+    var date2 = new Date() - 7*24*60*60*1000;
+    console.log(date2);
     var array = [];
-    Track.find({status:"Requested",date:{$gte:date2}},function(err,res){
+
+    Track.find({$and:[{status:"Requested",date:{$gte:date2}}]},function(err,res){
         if(err)
         throw err;
         console.log("here",res);
@@ -138,15 +140,15 @@ exports.findStatusUser = function(email,callback){
         {
             res.forEach(function(element,index){
                 var id = element.order_id;
-                console.log(email);
+                console.log("email",email);
                 Order.findOne({_id:id,email:email},function(err,result){
-                    console.log(result);
                     if(result){
                         array.push(result);
-                        console.log(array);
-                        if(index==res.length-1){
+                    }
+                        if(index==(res.length-1)){
+                            console.log("if");
                             callback(array);
-                        }
+
                     }
                 })
 
@@ -170,7 +172,7 @@ exports.findOrderWithEmail=function(email,callback){
                     throw err;
                     if(res){
                     var new1 ={
-                        order_id:res.order_id,
+                        order_id:element.order_id,
                         status:res.status,
                         book_name:element.book_name,
                         date:res.date

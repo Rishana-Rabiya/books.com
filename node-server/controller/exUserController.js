@@ -5,8 +5,8 @@ var emailExistence = require('email-existence');
 
 
 exports.createUser=function(data,callback){
-    //emailExistence.check(data.email, function(err,response){
-        //if(response){
+    emailExistence.check(data.email, function(err,response){
+        if(response){
             User.findOne({email:data.email},function(err,user){
                 if (err) throw err;
                 if(!user){
@@ -27,9 +27,9 @@ exports.createUser=function(data,callback){
                     callback("exist");
                 }
             });
-        /*} else {
+        } else {
             callback("invalid");
         }
-    });*/
+    });
 
 }

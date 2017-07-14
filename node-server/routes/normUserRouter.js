@@ -61,7 +61,7 @@ normRouter.route('/action')
 });
 
 normRouter.route('/order/:id')
-.get(function(req,res,next){
+.get(verify.verifyUser,function(req,res,next){
     orderOperations.findStatusUser(req.params.id,function(result){
         if(result){
             res.json({order:result});
@@ -74,7 +74,7 @@ normRouter.route('/order/:id')
 });
 
 normRouter.route('/book/:id')
-.get(function(req,res,next){
+.get(verify.verifyUser,function(req,res,next){
     orderOperations.findOrderWithEmail(req.params.id,function(result){
         if(result){
             res.json({order:result});

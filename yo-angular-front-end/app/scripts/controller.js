@@ -437,14 +437,16 @@ $scope.ActionBook = function(id,flag){
 
 //delete a book
 $scope.deleteBook = function(id){
-    BookFactory.getName().delete({id:id},function(response){
-        $rootScope.$broadcast("deleteBook");
-        ngDialog.open({ template: '<p>The book has been deleted!</p>',plain: true});
-    },
-    function(response){
-         ngDialog.open({ template: '<p>The book could not be deleted!</p>',plain: true});
-         console.log("failure");
-    })
+    if (confirm('Are you sure you want to perform this Action?')) {
+        BookFactory.getName().delete({id:id},function(response){
+            $rootScope.$broadcast("deleteBook");
+            ngDialog.open({ template: '<p>The book has been deleted!</p>',plain: true});
+        },
+        function(response){
+            ngDialog.open({ template: '<p>The book could not be deleted!</p>',plain: true});
+            console.log("failure");
+        })
+    }
 }
 
 
@@ -710,7 +712,7 @@ UserFactory.getOrderStatusUrl().get({id:$scope.email},function(res){
     $scope.bookings = res.order;
 },
 function(res){
-   ngDialog.open({ template: '<p>Something went wrong!</p>',plain: true});
+   //ngDialog.open({ template: '<p>Something went wrong!</p>',plain: true});
 });
 
 //history of the bookings
@@ -719,7 +721,7 @@ UserFactory.getBookStatusUrl().get({id:$scope.email},function(res){
     $scope.books = res.order;
 },
 function(res){
-   ngDialog.open({ template: '<p>Something went wrong!</p>',plain: true});
+   //ngDialog.open({ template: '<p>Something went wrong!</p>',plain: true});
 });
 //date of the history
 $scope.getDate=function(dat){
@@ -886,5 +888,16 @@ $scope.ActionUser=function(id,flag){
         })
     }
 }])
+.controller('HomeController',['$scope','ngDialog',function($scope,ngDialog){
+    $scope.openInst = function(){
+        ngDialog.open({ template: 'views/instruction.html', scope: $scope, className: 'ngdialog-theme-default', controller:"HomeController" });
+
+    }
+    $scope.openCon = function(){
+        ngDialog.open({ template: 'views/contact.html', scope: $scope, className: 'ngdialog-theme-default', controller:"HomeController" });
+
+    }
+}])
+
 
 ;

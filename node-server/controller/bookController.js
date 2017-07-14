@@ -17,7 +17,8 @@ exports.createBook = function(data,callback){
                 edition:data.ed,
                 stack_no:data.stack,
                 status:"available",
-                publisher :data.pub
+                publisher :data.pub,
+                image : "images/no.jpg"
             },function(err,result){
                 if(err)
                 throw err;
@@ -199,8 +200,9 @@ exports.updateBook=function(data,callback){
                 author:data.author,
                 edition:data.edition,
                 stack_no:data.stack_no,
-                publisher :data.publisher,
-                
+                publisher :data.publisher
+
+
             }
 
         },{"multi": true})

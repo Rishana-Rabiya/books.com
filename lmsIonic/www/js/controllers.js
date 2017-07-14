@@ -1,6 +1,6 @@
 angular.module('lmsIonicApp.controllers', [])
 
-.controller('AppCtrl',function ($scope, $rootScope, $ionicModal,$localStorage,$ionicPopup,$state,AuthFactory,CategoryFactory) {
+.controller('AppCtrl',function ($scope, $rootScope, $state,$ionicModal,$localStorage,$ionicPopup,$state,AuthFactory,CategoryFactory) {
 
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
@@ -33,15 +33,28 @@ angular.module('lmsIonicApp.controllers', [])
   }
 
   //geting name
-  if($scope.loggedIn){
-  AuthFactory.getName().get({id:$scope.email},function(response){
+  $rootScope.$on('login:Successful',function(){
+
+  AuthFactory.getName().get({id:$scope.loginData.email},function(response){
       console.log(response.firstName);
       $scope.fname = response.firstName;
       $scope.lname = response.lastName;
-      console.log($scope.name);
+      console.log($scope.lname);
   },
   function(response){
     console.log("something went wrong");
+});
+
+});
+if($scope.loggedIn){
+AuthFactory.getName().get({id:$scope.email},function(response){
+    console.log(response.firstName);
+    $scope.fname = response.firstName;
+    $scope.lname = response.lastName;
+    console.log($scope.name);
+},
+function(response){
+  console.log("something went wrong");
 });
 }
 
@@ -62,8 +75,15 @@ angular.module('lmsIonicApp.controllers', [])
   $scope.doLogin = function() {
     $localStorage.storeObject('userinfo',$scope.loginData);
     AuthFactory.login($scope.loginData);
+    $scope.$on('login:Successful', function(){
+        $scope.closeLogin();
+    });
 
-    $scope.closeLogin();
+
+    $rootScope.$on("un-successful",function(){
+        $scope.closeLogin();
+
+    });
   };
 
 
@@ -96,24 +116,62 @@ angular.module('lmsIonicApp.controllers', [])
     $scope.regFlag = false;
     $scope.confirm = false;
     $scope.form = true;
+    $scope.registration={};
+    reg ={};
+
+    $scope.resCode = '';
+
     $scope.mod.hide();
 
   };
   //perform action when user submits registration form
 
   $scope.doRegister = function(){
+      $scope.reg = $scope.registration;
     $scope.invalid = false;
     $scope.exist = false;
-    var regEmail = reg.email;
+    var regEmail = $scope.reg.email;
+    var load = $ionicPopup.show({
+    				title: 'Please Wait....'});
+
      AuthFactory.getRegisterUrl().get({id:regEmail},function(response){
+     load.close();
      $scope.resCode= response.status;
      console.log($scope.resCode);
      if($scope.resCode=="exist"){
-     $scope.exist = true;
+         var alertPopup = $ionicPopup.alert({
+              title: '<h4>Alert</h4>',
+              template:'<h4>Email id already exist</h4>',
+              buttons: [
+                 {
+                     text: 'ok',
+                     type:'popClose'
+                 }
+             ]
+
+          });
+
+          alertPopup.then(function(res) {
+              console.log("exist");
+          });
     }
     else if($scope.resCode=="invalid")
     {
-      $scope.invalid = true;
+        var alertPopup = $ionicPopup.alert({
+             title: '<h4>Alert</h4>',
+             template:'<h4>Not a valid email id</h4>',
+             buttons: [
+                {
+                    text: 'ok',
+                    type:'popClose'
+                }
+            ]
+
+         });
+
+         alertPopup.then(function(res) {
+             console.log("exist");
+         });
     }
     else
     {
@@ -131,7 +189,7 @@ angular.module('lmsIonicApp.controllers', [])
 
   $scope.registerCheck = function(){
     console.log("inside the register check");
-     $scope.code = reg.active;
+     $scope.code = $scope.reg.active;
      console.log($scope.code);
      console.log($scope.resCode);
      if($scope.resCode==$scope.code){
@@ -145,12 +203,13 @@ angular.module('lmsIonicApp.controllers', [])
   };
 
   $scope.passwordCheck = function(){
-    if(reg.password==reg.confirmPassword){
+    if($scope.reg.password==$scope.reg.confirmPassword){
 
         AuthFactory.getRegisterUrl().save($scope.registration,function(response){
         $scope.regSuccess=true;
+
         var alertPopup = $ionicPopup.alert({
-             title: '<h4>Registration Sucessful!</h4>',
+             title: '<h4>Done!</h4>',
              template: response.message,
              buttons: [
                 {
@@ -195,14 +254,16 @@ angular.module('lmsIonicApp.controllers', [])
 }
   $rootScope.$on('login:Successful', function () {
      // $state.go('app.search',{},{reload:true});
+
       $scope.loggedIn = AuthFactory.isAuthenticated();
       $scope.email = AuthFactory.getEmail();
 
 
 
 
-  });
 
+
+  });
 
 
 
@@ -219,7 +280,7 @@ $localStorage.store(SHOW_SECOND_BOOK,"false");
 $localStorage.store(SHOW_THIRD_BOOK,"false");*/
 
 
-.controller('SearchController',function ($scope, $rootScope,$stateParams,$localStorage,$ionicPopup,$window,$state,baseURL,AuthFactory,CategoryFactory,BookFactory,OrderFactory,SocketFactory) {
+.controller('SearchController',function ($scope,$rootScope,$stateParams,$localStorage,$ionicPopup,$window,$state,baseURL,AuthFactory,CategoryFactory,BookFactory,OrderFactory,SocketFactory) {
 
     $scope.auth = {};
     $scope.SearchByCategory=false;
@@ -240,7 +301,7 @@ $localStorage.store(SHOW_THIRD_BOOK,"false");*/
     $scope.moredata = false;
     $scope.moresdata = false;
     $scope.moreddata = false;
-    var socket = io.connect('http://localhost:3000');
+    //var socket = io.connect('http://localhost:3000');
     var FIRST_BOOK ='firstBook';
     var FIRST_AUTHOR='firstAuthor';
     var SECOND_BOOK ='secondBook';
@@ -261,7 +322,7 @@ $localStorage.store(SHOW_THIRD_BOOK,"false");*/
     $scope.numberOfItemsToDisplay1 = 3;
     $scope.numberOfItemsToDisplay2 = 3;
     $scope.numberOfItemsToDisplay3 = 3;
-
+    $scope.fi = 0;
 
 
 
@@ -328,9 +389,9 @@ $localStorage.store(SHOW_THIRD_BOOK,"false");*/
 });*/
 
 
-
-
     $scope.$on("$ionicView.beforeEnter", function(event, data){
+
+
        // handle event
        $scope.searchPage = true;
 
@@ -349,6 +410,7 @@ $localStorage.store(SHOW_THIRD_BOOK,"false");*/
           }
 
         });
+
 
 
 
@@ -413,6 +475,7 @@ $localStorage.store(SHOW_THIRD_BOOK,"false");*/
 
 
 $scope.loadMoreData1 = function() {
+
     if ($scope.length1 > $scope.numberOfItemsToDisplay1)
     $scope.numberOfItemsToDisplay1 +=1;
     $scope.$broadcast('scroll.infiniteScrollComplete');
@@ -592,6 +655,23 @@ $scope.addCart = function (id) {
 
 }
 
+
+
+$rootScope.$on('logout',function(){
+    $localStorage.store(COUNT_KEY, 0);
+    $localStorage.remove(FIRST_BOOK);
+    $localStorage.store(SHOW_FIRST_BOOK,"false");
+    $scope.showFirstBook = false;
+    $scope.showSecondBook = false;
+    $scope.showThirdBook = false;
+
+    $localStorage.remove(SECOND_BOOK);
+    $localStorage.store(SHOW_SECOND_BOOK,"false");
+    $localStorage.remove(THIRD_BOOK);
+    $localStorage.store(SHOW_THIRD_BOOK,"false");
+
+});
+
 /*$scope.reload=function(){
 $window.location.reload(true);
 }*/
@@ -630,6 +710,7 @@ $scope.deleteSecond=function(){
 
 //Checking Out
 $scope.checkOut = function(){
+    $scope.count =$localStorage.get(COUNT_KEY,0);
     OrderFactory.getOrderUrl().get(
         {
             id:$scope.email
@@ -637,8 +718,13 @@ $scope.checkOut = function(){
         function(res){
             var length = res.count;
             console.log(length);
+            var len = parseInt(length);
+            console.log(len);
+            var con = parseInt($scope.count);
+            var tot = len + con;
+            console.log(tot);
 
-            if(length<3){
+            if((tot)<=3&&len!=3){
                 if($scope.showFirstBook){
                     $scope.first = $localStorage.getObject(FIRST_BOOK,'{}');
                     $scope.book_id[i]=$scope.first.isbn;
@@ -697,6 +783,24 @@ $scope.checkOut = function(){
                 });
 
 
+            }
+            else if((len<3)&&(tot>3))
+
+            {   console.log(tot);
+                var alertPopup = $ionicPopup.alert({
+                     title: '<h4>Alert</h4>',
+                     template: '<h4>You already have some book pending!Adding this to cart cause the list to exeed 3 </h4>',
+                     buttons: [
+                        {
+                            text: 'ok',
+                            type:'popClose'
+                        }
+                    ]
+                 });
+
+                 alertPopup.then(function(res) {
+                     console.log('only three can be added');
+                 });
             }
             else{
                 var alertPopup = $ionicPopup.alert({

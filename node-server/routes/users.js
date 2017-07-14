@@ -19,8 +19,8 @@ router.get('/login/:id', function (req, res, next) {
 
 
 router.get('/register/:id', function (req, res, next) {
- // emailExistence.check(req.params.id, function(err,response){
-  // if(response){
+  emailExistence.check(req.params.id, function(err,response){
+  if(response){
       User.findOne({email:req.params.id},function(err,user){
         if (err) throw err;
         if(!user){
@@ -38,13 +38,13 @@ router.get('/register/:id', function (req, res, next) {
          });
        }
      });
- //}
- /*else {
+ }
+ else {
     res.status(200).json({
       status:"invalid"
     });
 }
-});*/
+});
 });
 
 router.post('/register', function (req, res, next) {
@@ -84,13 +84,7 @@ passport.use(new LocalStrategy({
         return done(null, false, { message: 'you are not approved yet' });
       }
       console.log(user);
-      req.logIn(user, function(err) {
-        if (err) {
-          return res.status(500).json({
-            err: 'Could not log in user'
-          });
-        }
-      });
+
       return done(null, user);
     });
   }));
@@ -127,6 +121,7 @@ router.post('/login',function(req, res, next){
       err: info
     });
   }
+ if(user){
   req.logIn(user, function(err) {
     if (err) { return next(err); }
     var token = Verify.getToken(user);
@@ -138,6 +133,7 @@ router.post('/login',function(req, res, next){
       token: token
     });
   });
+  }
 })(req, res, next);
 });
 

@@ -29,7 +29,12 @@
             <p ng-show="(loginForm.email.$invalid ||loginForm.email.$error.required) &&!loginForm.email.$pristine">* Enter a valid email address</p>
         </div>
       </div>
-      <a class = "clickRegister" ng-click="register()"> Click here to Register</a>
+      <div class ="row">
+          <div class ="col col-67 col-offset-25">
+              <a ng-click="register()"> Click here to Register</a>
+          </div>
+
+      <div>
     </form>
   </ion-content>
 </ion-modal-view>

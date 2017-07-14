@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('lmsIonicApp.services', ['ngResource'])
-.constant("baseURL", "https://localhost:3443/")
+.constant("baseURL", "https://192.168.1.102:3443/")
 // .constant("baseURL", "https://localhost:3443/")
 
 .factory('$localStorage', ['$window', function($window) {
@@ -60,16 +60,22 @@ angular.module('lmsIonicApp.services', ['ngResource'])
     isAuthenticated = false;
     $http.defaults.headers.common['x-access-token'] = authToken;
     $localStorage.remove(TOKEN_KEY);
+    console.log("here");
+    $rootScope.$broadcast('logout');
+
 
   }
 
     authFac.login = function(loginData) {
+
 
         $resource(baseURL + "users/login")
         .save(loginData,
            function(response) {
               storeUserCredentials({email:loginData.email, token: response.token});
               $rootScope.$broadcast('login:Successful');
+
+
            },
            function(response){
               isAuthenticated = false;
@@ -85,7 +91,10 @@ angular.module('lmsIonicApp.services', ['ngResource'])
 
                 alertPopup.then(function(res) {
                     console.log('Login Failed!');
+                     $rootScope.$broadcast("un-successful");
                 });
+
+
            }
 
         );
@@ -163,7 +172,7 @@ angular.module('lmsIonicApp.services', ['ngResource'])
 
 
 .factory('SocketFactory',['$rootScope',function($rootScope){
-    var socket = io.connect('http://localhost:3000');
+    var socket = io.connect('http://192.168.1.102:3000');
     var socketFac ={};
     socketFac.emitSocket=function(book_id)
     {

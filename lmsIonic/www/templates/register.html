@@ -24,8 +24,8 @@
         <label class="item">
           <button class="button button-block button-positive" type="submit" ng-disabled="registerForm.$invalid" style="background-color:#0c1523;">Register</button>
         </label>
-       <span ng-show="invalid">*Not a valid email id </span>
-       <span ng-show="exist">*Email id Already exist </span>
+
+
         <p ng-show="(registerForm.email.$invalid ||
                         registerForm.email.$error.required) &&
                         !registerForm.email.$pristine">* Enter a valid email address</p>
@@ -39,7 +39,7 @@
        <span class="input-label">Activation Code:</span>
        <input type="text" ng-model="registration.active" name="active" required>
      </label>
-       <button class="button button-block button-positive" type="submit"  ng-click = "registerCheck()" style="background-color:#0c1523;">Continue</button>
+       <button class="button button-block button-positive" type="submit"  ng-click = "registerCheck()" style="background-color:#aab4b5;width:200px;left:63px;">Continue</button>
      </label>
 
      <span class = "actCode">*Enter the activation code send to your email id <a class = "sendAgain" ng-click="doRegister()"> Send Again </a></span>

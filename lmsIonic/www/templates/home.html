@@ -22,12 +22,12 @@
 
   <ion-side-menu side="left">
     <ion-header-bar class="new">
-      <h1 class="title" style="color:#327189;"> <i class="ion-android-contact">{{fname}}&nbsp;{{lname}}</i></h1>
-      <img src="img/log2.png" style="position:relative;top:5px;left:160px;width:40%;">
+      <h1 class="title" style="color:grey;"> <i class="ion-android-contact">{{fname}}&nbsp;{{lname}}</i></h1>
+
     </ion-header-bar>
     <ion-content>
       <ion-list>
-        <ion-item menu-close href="#/app/search">
+        <ion-item menu-close href="#/app/home">
         Home
         </ion-item>
         <ion-item class= "item-divider">
@@ -45,8 +45,10 @@
 
 
 <div class = "log" ng-if="!loggedIn">
-   <div style="background-color:lavender;">
-  <span class="badge ex2" ng-if="!loggedIn" style="background-color:#215466;position:relative;top:380px;left:65px;width:200px;height:30px"><a  style="color:grey"  ng-click="login()"  class="btn btn-secondary"> Login </a></span>
- </div>
 
-</div>
+  <div class ="row" style="padding-top:115%">
+      <div class = "col col-offset-20">
+          <span class="badge ex2" ng-if="!loggedIn" style="background-color:#215466;width:185px;height:30px"><a  style="color:grey"  ng-click="login()"  class="btn btn-secondary"> Login </a></span>
+      </div>
+  </div>
+ </div>
